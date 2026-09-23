@@ -1,0 +1,104 @@
+/* Learning surfaces share the original paper, ink and plant palette. */
+:focus-visible{outline:3px solid var(--ai);outline-offset:4px}
+button:disabled{cursor:default;opacity:.65}
+.study-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px;color:var(--ink2);letter-spacing:.02em}
+.study-toolbar label{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.study-toolbar select{background:var(--card);color:var(--ink);border:1px solid var(--line2);border-radius:8px;padding:6px;font:inherit;font-size:12px}
+.hdr .tagline{font-family:var(--ui);font-size:10px;letter-spacing:.015em;white-space:nowrap}
+.hdr .brand-ro{display:none}
+#study-launch:not(:empty)+#today .intro>svg{display:none}
+#study-launch:not(:empty)+#today .intro-n{font-size:34px}
+#study-launch:not(:empty)+#today .intro{padding-top:0}
+.sheet .sheet-in{max-width:760px;margin:auto}
+.coach-hero{margin:20px 0 26px;padding:26px;border:1px solid var(--line2);border-radius:20px;background:linear-gradient(145deg,var(--card),var(--paper2));position:relative;overflow:hidden}
+.eyebrow{font-size:10px;letter-spacing:.15em;font-weight:650;color:var(--kin);margin:0 0 12px}
+#training h1,.coach-hero h1{font-family:var(--lat);font-size:34px;font-weight:500;line-height:1.2;letter-spacing:-.03em;margin:10px 0 14px;color:var(--ink)}
+.thai{display:block;font-family:var(--th);letter-spacing:0;line-height:1.65;font-size:.93em;margin-top:4px}
+h1>.thai{font-size:.58em;color:var(--ink2);font-weight:400;margin-top:8px}
+.coach-hero>p,.training-heading>p{color:var(--ink2);font-size:14px;line-height:1.7}
+.coach-hero .go,#training .go{font-size:14px;letter-spacing:0;line-height:1.5;font-weight:550;margin-top:16px}
+.go>.thai{font-size:12px;font-weight:400}
+.hero-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px;color:var(--ink2);margin-top:12px}
+.text-btn{padding:6px 0;color:var(--ai);font-size:13px;text-align:left;text-decoration:underline;text-underline-offset:3px}
+.gentle{font-size:12px;line-height:1.7;color:var(--ink2);font-weight:400}
+.setrow{gap:10px;flex-wrap:wrap}
+.coach-hero .gentle{margin:16px 0 0;font-size:12px;padding-top:14px;border-top:1px solid var(--line)}
+.section-label{display:flex;flex-direction:column;margin:24px 0 12px;font-size:12px;font-weight:600;letter-spacing:.025em;color:var(--ink2)}
+.section-label .thai{font-weight:400;font-size:11px}
+.training-heading{margin:24px 0}
+.training-stats{display:grid;grid-template-columns:repeat(3,1fr);padding:16px 0;border-block:1px solid var(--line)}
+.training-stats>div{text-align:center;border-right:1px solid var(--line)}
+.training-stats>div:last-child{border:0}
+.training-stats b{display:block;font:28px var(--lat);color:var(--ink)}
+.training-stats span{font-size:10px;color:var(--ink2)}
+.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.training-tile{position:relative;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px;min-width:0}
+.training-tile:hover{border-color:var(--ai);background:var(--paper2)}
+.tile-number{font:italic 16px var(--lat);color:var(--kin);display:block;margin-bottom:16px}
+.training-tile b{font-size:15px;line-height:1.4;display:block;font-weight:550}
+.training-tile b .thai{font-size:12px;font-weight:400}
+.tile-desc{display:block;margin-top:12px;font-size:12px;color:var(--ink2);line-height:1.5}
+.tile-arrow{position:absolute;right:14px;top:15px;color:var(--ink3)}
+.resource-links{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.resource-links button{position:relative;text-align:left;font-size:14px;padding:16px 40px 16px 16px;border-bottom:1px solid var(--line)}
+.resource-links button:last-child{border-bottom:0}
+.resource-links button>span:last-child:not(.thai){position:absolute;right:16px;top:20px}
+.resource-links .thai{font-size:12px;color:var(--ink2)}
+.training-back{margin:14px 8px 16px 0}
+.training-prompt{margin:16px 0;color:var(--ink);font-size:16px;line-height:1.7}
+.sentence-card{background:var(--card);padding:22px 18px;border:1px solid var(--line);border-radius:16px;margin:20px 0}
+.reading-help{margin-top:14px;font-size:13px;color:var(--ink2)}
+summary{cursor:pointer;line-height:1.6}
+.reading-help summary{font-size:11px;color:var(--ai)}
+.reading-help div{margin-top:10px}
+.training-actions{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin:16px 0}
+.training-hint{border-left:3px solid var(--kin);padding:12px 14px;background:var(--paper2);color:var(--ink2);font-size:14px;margin:12px 0}
+.training-feedback{border-radius:16px;border:1px solid var(--line2);padding:20px;margin-top:20px;background:var(--card);font-size:14px}
+.training-feedback.is-correct{border-color:var(--green)}
+.training-feedback.is-learning{border-color:var(--kin-soft)}
+.training-feedback>b{color:var(--green);font-size:16px}
+.training-feedback.is-learning>b{color:var(--kin)}
+.answer-jp{font-family:var(--jp-sans);font-size:20px;line-height:1.8}
+.feedback-rule{border-top:1px solid var(--line);margin-top:18px;padding-top:18px;line-height:1.8}
+.answer-input-row{display:flex;gap:8px;margin-top:10px}
+.answer-input-row input{min-width:0;flex:1;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);font-family:var(--jp-sans);font-size:18px}
+#training-answer-form label{font-size:13px;color:var(--ink2)}
+.training-finish{text-align:center;padding:30px 12px}
+.finish-score{font:60px var(--lat);color:var(--kin);margin:20px 0 4px}
+.finish-score span{font-size:28px;color:var(--ink3)}
+.compare-group,.coverage-chapter{border:1px solid var(--line);background:var(--card);border-radius:14px;margin:14px 0;overflow:hidden}
+.compare-group>summary,.coverage-chapter>summary{padding:16px;font-size:15px;color:var(--ink);font-weight:550}
+.compare-group>summary .thai{font-weight:400;color:var(--ink2);font-size:12px}
+.group-body{padding:0 16px 18px;font-size:14px;color:var(--ink2)}
+.compare-member{padding:16px 0;border-top:1px solid var(--line)}
+.compare-pattern{font-family:var(--jp-sans);font-size:19px}
+.compare-cue{margin:8px 0;color:var(--ink)}
+.connection-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:15px;font-size:12px}
+.connection-pair>div{padding:12px;border-radius:9px;background:var(--paper2);min-width:0}
+.connection-pair b{display:block;font-size:9px;letter-spacing:.1em;color:var(--kin);margin-bottom:6px}
+.connection-helper{background:var(--card);padding:16px;border:1px solid var(--line);border-radius:12px;font-size:13px;margin:15px 0;line-height:1.8}
+.connection-helper>span{display:block}
+.form-example{margin:12px 0;border-top:1px solid var(--line);padding-top:12px;font-size:12px}
+.form-example>div{font-family:var(--jp-sans);font-size:18px;color:var(--ink);margin-bottom:6px}
+.form-example>div span{color:var(--kin);padding:0 7px}
+.source-note{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--paper2);font-size:13px;color:var(--ink2)}
+.chapter-num{display:inline-block;margin-right:9px;color:var(--kin);min-width:16px}
+.coverage-count{float:right;color:var(--ink3);font-size:12px}
+.coverage-item{padding:12px 0;border-top:1px solid var(--line)}
+.coverage-item>b{color:var(--ink);font-size:14px}
+.coverage-link{display:block;text-align:left;color:var(--ai);font-size:13px;padding:8px 0;line-height:1.7}
+.coverage-link small{font:10px var(--ui);color:var(--ink3)}
+.mistake-card{margin:16px 0;border:1px solid var(--line);padding:16px;background:var(--card);border-radius:14px;font-size:14px}
+.mistake-card>div{margin:12px 0;font-size:17px;font-family:var(--jp-sans)}
+.mistake-card summary{font-size:12px;color:var(--ai);margin:12px 0}
+.empty-state{text-align:center;padding:24px 16px;border:1px dashed var(--line2);border-radius:16px;margin:24px 0;font-size:14px;color:var(--ink2)}
+.empty-state>span{display:block}
+.empty-state svg{display:block;margin:0 auto 20px}
+.recall-note{font-size:13px;color:var(--ink2);line-height:1.7}
+.recall-target{background:var(--paper2);border-radius:12px;padding:16px;margin:10px 0}
+.recall-target>b{font-size:22px;font-family:var(--jp-sans)}
+#training a{color:var(--ai);overflow-wrap:anywhere}
+#training{padding-bottom:28px}
+.sheet .d-close-top{position:sticky;top:0;float:right;z-index:2;background:var(--card);border:1px solid var(--line2);border-radius:50%;width:38px;height:38px;line-height:1;margin-top:8px}
+@media(min-width:740px){.hdr{max-width:760px;margin:auto}.training-grid{gap:16px}.training-tile{padding:22px}.coach-hero{padding:32px}.coach-hero h1{font-size:44px}}
+@media(max-width:380px){.study-toolbar>span{font-size:9px}.study-toolbar label{font-size:0}.training-grid{gap:8px}.training-tile{padding:14px 12px}.coach-hero{padding:20px}.brand-ro{display:none}.connection-pair{grid-template-columns:1fr}}

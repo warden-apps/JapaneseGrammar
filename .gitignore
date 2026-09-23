@@ -1,0 +1,24 @@
+# Dependencies and local environment
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Local work and exported study progress
+.backups/
+tmp/
+references/
+github-upload/
+*progress*.json
+*backup*.json
+
+# Generated browser-test output
+tests/*.png
+test-results/
+playwright-report/
+*.log
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
