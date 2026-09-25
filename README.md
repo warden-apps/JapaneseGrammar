@@ -89,6 +89,11 @@ mindmap
   grammar that fits, with the translation shown). Wrong options always come
   from other branches of the map, so they never mean the same thing as the
   answer, and the feedback says what each wrong option means.
+- **Exam plan.** The Study page counts down to your JLPT (by default the next
+  one: the first Sunday of July or December) and works out how many new
+  patterns a day you need to meet every pattern at your level with the last
+  two weeks left for review. One tap sets that pace. Change the exam date
+  under Progress → Settings.
 - **Reviews** follow a simple ladder of 1, 3, 7 and 21 days. A level can rise
   at most once per study day. A wrong answer never raises it.
 - **Help is fine, but it counts as help.** Later reviews ask you to type the
@@ -163,12 +168,12 @@ The unit tests need only Node:
 node --test tests/*.test.cjs
 ```
 
-These 63 tests cover scheduling and migrations, backups, the one-button Study
+These 68 tests cover scheduling and migrations, backups, the one-button Study
 flow, drill scope and passages, the official answer keys, and the grammar map
 (every entry placed once, search, level filter, lesson links). They also check
-example highlighting, the study-day forecast, the lesson card, and the
-generated practice (every pattern gets a question, and no wrong option shares
-the answer's meaning).
+example highlighting, the study-day forecast, the lesson card, the exam plan
+and the generated practice (every pattern gets a question, and no wrong option
+shares the answer's meaning).
 
 The browser suites need Playwright. Start the server first, then run:
 
@@ -202,6 +207,7 @@ simple.js             Study flow, lesson cards, example highlighting
 jlpt.js               random drill and typed daily recall
 map.js                map, topic trees, list grouping, lesson and Progress links
 practice.js           generated questions for every pattern
+plan.js               exam countdown and the daily pace to finish in time
 *.css                 styles (mastery, simple, jlpt, map)
 sw.js                 offline cache — bump CACHE on every release
 manifest.json         Add to Home Screen metadata

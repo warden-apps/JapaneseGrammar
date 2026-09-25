@@ -477,6 +477,10 @@ nav .badge.on{display:block}
     <div class="fc" id="fc"></div>
     <div class="grp-hd" style="margin-top:26px"><h2 data-en="Settings" data-th="ตั้งค่า">Settings · ตั้งค่า</h2><div class="rule"></div></div>
     <div class="setrow">
+      <div class="setlb" data-en="Exam date" data-th="วันสอบ">Exam date<small>วันสอบ</small></div>
+      <input type="date" id="exam-date" class="date-input" aria-label="Exam date">
+    </div>
+    <div class="setrow">
       <div class="setlb" data-en="New patterns / day" data-th="ไวยากรณ์ใหม่ต่อวัน">New patterns / day<small>ไวยากรณ์ใหม่ต่อวัน</small></div>
       <div class="seg" id="segnew"><button data-v="0">0</button><button data-v="3">3</button><button data-v="5">5</button><button data-v="10">10</button><button data-v="15">15</button></div>
     </div>
@@ -1347,7 +1351,7 @@ document.getElementById('bkload').addEventListener('click',function(){
 });
 document.getElementById('reset').addEventListener('click',function(){
   if(!confirm('Delete ALL learning progress? / ลบบันทึกการเรียนทั้งหมด?')) return;
-  S={box:{},last:{},seen:{},lapse:{},att:{},cor:{},days:[],lang:S.lang,lv:S.lv,newPerDay:S.newPerDay,maxRev:S.maxRev,rateBtns:S.rateBtns,theme:S.theme,dayStart:S.dayStart,q:null,day:null};
+  S={box:{},last:{},seen:{},lapse:{},att:{},cor:{},days:[],lang:S.lang,lv:S.lv,newPerDay:S.newPerDay,maxRev:S.maxRev,rateBtns:S.rateBtns,theme:S.theme,dayStart:S.dayStart,exam:S.exam,q:null,day:null};
   TRAIN_VIEW='home'; save(); buildToday(true); drawList(); renderToday(); drawRecord(); renderTraining(); updBadge();
 });
 
@@ -1357,8 +1361,9 @@ document.getElementById('reset').addEventListener('click',function(){
 <script src="jlpt.js"></script>
 <script src="map.js"></script>
 <script src="practice.js"></script>
+<script src="plan.js"></script>
 <script>
-applyTheme(); buildToday(); drawList(); renderToday(); drawRecord(); masteryInit(); simpleInit(); drillInit(); mapInit();
+applyTheme(); buildToday(); drawList(); renderToday(); drawRecord(); masteryInit(); simpleInit(); drillInit(); mapInit(); planInit();
 
 /* Offline. Only over http(s) — opening the file straight off disk has no
    origin to register against, and the failure is noisy for no reason. */
