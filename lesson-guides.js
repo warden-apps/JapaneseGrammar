@@ -322,6 +322,62 @@ var LESSON_GUIDE_SOURCES = [
     'Both clauses describe facts; this is not an “even if” condition.','สองส่วนบอกข้อเท็จจริง ไม่ใช่เงื่อนไขสมมติ “ต่อให้”',[
       compare('n3a27','のに is common in conversation and can show disappointment.','のに ใช้บ่อยในบทสนทนา และอาจสื่อความผิดหวัง'),
       compare('n2a27','としても means even if a condition holds.','としても คือถึงแม้เงื่อนไขนั้นจะเป็นจริง')]);
+  /* Nine structures the official N2 grammar sections rely on: noun clauses,
+     states, passage links and sentence endings. */
+  guide('n2i01','Inside a clause describing a noun, の can mark the subject instead of が.','ในอนุประโยคขยายนาม の ใช้ชี้ประธานแทน が ได้',
+    'First find the noun being described.','หานามที่ถูกขยายก่อน',[
+      form('Nが／Nの + 普通形 + 名詞','First find the noun being described.','หานามที่ถูกขยายก่อน','父の作った椅子は丈夫だ。')
+    ],['父の作った椅子は丈夫だ。','ちちのつくったいすはじょうぶだ。','The chair my father made is sturdy.','เก้าอี้ที่พ่อทำแข็งแรง'],
+    '父の作った椅子 = 父が作った椅子. This does not mean が can always become の: the clause must modify a noun, and ambiguity or the construction can restrict the substitution.',
+    '父の作った椅子 = 父が作った椅子 ไม่ได้แปลว่าเปลี่ยน が เป็น の ได้ทุกที่ ต้องอยู่ในส่วนขยายนาม และบางโครงสร้างหรือความกำกวมอาจทำให้เปลี่ยนไม่ได้',[]);
+  guide('n2i02','A change has happened, and its result holds at the reference time.','เกิดการเปลี่ยนแปลงแล้ว และผลยังคงอยู่ ณ เวลาที่กล่าวถึง',
+    'ている is not always “doing right now”. Check the verb and the reference time.','ている ไม่ได้แปลว่ากำลังทำเสมอ ดูชนิดกริยาและเวลาที่อ้างถึง',[
+      form('変化のVて + いる','ている is not always “doing right now”. Check the verb and the reference time.','ている ไม่ได้แปลว่ากำลังทำเสมอ ดูชนิดกริยาและเวลาที่อ้างถึง','窓が開いている。')
+    ],['窓が開いている。','まどがあいている。','The window is open.','หน้าต่างเปิดอยู่'],
+    '開く is the change; 開いている is the resulting open state. With a future time, なっている can mean “will already have become”. With an activity verb such as 読む, ている can instead be ongoing.',
+    '開く คือการเปิด ส่วน 開いている คือสภาพที่เปิดอยู่ ถ้าเป็นเวลาอนาคต なっている อาจแปลว่าตอนนั้นจะกลายเป็นแล้ว แต่กริยากิจกรรมเช่น 読む ใช้ ている บอกกำลังทำได้',[]);
+  guide('n2i03','Eventually / before long; the exact time is unspecified.','เดี๋ยวสักวัน / ในไม่ช้า โดยไม่ระบุเวลาแน่นอน',
+    'Something will happen after some time passes.','เวลาผ่านไปสักพักแล้วจะเกิดบางอย่าง',[
+      form('そのうち + 変化・出来事','Something will happen after some time passes.','เวลาผ่านไปสักพักแล้วจะเกิดบางอย่าง','そのうち、この仕事にも慣れるよ。')
+    ],['そのうち、この仕事にも慣れるよ。','そのうち、このしごとにもなれるよ。','You will get used to this job before long.','เดี๋ยวก็ชินกับงานนี้'],
+    'そのうち is an adverb. Vるうちに instead attaches to an activity or state and means “while/before that situation changes”. Do not confuse the similar-looking forms.',
+    'そのうち เป็นคำวิเศษณ์ ส่วน Vるうちに เชื่อมกับกิจกรรมหรือสภาพ บอกระหว่างนั้น/ก่อนสภาพเปลี่ยน อย่าสับสนเพราะหน้าตาคล้ายกัน',[]);
+  guide('n2i04','Whether or not: place a yes/no question inside a larger sentence.','…หรือไม่ นำคำถามแบบใช่/ไม่ใช่เข้าไปเป็นส่วนหนึ่งของประโยค',
+    'Treat the whole question as one chunk before 分かる, 調べる or a similar expression.','มองคำถามทั้งก้อนเป็นหนึ่งส่วน ก่อน 分かる、調べる หรือสำนวนที่คล้ายกัน',[
+      form('普通形 + かどうか（N・ナAは「だ」を取る）','Treat the whole question as one chunk before 分かる, 調べる or a similar expression.','มองคำถามทั้งก้อนเป็นหนึ่งส่วน ก่อน 分かる、調べる หรือสำนวนที่คล้ายกัน','参加できるかどうか、明日連絡します。')
+    ],['参加できるかどうか、明日連絡します。','さんかできるかどうか、あしたれんらくします。','I will let you know tomorrow whether I can attend.','พรุ่งนี้จะแจ้งว่าเข้าร่วมได้หรือไม่'],
+    '行くかどうか = whether to go. With a question word, use plain か instead: いつ行くか, not いつ行くかどうか. In noun/adjective predicates, omit だ before かどうか.',
+    '行くかどうか = จะไปหรือไม่ ถ้ามีคำถามอย่าง いつ ใช้ か เช่น いつ行くか ไม่ใช่ いつ行くかどうか นามและคุณศัพท์ な ตัด だ ก่อน かどうか',[]);
+  guide('n2i05','Do too much / without doing too much.','ทำมากเกินไป / โดยไม่ทำมากเกินไป',
+    'Use the stem: 飲みます → 飲みすぎる → 飲みすぎずに.','ใช้ฐานรูป ます: 飲みます → 飲みすぎる → 飲みすぎずに',[
+      form('Vます語幹 + すぎる／すぎずに','Use the stem: 飲みます → 飲みすぎる → 飲みすぎずに.','ใช้ฐานรูป ます: 飲みます → 飲みすぎる → 飲みすぎずに','昨日はコーヒーを飲みすぎた。')
+    ],['昨日はコーヒーを飲みすぎた。','きのうはコーヒーをのみすぎた。','I drank too much coffee yesterday.','เมื่อวานดื่มกาแฟมากเกินไป'],
+    'V-stem + すぎる means excess. Plain V/N + にすぎない means merely or no more than. Similar sound, different connection and meaning. すぎる conjugates as an ichidan verb.',
+    'ฐานกริยา + すぎる คือเกินไป ส่วน Vรูปธรรมดา/N + にすぎない คือเพียงแค่ เสียงคล้ายแต่เชื่อมและหมายความต่างกัน すぎる ผันแบบกริยากลุ่มสอง',[]);
+  guide('n2i06','Say things like…; quote a remark with some distance or emotion.','พูดอะไรทำนองว่า… ยกคำพูดโดยเว้นระยะหรือแสดงความรู้สึก',
+    'Find the quoted words, then the person or action they describe.','หาคำพูดที่ถูกยกมา แล้วดูว่าขยายคนหรือการกระทำใด',[
+      form('引用する言葉 + とか言う／なんていう','Find the quoted words, then the person or action they describe.','หาคำพูดที่ถูกยกมา แล้วดูว่าขยายคนหรือการกระทำใด','彼は「面倒だ」とか言って、手伝わなかった。')
+    ],['彼は「面倒だ」とか言って、手伝わなかった。','かれは「めんどうだ」とかいって、てつだわなかった。','He said something like “It’s a bother” and did not help.','เขาพูดทำนองว่า “ยุ่งยาก” แล้วไม่ช่วย'],
+    'とか loosely quotes. なんていう often adds surprise or disapproval; it can modify a noun. Neutral と is also a quotation marker, but these forms add the speaker’s stance.',
+    'とか ยกคำพูดแบบไม่เจาะจง なんていう มักเพิ่มความประหลาดใจหรือไม่เห็นด้วย และขยายนามได้ ส่วน と เป็นเครื่องหมายคำพูดกลาง ๆ แต่รูปเหล่านี้เพิ่มท่าทีผู้พูด',[]);
+  guide('n2i07','Follow what each word points to and what each sentence does in the passage.','ตามให้ทันว่าแต่ละคำอ้างถึงอะไร และแต่ละประโยคทำหน้าที่ใดในบทความ',
+    'Ask: looking backward, introducing what follows, asking how, or summarizing?','ถามตัวเองว่า ชี้ย้อนหลัง เกริ่นสิ่งที่จะตามมา ถามวิธี หรือสรุป',[
+      form('こう・そう・どのように・彼ら／彼女たち','Ask: looking backward, introducing what follows, asking how, or summarizing?','ถามตัวเองว่า ชี้ย้อนหลัง เกริ่นสิ่งที่จะตามมา ถามวิธี หรือสรุป','先生はこう言った。「毎日少しずつ続けましょう。」')
+    ],['先生はこう言った。「毎日少しずつ続けましょう。」','せんせいはこういった。「まいにちすこしずつつづけましょう。」','The teacher said this: “Keep at it a little every day.”','ครูพูดดังนี้ว่า “ทำต่อไปวันละนิดนะ”'],
+    'こう can introduce an upcoming quotation; そう commonly refers to available context. A pronoun must match the specific group just described, not merely a nearby noun. A conclusion can state the writer’s own summary without adding hearsay.',
+    'こう ใช้เกริ่นคำพูดที่จะตามมาได้ そう มักชี้บริบทที่มีอยู่แล้ว สรรพนามต้องตรงกลุ่มที่อธิบาย ไม่ใช่แค่นามที่อยู่ใกล้ บทสรุปอาจสรุปตรง ๆ โดยไม่ต้องเพิ่มว่าได้ยินมา',[]);
+  guide('n2i08','Besides / in addition to that item.','นอกจากสิ่งนั้นแล้ว ยังมีอย่างอื่น',
+    'A known item comes first; additional examples follow.','เริ่มด้วยสิ่งที่กล่าวถึงแล้ว ตามด้วยตัวอย่างเพิ่มเติม',[
+      form('N + のほか（に）','A known item comes first; additional examples follow.','เริ่มด้วยสิ่งที่กล่าวถึงแล้ว ตามด้วยตัวอย่างเพิ่มเติม','英語のほかに、タイ語も話せます。')
+    ],['英語のほかに、タイ語も話せます。','えいごのほかに、タイごもはなせます。','Besides English, I can also speak Thai.','นอกจากอังกฤษแล้ว ยังพูดไทยได้'],
+    'In a list, のほか adds items alongside the first one. にかわって replaces it. The negative pattern ほかに…ない has a different limiting use.',
+    'ในรายการ のほか เพิ่มสิ่งที่มีควบคู่กับอันแรก ส่วน にかわって แทนที่อันแรก รูปปฏิเสธ ほかに…ない มีการใช้จำกัดอีกแบบ',[]);
+  guide('n2i09','Probably… / I wonder whether…','คงจะ… / จะ…หรือไม่',
+    'Without か, predict; with か, pose a question or wonder.','ไม่มี か คือคาดการณ์ มี か คือถามหรือสงสัย',[
+      form('普通形 + だろう（か）（N・ナAは「だ」を取る）','Without か, predict; with か, pose a question or wonder.','ไม่มี か คือคาดการณ์ มี か คือถามหรือสงสัย','明日は晴れるだろう。')
+    ],['明日は晴れるだろう。','あしたははれるだろう。','It will probably be sunny tomorrow.','พรุ่งนี้อากาศคงแจ่มใส'],
+    'Context decides the time; だろう does not automatically mean future. だろうか can address the reader in writing. Do not confuse this with hearsay そうだ or a past expectation はずだった.',
+    'บริบทกำหนดเวลา だろう ไม่ได้เป็นอนาคตเสมอ だろうか ใช้ถามผู้อ่านในงานเขียนได้ ต่างจาก そうだ ที่ได้ยินมา และ はずだった ที่เคยคาดไว้',[]);
 })();
 
 /* The three stages need an immediate form check, not only self-rated recall. */

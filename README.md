@@ -176,9 +176,9 @@ checks do not replace a human review of the Japanese.
 ## Files
 
 ```
-index.html            app shell, core library data and the daily review queue
-grammar-expansion.js  added and corrected lessons, Shin Kanzen chapter links
-n2-exam-lessons.js    nine support lessons for N2 exam structures
+index.html            app shell and the daily review queue
+grammar.js            every grammar lesson (445), in teaching order
+book-checklist.js     Shin Kanzen chapter links and content sources
 lesson-guides.js      47 structured short lessons
 comparison-guides.js  12 comparison tables
 mastery-content.js    authored exercises, form guides
@@ -205,8 +205,9 @@ and every test fails with `ENOENT`.
 
 ## Notes for maintainers
 
-**Adding a grammar entry.** Give it a new, permanent ID (progress is stored
-by ID), then place it in exactly one branch of `map-content.js`.
+**Adding a grammar entry.** Add it to `grammar.js` with a new, permanent ID
+(progress is stored by ID), then place it in exactly one branch of
+`map-content.js`.
 `tests/map.test.cjs` fails if an entry has no place on the map, or two.
 
 **The daily queue.** `S.day` is today's ledger and the source of truth:

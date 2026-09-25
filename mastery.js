@@ -243,7 +243,7 @@ function updateStudyLanguage(){
   document.documentElement.lang=S.lang==='th'?'th':'en';
   document.getElementById('study-language').value=S.lang;
   lt.textContent=langLabel();lt.classList.toggle('on',S.lang!=='both');
-  renderToday();renderPrac();drawList();drawRecord();renderTraining();if(openId)openDetail(openId);
+  renderToday();drawList();drawRecord();renderTraining();if(openId)openDetail(openId);
 }
 function masteryInit(){
   masteryState();
