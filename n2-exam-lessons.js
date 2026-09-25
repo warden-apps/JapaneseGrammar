@@ -62,4 +62,18 @@
     'Context decides the time; だろう does not automatically mean future. だろうか can address the reader in writing. Do not confuse this with hearsay そうだ or a past expectation はずだった.',
     'บริบทกำหนดเวลา だろう ไม่ได้เป็นอนาคตเสมอ だろうか ใช้ถามผู้อ่านในงานเขียนได้ ต่างจาก そうだ ที่ได้ยินมา และ はずだった ที่เคยคาดไว้',
     [['明日は晴れるだろう。','あしたははれるだろう。','It will probably be sunny tomorrow.','พรุ่งนี้อากาศคงแจ่มใส'],['この町の名前の由来をご存じだろうか。','このまちのなまえのゆらいをごぞんじだろうか。','Do you know the origin of this town’s name?','ทราบที่มาของชื่อเมืองนี้หรือไม่']]);
+  /* The meanings above are full sentences for the lesson card. Lists, recall
+     prompts and the grammar map need the same short gloss as other entries. */
+  var short={
+    n2i01:['の marking the subject of a noun clause','の บอกประธานในส่วนขยายนาม'],
+    n2i02:['changed, and still in that state','เปลี่ยนแล้ว และยังคงสภาพนั้นอยู่'],
+    n2i03:['eventually; before long','สักวันหนึ่ง · อีกไม่นาน'],
+    n2i04:['whether or not','…หรือไม่'],
+    n2i05:['too much / without overdoing it','มากเกินไป / โดยไม่มากเกินไป'],
+    n2i06:['says something like…','พูดทำนองว่า…'],
+    n2i07:['following references in a passage','ตามคำชี้และการเชื่อมในบทความ'],
+    n2i08:['besides; in addition to','นอกจาก… แล้ว'],
+    n2i09:['probably / I wonder whether','คงจะ / จะ…หรือไม่']
+  };
+  Object.keys(short).forEach(function(id){SHORT[id]=short[id];});
 })();
