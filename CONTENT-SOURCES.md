@@ -1,5 +1,47 @@
 # Grammar coverage and source review
 
+## Lesson rewrite and practice for every pattern — 25 September 2026
+
+**English and Thai.** Every lesson's English and Thai was rewritten: the short
+meaning, the one-line explanation, the usage notes and both example
+translations. The English is plain and short. The Thai reads as natural Thai
+rather than word-for-word English, drops the polite ครับ/ค่ะ from example
+translations, and uses one set of grammar terms throughout (รูปพจนานุกรม,
+รูป て/た/ない, ฐานของรูป ます, รูปธรรมดา, คุณศัพท์ い/な, รูปเจตนา, รูปสามารถ,
+รูปถูกกระทำ, รูปให้ทำ, คำยกย่อง, คำถ่อมตน). Patterns that shared the same short
+meaning now have distinct ones. No Japanese was changed: every example
+sentence, reading, pattern name and connection rule is byte-for-byte the same.
+
+**Two new memory aids per lesson.**
+
+- *Remember it* (`lit_en`, `lit_th`, all 445 lessons): how the pattern is
+  built, or a picture that makes it stick. Some are word origins (際 "edge,
+  moment", 限り "limit"); others are deliberately simple images (ずつ as dealing
+  cards into equal piles). They are learning aids, not etymological claims.
+- *In easier Japanese* (`like`, `like_en`, `like_th`, 361 lessons): a more
+  familiar pattern that says nearly the same thing, and how the two differ
+  (〜に際して ≈ 〜時に, but formal and for big occasions). Lessons with no
+  honest equivalent have none.
+
+**The nine exam-basics lesson guides** (n2i01–n2i09) were rewritten so each
+form row explains that form, and each warning is short.
+
+**Generated practice.** About a quarter of the patterns had written questions;
+the rest had only a self-check. Every pattern without a written question now
+gets two question types built from its own examples: choose the meaning of the
+marked grammar, or choose the grammar that fills a gap (with the translation
+shown). Wrong options are chosen automatically, and never from the answer's own
+map branch, its comparison table, its lesson's "tell it apart" list, or any
+pattern whose short meaning shares a content word with the answer's. No two
+wrong options come from the same branch. Tests check these rules for every
+pattern. The limits: a gap question asks you to recognise which pattern fits,
+not to produce its exact inflected form; and the wrong options are clearly
+different in meaning, so the fine distinctions still come from the written
+questions and comparison tables.
+
+As before, this is a careful review backed by automated checks, not an
+external specialist review of every sentence.
+
 ## Grammar map and consistency review — 25 September 2026
 
 The library's 30 category labels (41 groups once split by level) mixed meaning

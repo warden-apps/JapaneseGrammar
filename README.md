@@ -19,16 +19,30 @@ server, and it works offline once opened. Progress stays on your device.
   </tr>
 </table>
 
+<table>
+  <tr>
+    <td width="33%"><img src="docs/study-lesson.png" alt="A lesson card for に際して: meaning, a Remember it picture, the easier equivalent 時に, how to build it, an example and a Watch out note"></td>
+    <td width="33%"><img src="docs/study-question.png" alt="A practice question asking what the marked ずじまいだ means, answered, with feedback and memory aids"></td>
+    <td width="33%"><img src="docs/study-plan.png" alt="The exam plan: 72 days to the JLPT N2 exam and the daily pace needed"></td>
+  </tr>
+  <tr>
+    <td>A lesson: the meaning, a picture to remember it, easier Japanese, the rule, an example and the trap</td>
+    <td>Every pattern has real questions, with feedback on each choice</td>
+    <td>The exam plan: a countdown and the pace you need</td>
+  </tr>
+</table>
+
 ## The three tabs
 
 | Tab | What you do there |
 | --- | --- |
-| **Study** | Press **Start today's study**. The app reviews what is due, then teaches new patterns one at a time, in short sessions of up to six steps. Below it is an optional **Random JLPT drill**. |
+| **Study** | Press **Start today's study**. The app reviews what is due, then teaches new patterns one at a time, in short sessions of up to six steps. Below it are your **exam plan** (countdown and daily pace) and an optional **Random JLPT drill**. |
 | **Library** | The **grammar map** (all 445 patterns by meaning), a searchable **list**, side-by-side **comparisons** of look-alike grammar, a word-form guide and the Shin Kanzen book checklist. |
-| **Progress** | Review levels, a 7-day forecast, progress by map topic, settings, and your **backup**. |
+| **Progress** | Review levels, a 7-day forecast, progress by map topic, settings (including your exam date), and your **backup**. |
 
 The level buttons at the top (N3 + N2 · N3 · N2) filter everything. New
-installs start on N2.
+installs start on N2. The **Language** menu switches lessons and the interface
+between English and Thai; *EN + ไทย* shows English with the Thai one tap away.
 
 ## The grammar map
 
