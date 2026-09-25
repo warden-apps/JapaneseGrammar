@@ -1,204 +1,227 @@
-# 筋道 · Sujimichi — N2 grammar, with N3 support
+# 筋道 · Sujimichi — N3/N2 grammar in English and Thai
 
-**Uploading this app to GitHub?** Follow [UPLOAD.md](UPLOAD.md) for uploading,
-optional GitHub Pages setup and moving your existing study progress.
+A small study app for Japanese grammar at JLPT N3 and N2 level, written for
+English and Thai speakers. It runs entirely in the browser: no account, no
+server, and it works offline once opened. Progress stays on your device.
 
-A browser-based N3/N2 grammar trainer for English and Thai speakers. Start with
-**Study → Start today’s study**. The app chooses reviews and introduces new
-grammar one pattern at a time, with up to six short steps per session. Everything runs locally in
-the browser; progress stays in `localStorage` on the same device and origin.
+**Uploading this app to GitHub?** Follow [UPLOAD.md](UPLOAD.md).
 
-## What changed
+<table>
+  <tr>
+    <td width="33%"><img src="docs/map-overview.png" alt="The grammar map: five colour-coded regions and twenty topics around a central hub"></td>
+    <td width="33%"><img src="docs/map-topic.png" alt="The Cause topic as a tree: branches such as Thanks or blame, each listing its patterns"></td>
+    <td width="33%"><img src="docs/map-lesson.png" alt="A lesson's On the grammar map section with its nearby patterns"></td>
+  </tr>
+  <tr>
+    <td>The grammar map: every pattern sorted by what it lets you say</td>
+    <td>A topic opens as a tree: branch → patterns, with strength dots</td>
+    <td>Every lesson shows where it sits and what is nearby</td>
+  </tr>
+</table>
 
-- **One study path**, with three navigation tabs: Study, Library and Progress.
-  New lessons lead immediately to practice of the same pattern. Sessions pause
-  at a natural stopping point. One optional Random JLPT drill sits below daily Study.
-- **Random JLPT drill**: **118 N2 questions: 44 official + 74 original**.
-  The N2 pool has 88 sentence gaps, 16 four-part ★ sentence-order questions and
-  14 passage blanks, linked to 101 target lesson entries. The complete bank has
-  153 questions including the existing N3/mixed practice. Each round mixes up to
-  ten eligible questions and includes an official question when scope permits.
-  Select **Encountered in Study** or **All — studied or new**; the existing N3/N2
-  filter also applies. Feedback appears immediately, including why the selected
-  wrong option does not fit. Other distractors are explained on demand.
-  The official questions are the complete grammar sections (Q33–54) from the
-  N2 Official Practice Workbooks published in 2012 and 2018, selected from real
-  tests. Japanese questions and official keys have source links; EN/TH feedback
-  and translations are independent. This is a short drill, not a full mock exam.
-  The bank does not yet cover every library entry. Publication years are not
-  represented as the dates of the original exams.
-- **Structured lessons**: Meaning → Build it → One example. Extra explanations,
-  readings and additional examples stay collapsed. There are 47 authored short
-  guides; the rest of the library uses the same layout with existing content.
-- **55 original bilingual exercises**: 27 form drills, 24 contrast questions and
-  4 dedicated recall prompts. Daily practice uses them where available.
-- **12 comparison tables** with 58 rows showing what each form means and when to
-  choose it. Library → Compare similar grammar opens these; seven form guides
-  and the book checklist are optional reference tools under More tools.
-- **Repair list** for missed answers, bounded same-session retries, hints, typed
-  recall, and automatically saved sessions. A later unaided answer clears a mistake.
-- Training retention grows only on a due date and at most once per study day.
-  Hints, answer reveals and same-day retries cannot inflate it. Review intervals
-  are 1, 3, 7 and 21 days. This is a simple study schedule, not an exam prediction.
-- **445 library entries**: the earlier 14 added senses and 30 corrected/expanded
-  lessons, plus nine short support lessons for structures tested in the N2 papers.
-  The supplied Shin Kanzen list links to the app through 26 chapters and three
-  supplemental groups. See [CONTENT-SOURCES.md](CONTENT-SOURCES.md) for sources,
-  corrections and the limits of this review.
-- Daily review prioritizes **new contexts**, rotates available questions and asks
-  for **typed recall before choices** on later attempts. Choosing to see options
-  counts as help and brings the card back; first-day practice does not promote
-  its review level. The home screen no longer previews the next review answer.
-  Unrecognized free-text answers are not declared ungrammatical: the learner is
-  directed to the authored answer set. Daily review uses reveal-first
-  self-assessment elsewhere. Random synonym distractors have been removed.
-  Wrong answers cannot advance the review ladder; old unanswered quiz caches migrate.
-- Global English/Thai controls (English + Thai on tap keeps the first view short),
-  readable form labels, dark mode, downloadable
-  backups and validated restore. Existing grammar IDs and storage key are preserved.
+## The three tabs
 
-The new short-session evidence is separate from the existing daily review ladder.
-Random drills save results and resume on reload but never promote daily review
-levels. Their “encountered” scope uses Study encounters and historical review
-evidence, not merely opening a Library entry or seeing it in a random drill.
-Every tested target in a question and passage must be eligible before inclusion.
-Official questions use their exam level even when testing a foundation pattern
-labelled N3 in the library. All five official passage blanks stay together; the
-feedback never discloses later blanks. Daily choices also check secondary targets.
-New installations default to N2, three new patterns and twenty reviews per day.
-Existing settings remain unchanged. Set new patterns to zero for a review-only day.
+| Tab | What you do there |
+| --- | --- |
+| **Study** | Press **Start today's study**. The app reviews what is due, then teaches new patterns one at a time, in short sessions of up to six steps. Below it is an optional **Random JLPT drill**. |
+| **Library** | The **grammar map** (all 445 patterns by meaning), a searchable **list**, side-by-side **comparisons** of look-alike grammar, a word-form guide and the Shin Kanzen book checklist. |
+| **Progress** | Review levels, a 7-day forecast, progress by map topic, settings, and your **backup**. |
 
-## Files
+The level buttons at the top (N3 + N2 · N3 · N2) filter everything. New
+installs start on N2.
 
-```
-index.html                  original library, daily queue and reference UI
-grammar-expansion.js         corrected/added lessons and chapter coverage
-mastery-content.js           authored exercises, comparisons and form guides
-mastery.js                   short sessions, retention, repair list and backups
-mastery.css                  responsive training styles
-lesson-guides.js             38 structured lessons and three stage exercises
-comparison-guides.js         concise meanings and choosing cues for similar forms
-simple.js                    unified Study flow and concise lesson/reference UI
-simple.css                   simplified responsive layouts
-jlpt-content.js              61 original JLPT-style questions with EN/TH feedback
-n2-exam-lessons.js           nine concise support lessons for N2 exam structures
-jlpt-official.js             44 official N2 questions with source metadata
-jlpt-n2-practice.js          48 additional original N2 transfer questions
-jlpt.js                      random drill, scope, resume and daily retrieval
-jlpt.css                     question, feedback and recall layouts
-CONTENT-SOURCES.md          content audit and source notes
-manifest.json               Add to Home Screen metadata (Android + Chrome)
-sw.js                       offline cache
-apple-touch-icon.png        iOS home-screen icon (180x180)
-favicon.ico                 browser tab icon
-icons/                      PNG/SVG icons + the paper-grain tile
-build/make-icons.pl         regenerates every icon from one 16x16 pixel grid
-build/make-paper.pl         regenerates the paper texture
-build/serve.pl              local server, for testing the way Pages serves it
-build/serve.cjs             dependency-free Node local server
-tests/                     regressions and browser smoke checks
+## The grammar map
+
+Textbooks list grammar chapter by chapter. The map instead asks **"what do
+you want to say?"** and puts every pattern in exactly one place:
+
+- **5 regions**, one colour each
+- **20 topics** (Time, Cause, If…, How sure, Must · can, …)
+- **96 branches** that group patterns doing the same job. For example,
+  *Cause › Thanks or blame* holds おかげで and せいで.
+
+Tap a topic to see all its patterns with their meaning, level and strength.
+Branches whose patterns are easy to confuse link to a side-by-side comparison
+table. Each lesson ends with **On the grammar map**: where it lives, its
+neighbours, and any second meaning filed elsewhere (ため is both *Cause* and
+*Purpose*). The List view, search and the Progress tab use the same topics.
+
+```mermaid
+mindmap
+  root((文法))
+    出来事 Time & events
+      時 Time · 47
+      段 Stages · 24
+      変 Change · 21
+    論理 Logic & links
+      因 Cause · 17
+      条 If… · 17
+      逆 Although · 27
+      加 And also · 16
+      繋 Connectors · 24
+    範囲 Focus & framing
+      限 Only · even · 19
+      度 Degree · 19
+      点 Topic & view · 28
+      基 Means & purpose · 16
+    気持ち Speaker's stance
+      推 How sure · 39
+      判 Judging · 22
+      義 Must · can · 24
+      意 Will & advice · 14
+      情 Feelings · 19
+    部品 Sentence toolkit
+      人 Who & how polite · 15
+      否 Negatives · 19
+      構 Building blocks · 18
 ```
 
-All paths are relative, so this works both at a domain root and under
-`username.github.io/repo-name/`.
+## How studying works
 
-## Publishing
+- **Learn, then use it at once.** A new pattern is a short card (01 Meaning ·
+  02 Build it · 03 One example), followed straight away by practice with that
+  pattern. Example sentences highlight the grammar.
+- **Reviews** follow a simple ladder of 1, 3, 7 and 21 days. A level can rise
+  at most once per study day. A wrong answer never raises it.
+- **Help is fine, but it counts as help.** Later reviews ask you to type the
+  missing grammar first. Opening the choices, hints or answers marks the
+  attempt as assisted, and the card comes back.
+- **Repair list.** Missed practice questions return until you answer them
+  unaided on a later day.
+- **Random JLPT drill.** Rounds of up to 10 questions from a bank of 118 N2
+  questions (44 official, 74 original). You choose *Encountered in Study* or
+  *All*. Drills never change review levels.
+- Scores are study aids, not predicted JLPT results.
 
-Publish `index.html`, all root JavaScript and CSS files, `sw.js`,
-the manifest and icons together. For GitHub Pages, enable Settings → Pages →
-deploy from branch. No hosting account is required to use the app locally.
-Do not publish `.backups/`; it contains the previous source for rollback, not progress.
-Tests and build scripts are optional for hosting. Downloaded source PDFs are
-omitted from this upload package; the app links to the official site and does
-not need these PDFs at runtime. Personal-study reuse follows the JLPT site's §1(1);
-consult its source terms before distributing or charging for copied material.
+## What's inside
 
-**Bump `CACHE` in `sw.js`** every time you publish. The worker caches a complete
-version atomically, so offline operation includes the new modules. Reopen or
-reload after the updated worker installs. Updating files does not erase progress.
+| Content | Amount |
+| --- | --- |
+| Library entries | 445 (193 N3, 252 N2), each with EN/TH meaning, connection, notes and 2+ examples (907 in all) |
+| Grammar map | 5 regions · 20 topics · 96 branches, every entry placed once |
+| Structured short lessons | 47 |
+| Comparison tables | 12, with 58 rows ("same translation, different use") |
+| Authored practice | 55 exercises: 27 form, 24 contrast, 4 recall |
+| JLPT-style questions | 153 in total. N2: 118 (44 official + 74 original), made up of 88 sentence gaps, 16 ★ sentence-order questions and 14 passage blanks |
+| Book checklist | Shin Kanzen Master N2: 26 chapters + 3 supplements, 156 rows → 171 lessons |
 
-To test locally first — the service worker and the manifest need a real
-`http://` origin, so opening `index.html` off disk is not a sufficient check:
+Sources, corrections and the limits of the content review are in
+[CONTENT-SOURCES.md](CONTENT-SOURCES.md). The official questions come from the
+JLPT's published N2 workbooks (2012 and 2018). English/Thai explanations are
+the app's own.
+
+## Run it on your computer
+
+You need [Node.js](https://nodejs.org). There is no build step and nothing to
+install.
 
 ```bash
 node build/serve.cjs 8775
 ```
 
-Open **http://127.0.0.1:8775**. This avoids AnkiConnect's usual port, 8765.
-There is no build step or runtime dependency.
-The existing Perl server remains available if preferred.
+Then open **http://127.0.0.1:8775**. Use the server, not a double-click on
+`index.html`: offline mode and "Add to Home Screen" need a real `http://`
+address.
 
-## Validation
+## Put it online (GitHub Pages)
 
-```bash
-node --test tests/legacy.test.cjs tests/mastery.test.cjs tests/simplify.test.cjs tests/jlpt.test.cjs tests/official.test.cjs
-```
+In the repository: **Settings → Pages → Deploy from a branch → `main` /
+(root)**. All paths are relative, so it works at `username.github.io/repo/`.
 
-The 44 regressions cover existing queue limits and migrations, wrong-answer
-handling, study-day boundaries, backups, training retention, duplicate submissions,
-session resume, content references, the single Study entry point and all three
-ところだ forms, drill scope, passage eligibility, answer feedback, question
-rotation, assisted recall and v7 backups. New checks match all official answers
-to independently transcribed PDF keys, verify full ★ orders, five-blank grouping,
-source labels, secondary prerequisites and the N2 default. They need only Node's
-built-in modules. Automated checks do not replace independent linguistic review.
-
-With Playwright and Chrome available, start the local server and run
-`node tests/browser-smoke.cjs`, `node tests/jlpt-browser.cjs` and
-`node tests/official-browser.cjs`.
-Set `PLAYWRIGHT_PATH` if the package is outside
-Node's normal search path; `BROWSER_CHANNEL` defaults to `chrome`. The smoke check
-covers the guided lesson/practice sequence, session limits, answer persistence,
-comparisons, coverage, language switching, saved practice, backups, desktop/dark
-and phone layouts, and an actual offline reload. The second suite covers all
-three JLPT formats, both scopes, immediate feedback, daily typed recall and
-offline drill resume. The third suite checks the fresh N2 default, official
-source/answer links, all five passage blanks, source-aware feedback and the full
-expanded bank offline. `TEST_URL` overrides the server URL.
+Whenever you change the app, **bump `CACHE` in `sw.js`** so phones download the
+new version. Updating files never erases anyone's progress.
 
 ## Add to Home Screen
 
-- **iPhone** — open in Safari (not Chrome), Share → Add to Home Screen.
-- **Android** — Chrome menu → Install app / Add to Home Screen.
+- **iPhone:** open in Safari → Share → Add to Home Screen.
+- **Android:** Chrome menu → Install app.
 
-Installation makes the app convenient to launch. Browser storage can still be
-cleared or evicted; installing is not a substitute for a backup.
+## Your progress and backups
 
-Progress belongs to the current device/browser/origin. **Progress → Download
-progress backup** saves a JSON file containing both review and training evidence
-and settings. Copy/paste also works. To restore, click Restore, paste the JSON
-text and click Restore again. v4/v5/v6 backups remain supported; v7 also saves
-drill results, question exposure and Study encounters. Invalid backups
-are rejected before changing live progress. Imported backups restart an unfinished
-session; normal reloads resume it. Moving from a hosted URL to localhost does not
-automatically transfer browser storage—use a backup to move your progress.
+Progress lives in this browser's storage, separately for each device and web
+address. It does not move by itself, and clearing browser data erases it.
 
-## The daily queue
+- **Progress → Download progress backup** saves a JSON file.
+- To restore, tap **Restore**, paste the file's text, and tap **Restore** again.
+- Invalid backups are rejected before anything changes. Older backups (v4–v7)
+  still load.
 
-`S.day` is the ledger for today and is the source of truth:
+## Tests
 
-| field     | meaning                                        |
-|-----------|------------------------------------------------|
-| `newIds`  | patterns handed out as new today — never shrinks |
-| `learned` | new patterns you reached practice for           |
-| `done`    | patterns that got a rating (except もう一度)     |
-| `extra`   | extra allowance recorded by earlier app versions |
-
-`S.q` — the queue on screen — is only a view of that ledger and gets rebuilt
-whenever the level chip, a setting, or a new day changes the picture. A rebuild
-keeps the answered head of the queue and re-plans only the tail, and tops new
-cards up to `newPerDay - newIds.length`. That is what stops a rebuild from
-dealing a second batch or throwing away a session in progress.
-
-## Icons
-
-Both the app icon and the plant that grows on the 今日 screen come from the same
-16x16 grid, edited as ASCII in `build/make-icons.pl` and `index.html`. Every PNG
-is that grid at an **integer** scale, centred with background padding to reach
-the exact size a platform wants — at a fractional scale the pixels come out
-uneven and the art goes soft.
+The unit tests need only Node:
 
 ```bash
-perl build/make-icons.pl
-perl build/make-paper.pl
+node --test tests/legacy.test.cjs tests/mastery.test.cjs tests/simplify.test.cjs tests/jlpt.test.cjs tests/official.test.cjs tests/map.test.cjs
 ```
+
+These 54 tests cover scheduling and migrations, backups, the one-button Study
+flow, drill scope and passages, the official answer keys, and the grammar map
+(every entry placed once, search, level filter, lesson links). They also check
+example highlighting and the study-day forecast.
+
+The browser suites need Playwright. Start the server first, then run:
+
+```bash
+node tests/browser-smoke.cjs     # study flow, comparisons, backup, dark mode, offline
+node tests/jlpt-browser.cjs      # random drill formats, scopes, resume, offline
+node tests/official-browser.cjs  # official questions, sources, passages
+node tests/map-browser.cjs       # map, topics, lesson links, search, Progress, offline
+```
+
+`BROWSER_CHANNEL` selects the browser (default `chrome`; use `chromium` for
+Playwright's own build). `TEST_URL` changes the address, and `PLAYWRIGHT_PATH`
+points at a Playwright install outside Node's normal search path. Automated
+checks do not replace a human review of the Japanese.
+
+## Files
+
+```
+index.html            app shell, core library data and the daily review queue
+grammar-expansion.js  added and corrected lessons, Shin Kanzen chapter links
+n2-exam-lessons.js    nine support lessons for N2 exam structures
+lesson-guides.js      47 structured short lessons
+comparison-guides.js  12 comparison tables
+mastery-content.js    authored exercises, form guides
+jlpt-content.js       61 original JLPT-style questions (N3, N2 and mixed)
+jlpt-official.js      44 official N2 questions with source links
+jlpt-n2-practice.js   48 more original N2 questions
+map-content.js        the grammar map: regions, topics, branches
+mastery.js            practice sessions, repair list, backups
+simple.js             Study flow, lesson cards, example highlighting
+jlpt.js               random drill and typed daily recall
+map.js                map, topic trees, list grouping, lesson and Progress links
+*.css                 styles (mastery, simple, jlpt, map)
+sw.js                 offline cache — bump CACHE on every release
+manifest.json         Add to Home Screen metadata
+icons/                app icons and the paper texture
+build/                local servers and icon generators (not needed online)
+tests/                unit and browser tests (not needed online)
+docs/                 README screenshots
+```
+
+Keep `icons/`, `build/` and `tests/` as folders. If they end up flattened into
+the top level, the icons and paper texture disappear, offline mode skips them,
+and every test fails with `ENOENT`.
+
+## Notes for maintainers
+
+**Adding a grammar entry.** Give it a new, permanent ID (progress is stored
+by ID), then place it in exactly one branch of `map-content.js`.
+`tests/map.test.cjs` fails if an entry has no place on the map, or two.
+
+**The daily queue.** `S.day` is today's ledger and the source of truth:
+
+| field | meaning |
+| --- | --- |
+| `newIds` | patterns handed out as new today (never shrinks) |
+| `learned` | new patterns you reached practice for |
+| `done` | patterns rated today (except "again") |
+| `extra` | extra allowance from earlier app versions |
+
+`S.q`, the queue on screen, is only a view of that ledger. It is rebuilt when
+the level, a setting or the day changes. A rebuild keeps the answered part and
+re-plans the rest, so it never hands out a second batch of new cards.
+
+**Icons.** The app icon and the growing plant come from one 16×16 pixel grid.
+Regenerate with `perl build/make-icons.pl` and `perl build/make-paper.pl`.
+Every PNG is the grid at a whole-number scale, so the pixels stay sharp.

@@ -7,10 +7,17 @@ There is no build step and no API key or backend to configure.
 
 1. Create or open your GitHub repository.
 2. Choose **Add file → Upload files** (or the upload link in an empty repository).
-3. Open this `github-upload` folder on your computer and drag **everything inside
-   it** into the upload area, preserving the `icons`, `build` and `tests` folders.
-4. Commit the uploaded files. Check that `index.html` is at the repository's top
-   level, next to `README.md` — not inside another `github-upload` folder.
+3. Open this `github-upload` folder on your computer, select **everything inside
+   it** (files *and* the `icons`, `build`, `tests` and `docs` folders), and
+   **drag** it into the upload area. Don't use "choose your files": that picker
+   can't select folders, so everything lands in one flat folder.
+4. Commit the uploaded files.
+5. Check the repository's front page. `index.html` should sit at the top level
+   next to `README.md`, and the folders `icons/`, `build/`, `tests/` and `docs/`
+   should be listed. If instead you see `icon-16.png`, `serve.cjs` or
+   `legacy.test.cjs` at the top level, the folders were flattened. The icons,
+   paper texture and offline mode then break. Upload those folders again, or
+   move the files back into them.
 
 The `.gitignore` excludes generated screenshots, local backups and temporary
 files from future Git commits. `.nojekyll` lets Pages serve the static files
@@ -44,7 +51,8 @@ another available port in the command and URL, such as `8776`.
 
 ## Included
 
-- The complete app, its 118-question N2 drill, offline worker, manifest and icons.
+- The complete app: the grammar map, 445 lessons, the 118-question N2 drill,
+  offline worker, manifest and icons.
 - Source notes and attribution in [CONTENT-SOURCES.md](CONTENT-SOURCES.md).
 - Development scripts and tests; see [README.md](README.md) for commands.
 
@@ -52,5 +60,6 @@ Downloaded reference PDFs, temporary files, rollback copies, generated test
 screenshots and personal progress exports are omitted. The app links directly
 to official sources and does not need local copies of the PDFs.
 
-This snapshot was prepared on 23 September 2026. Later edits in the original
-project folder are not automatically copied here.
+This snapshot was prepared on 23 September 2026 and updated on 25 September
+2026 with the grammar map. Later edits in the original project folder are not
+copied here automatically.

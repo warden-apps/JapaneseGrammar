@@ -1,7 +1,7 @@
 {
   "name": "筋道 · N3・N2 文法",
   "short_name": "筋道",
-  "description": "N3/N2 grammar in English and Thai: short sessions, form drills, comparisons and spaced review.",
+  "description": "N3/N2 grammar in English and Thai: a grammar map by meaning, short sessions, comparisons and spaced review.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",

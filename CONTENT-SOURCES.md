@@ -1,5 +1,50 @@
 # Grammar coverage and source review
 
+## Grammar map and consistency review — 25 September 2026
+
+The library's 30 category labels (41 groups once split by level) mixed meaning
+with register and did not match between levels (逆接 for N3 but 逆接・対比 for
+N2; 条件・仮定 but 条件). Two catch-all groups, 接続・助詞 and 慣用・書き言葉,
+held 75 patterns with unrelated functions. The new **grammar map** (`map-content.js`) is an independent,
+meaning-based arrangement of all 445 entries: 5 regions, 20 topics and 96
+branches. It was designed for this app and is not copied from Shin Kanzen
+Master or any other book, although several branches line up with the book's
+chapters and link to the same comparison tables. Each entry sits in the branch
+for its main use; eleven cross-links point to a second sense filed elsewhere
+(ため as cause and as purpose). The original category labels remain in the data
+but no longer drive the interface. A test fails if any entry is missing from
+the map or placed twice.
+
+Corrections made during this review:
+
+- Nineteen short glosses from the 30 corrected lessons were capitalised, and
+  the nine N2 support lessons used a whole sentence as their gloss. All now
+  follow the short lowercase style of the other entries.
+- 次第に (gradually) was displayed as 〜次第に, which suggests an attachment
+  like 〜次第 (as soon as). It is a standalone adverb.
+- The てから example 手を洗ってから食べてください was glossed "wash your hands
+  before eating". It now follows the step order the lesson teaches ("first,
+  then eat"), as the Thai already did.
+- Example highlighting now finds split, inflected and kanji-spelled patterns
+  (たとえ…ても, ところです, 決して…ません, 込めて): 881 of 907 examples, up
+  from 681. The remainder are conjugations such as the passive and keigo.
+
+Checked and deliberately left unchanged:
+
+- The examples for 〜らしい, 〜ようだ／みたいだ and 〜しかない include a
+  second sense (typical of, simile, only). Each entry's explanation presents
+  both senses on purpose.
+- The にしても example under 〜にしたら／にすれば／にしてみれば is
+  intentional; the connection note covers that "for that person too" use.
+- Noun + ことだし: references differ. Nである is the most common form, and
+  some also give Nの. The lesson keeps its existing rule.
+- Near-duplicate entries (に違いない ×2, において ×2, ことか ×2, にすぎない／
+  でしかない ×3) keep their separate IDs so saved progress is not lost. The map
+  puts each set in the same branch so they are seen together.
+
+This is a structural and consistency review backed by automated checks, not
+an external specialist review of every sentence.
+
 ## Official N2 expansion — 23 September 2026
 
 The current N2 drill contains **118 questions: 44 official and 74 original**.
