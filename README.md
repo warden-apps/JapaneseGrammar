@@ -81,6 +81,12 @@ mindmap
 - **Learn, then use it at once.** A new pattern is a short card (01 Meaning ·
   02 Build it · 03 One example), followed straight away by practice with that
   pattern. Example sentences highlight the grammar.
+- **Every pattern has real questions.** Written questions come first. Every
+  other pattern is practised from its own examples: *What does it mean?*
+  (choose the meaning of the marked grammar) and *Fill the gap* (choose the
+  grammar that fits, with the translation shown). Wrong options always come
+  from other branches of the map, so they never mean the same thing as the
+  answer, and the feedback says what each wrong option means.
 - **Reviews** follow a simple ladder of 1, 3, 7 and 21 days. A level can rise
   at most once per study day. A wrong answer never raises it.
 - **Help is fine, but it counts as help.** Later reviews ask you to type the
@@ -102,6 +108,7 @@ mindmap
 | Structured short lessons | 47 |
 | Comparison tables | 12, with 58 rows ("same translation, different use") |
 | Authored practice | 55 exercises: 27 form, 24 contrast, 4 recall |
+| Generated practice | Two question types for every pattern, built from its own examples |
 | JLPT-style questions | 153 in total. N2: 118 (44 official + 74 original), made up of 88 sentence gaps, 16 ★ sentence-order questions and 14 passage blanks |
 | Book checklist | Shin Kanzen Master N2: 26 chapters + 3 supplements, 156 rows → 171 lessons |
 
@@ -151,13 +158,14 @@ address. It does not move by itself, and clearing browser data erases it.
 The unit tests need only Node:
 
 ```bash
-node --test tests/legacy.test.cjs tests/mastery.test.cjs tests/simplify.test.cjs tests/jlpt.test.cjs tests/official.test.cjs tests/map.test.cjs
+node --test tests/*.test.cjs
 ```
 
-These 54 tests cover scheduling and migrations, backups, the one-button Study
+These 60 tests cover scheduling and migrations, backups, the one-button Study
 flow, drill scope and passages, the official answer keys, and the grammar map
 (every entry placed once, search, level filter, lesson links). They also check
-example highlighting and the study-day forecast.
+example highlighting, the study-day forecast, and the generated practice (every
+pattern gets a question, and no wrong option shares the answer's meaning).
 
 The browser suites need Playwright. Start the server first, then run:
 
@@ -190,6 +198,7 @@ mastery.js            practice sessions, repair list, backups
 simple.js             Study flow, lesson cards, example highlighting
 jlpt.js               random drill and typed daily recall
 map.js                map, topic trees, list grouping, lesson and Progress links
+practice.js           generated questions for every pattern
 *.css                 styles (mastery, simple, jlpt, map)
 sw.js                 offline cache — bump CACHE on every release
 manifest.json         Add to Home Screen metadata

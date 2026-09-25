@@ -92,3 +92,8 @@ mark{background:transparent;color:var(--kin);font-weight:600;border-bottom:2px s
 .help-choices{display:flex;flex-wrap:wrap;gap:18px}
 #langtog{display:none}
 @media(max-width:520px){.lesson-card{padding:18px 16px}.lesson-title h1{font-size:24px}.form-row{grid-template-columns:1fr;padding:12px}.form-code{font-size:16px}.form-model{font-size:12px;margin-top:3px}.meaning-line{font-size:18px}.comparison-header{display:none}.comparison-line{grid-template-columns:1fr;gap:6px;padding:16px 18px 8px}.comparison-pattern{font-size:20px}.comparison-meaning{font-size:16px;font-weight:500}.comparison-use{font-size:13px}.comparison-entry>.optional-detail{margin:0 18px 14px}.distinction-row{grid-template-columns:1fr;gap:4px;margin-top:16px}.meaning-index-row{grid-template-columns:1fr;gap:6px}.study-home{padding-top:24px}.study-home h1{font-size:32px}.study-toolbar>span{display:none}.study-toolbar{justify-content:flex-end}.library-links{flex-wrap:wrap}.library-links details{text-align:left}.library-links details button{margin-left:0}.example-jp{font-size:19px}}
+.question-translation{font-size:15px;line-height:1.7;color:var(--ink2);margin:-6px 0 18px}
+.practice-target{font:500 22px/1.5 var(--jp-sans);margin:10px 0 0;color:var(--kin)}
+.practice-opt.meaning-opt{font-family:var(--ui);font-size:16px;line-height:1.55}
+.practice-opt.pick-opt{font-family:var(--jp-sans);font-size:18px}
+.practice-opt:disabled{cursor:default}

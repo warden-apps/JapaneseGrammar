@@ -2,8 +2,8 @@
    offline upgrade cannot leave the page with only half its scripts.
    Bump CACHE on every release. Progress lives separately in localStorage. */
 const PREFIX = 'sujimichi-' + new URL(self.registration.scope).pathname + '-';
-const CACHE = PREFIX + 'v6-20260925-lessons';
-const CORE = ['./', './index.html', './grammar.js', './book-checklist.js', './mastery-content.js', './mastery.js', './mastery.css', './lesson-guides.js', './comparison-guides.js', './simple.js', './simple.css', './jlpt-content.js', './jlpt-official.js', './jlpt-n2-practice.js', './jlpt.js', './jlpt.css', './map-content.js', './map.js', './map.css'];
+const CACHE = PREFIX + 'v7-20260925-practice';
+const CORE = ['./', './index.html', './grammar.js', './book-checklist.js', './mastery-content.js', './mastery.js', './mastery.css', './lesson-guides.js', './comparison-guides.js', './simple.js', './simple.css', './jlpt-content.js', './jlpt-official.js', './jlpt-n2-practice.js', './jlpt.js', './jlpt.css', './map-content.js', './map.js', './map.css', './practice.js'];
 const ASSETS = ['./manifest.json','./favicon.ico','./apple-touch-icon.png','./icons/paper.png','./icons/icon.svg','./icons/icon-16.png','./icons/icon-32.png','./icons/icon-48.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(async cache => {
