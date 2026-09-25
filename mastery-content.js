@@ -163,7 +163,7 @@ var MASTERY_SOURCES = [
     'Keep the action running: ている.','ให้กริยายังดำเนินอยู่: ている');
   exercise('mf04','n3a08','time','form',
     'Use する (do). Attach “only after” to 一人暮らしをする.',
-    'ใช้ する (ทำ) ต่อ “หลังจากทำแล้วถึง...” กับ 一人暮らしをする',
+    'ใช้ する (ทำ) ต่อ “หลังจากทำแล้วถึง…” กับ 一人暮らしをする',
     '一人暮らしを＿＿はじめて、家事の大変さがわかった。','ひとりぐらしを＿＿はじめて、かじのたいへんさがわかった。',
     'して','した','し',
     'てはじめて needs te form: する → して. した is past; し is a masu stem. This pattern connects an experience to a new realization.',
@@ -477,7 +477,7 @@ var MASTERY_SOURCES = [
     'ばかりに focuses on the regrettable result caused by that one mistake. おかげで normally credits a benefit. 上に adds another fact; it does not express the requested causal regret.',
     'ばかりに เน้นว่าเพียงความผิดพลาดนั้นทำให้เกิดผลน่าเสียดาย おかげで มักยกความดีให้ผลดี ส่วน 上に เพิ่มข้อมูลอีกข้อ ไม่ได้สื่อความเสียดายเชิงเหตุผลตามโจทย์',
     'Just because I got one character of my name wrong, my application became invalid.','แค่เขียนชื่อตัวเดียวผิด ใบสมัครก็กลายเป็นโมฆะ',
-    '“All because of that one thing…” with regret.','“เพียงเพราะเรื่องนั้นเรื่องเดียว...” ด้วยความเสียดาย');
+    '“All because of that one thing…” with regret.','“เพียงเพราะเรื่องนั้นเรื่องเดียว…” ด้วยความเสียดาย');
   exercise('mc15','n2a20','contrast','contrast',
     'Admit that you bought the camera, then contrast that with not using it yet.',
     'ยอมรับว่าซื้อกล้องแล้ว แล้วบอกสิ่งที่ขัดกันคือยังไม่ได้ใช้',

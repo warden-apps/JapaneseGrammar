@@ -82,7 +82,7 @@ var LESSON_GUIDE_SOURCES = [
 
   guide('n3a13','Because of something unwelcome; blame the cause.','เพราะสิ่งที่ไม่ดี; โทษสาเหตุ',
     'The result is usually a problem.','ผลที่ตามมามักเป็นปัญหา',[
-      form('V普通形 / いA + せいで','Keep the plain verb or i-adjective.','เก็บกริยาธรรมดาหรือคุณศัพท์ い','寝坊したせいで遅れた。'),
+      form('V普通形 / いA + せいで','Use the plain verb or i-adjective as it is.','ใช้กริยารูปธรรมดาหรือคุณศัพท์ い ได้เลย','寝坊したせいで遅れた。'),
       form('なAな / Nの + せいで','Na-adjective → な; noun → の.','คุณศัพท์ な ใช้ な / นามใช้ の','雨のせいで中止になった。'),
       form('〜せいか','The cause is a guess.','ยังไม่แน่ใจว่านี่คือสาเหตุ','疲れたせいか、眠い。')
     ],['寝坊したせいで、朝ご飯を食べられなかった。','ねぼうしたせいで、あさごはんをたべられなかった。','Because I overslept, I could not eat breakfast.','เพราะตื่นสายเลยไม่ได้กินข้าวเช้า'],
@@ -90,14 +90,14 @@ var LESSON_GUIDE_SOURCES = [
       compare('n3a14','おかげで usually credits a helpful cause.','おかげで มักยกความดีให้สิ่งที่ช่วย')]);
   guide('n3a14','Thanks to a helpful cause.','เพราะสิ่งที่ช่วยให้เกิดผลดี',
     'Give credit for a welcome result.','ยกความดีให้สาเหตุของผลที่ต้องการ',[
-      form('V普通形 / いA + おかげで','Keep the plain form before おかげで.','เก็บรูปธรรมดาหน้า おかげで','教えてくれたおかげで'),
+      form('V普通形 / いA + おかげで','Use the plain form before おかげで.','ใช้รูปธรรมดาหน้า おかげで','教えてくれたおかげで'),
       form('なAな / Nの + おかげで','Na-adjective → な; noun → の.','คุณศัพท์ な ใช้ な / นามใช้ の','先生のおかげで')
     ],['友達が手伝ってくれたおかげで、早く終わった。','ともだちがてつだってくれたおかげで、はやくおわった。','Thanks to my friend’s help, I finished early.','เพื่อนช่วยเลยเสร็จเร็ว'],
     'Usually positive; sarcastic contexts can reverse the tone.','มักเป็นบวก แต่ใช้ประชดให้กลับน้ำเสียงได้',[
       compare('n3a13','せいで usually blames a harmful cause.','せいで มักโทษสาเหตุที่ทำให้เกิดผลเสีย')]);
   guide('n3a16','Because… (a personal explanation or excuse).','เพราะว่า... (อธิบายเหตุผลส่วนตัวหรือแก้ตัว)',
     'Explain why you could not act as expected.','อธิบายว่าทำไมทำไม่ได้ตามที่คาด',[
-      form('V普通形 / いA + もので','Keep the plain form.','เก็บรูปธรรมดา','道が混んでいたもので'),
+      form('V普通形 / いA + もので','Use the plain form.','ใช้รูปธรรมดา','道が混んでいたもので'),
       form('なAな / Nな + もので','Both na-adjectives and nouns use な here.','ตรงนี้ทั้งคุณศัพท์ な และนามใช้ な','初めてなもので'),
       form('〜ものだから / 〜もの','ものだから explains; もの is casual.','ものだから อธิบายเหตุผล / もの เป็นภาษากันเอง','眠いんだもの。')
     ],['すみません。道が混んでいたもので。','すみません。みちがこんでいたもので。','Sorry, the roads were congested.','ขอโทษนะ พอดีรถติด'],
@@ -139,7 +139,7 @@ var LESSON_GUIDE_SOURCES = [
   guide('n2a15','Precisely because A, the result is especially strong.','ก็เพราะ A ผลจึงยิ่งเด่นชัด',
     'That fact makes the result all the more significant.','ข้อเท็จจริงนั้นทำให้ผลยิ่งชัดหรือรู้สึกแรงขึ้น',[
       form('V普通形 / いA + だけに','The cause strengthens the result.','สาเหตุทำให้ผลยิ่งแรงขึ้น','期待していただけに'),
-      form('なAな / N + だけに','Na-adjective keeps な; a noun attaches directly.','คุณศัพท์ な เก็บ な / นามต่อได้เลย','専門家だけに')
+      form('なAな / N + だけに','Na-adjective keeps な; a noun attaches directly.','คุณศัพท์ な คง な ไว้ / คำนามต่อได้เลย','専門家だけに')
     ],['楽しみにしていただけに、中止は残念だ。','たのしみにしていただけに、ちゅうしはざんねんだ。','Because I had really looked forward to it, the cancellation is especially disappointing.','เพราะรอคอยมาก พอยกเลิกเลยยิ่งเสียดาย'],
     'The intensified result can be good or bad.','ผลที่ยิ่งเด่นชัดเป็นเรื่องดีหรือร้ายก็ได้',[
       compare('n2a14','ばかりに singles out a regrettable cause.','ばかりに เจาะจงสาเหตุที่ทำให้เกิดเรื่องน่าเสียดาย'),
@@ -186,7 +186,7 @@ var LESSON_GUIDE_SOURCES = [
       compare('n2b28','ようがない means there is no method available.','ようがない คือไม่มีวิธีให้ทำได้')]);
   guide('n2c14','I have to do it; I cannot avoid the obligation.','จำเป็นต้องทำ; หลีกเลี่ยงหน้าที่ไม่ได้',
     '“Cannot NOT do” means you must do it.','“ไม่ทำไม่ได้” ก็คือต้องทำ',[
-      form('Vない + わけにはいかない','Keep ない before わけ.','เก็บ ない ไว้หน้า わけ','返さないわけにはいかない。')
+      form('Vない + わけにはいかない','Keep ない before わけ.','ต้องมี ない อยู่หน้า わけ','返さないわけにはいかない。')
     ],['借りたお金は返さないわけにはいかない。','かりたおかねはかえさないわけにはいかない。','I have to return the money I borrowed.','เงินที่ยืมมาต้องคืน จะไม่คืนไม่ได้'],
     'Removing ない reverses the message from “must” to “cannot”.','ตัด ない แล้วความหมายกลับจาก “ต้องทำ” เป็น “ทำไม่ได้”',[
       compare('n3c06','Vるわけにはいかない means you cannot do the action.','Vるわけにはいかない คือทำกริยานั้นไม่ได้'),
@@ -234,9 +234,9 @@ var LESSON_GUIDE_SOURCES = [
 
   guide('n3b01','I hear that…; information from another source.','ได้ยินมาว่า...; ข้อมูลจากแหล่งอื่น',
     'Report what you heard or read.','บอกต่อสิ่งที่ได้ยินหรืออ่านมา',[
-      form('V普通形 + そうだ','Keep the whole plain verb, including tense.','เก็บกริยาธรรมดาเต็มรูป รวมกาลด้วย','来るそうだ。／来たそうだ。'),
-      form('いA + そうだ','Keep the final い.','เก็บ い ท้ายคำ','おいしいそうだ。'),
-      form('なAだ / Nだ + そうだ','Keep だ when reporting a noun or na-adjective.','เก็บ だ เมื่อบอกต่อนามหรือคุณศัพท์ な','元気だそうだ。')
+      form('V普通形 + そうだ','Use the whole plain verb, including its tense.','ใช้กริยารูปธรรมดาทั้งคำ รวมทั้งกาลด้วย','来るそうだ。／来たそうだ。'),
+      form('いA + そうだ','Keep the final い.','คง い ท้ายคำไว้','おいしいそうだ。'),
+      form('なAだ / Nだ + そうだ','Keep だ when reporting a noun or na-adjective.','คง だ ไว้เมื่อบอกต่อคำนามหรือคุณศัพท์ な','元気だそうだ。')
     ],['店の人によると、明日は休みだそうです。','みせのひとによると、あしたはやすみだそうです。','According to the staff, the shop is closed tomorrow.','พนักงานบอกว่าร้านจะหยุดพรุ่งนี้'],
     'おいしいそうだ = heard it is tasty; おいしそうだ = looks tasty.','おいしいそうだ = ได้ยินว่าอร่อย / おいしそうだ = ดูน่าอร่อย',[
       compare('n3b02','Appearance そう removes い or uses a verb stem.','そう แบบลักษณะที่เห็นตัด い หรือใช้รากกริยา'),
@@ -248,7 +248,7 @@ var LESSON_GUIDE_SOURCES = [
       form('なA + そうだ','Use the adjective stem; no な or だ.','ใช้รากคุณศัพท์ ไม่เติม な หรือ だ','元気そうだ。')
     ],['このかばんは重そうだ。','このかばんはおもそうだ。','This bag looks heavy.','กระเป๋าใบนี้ดูหนัก'],
     'Special forms: いい → よさそう; ない → なさそう.','รูปพิเศษ: いい → よさそう / ない → なさそう',[
-      compare('n3b01','Reportative そう keeps the full plain sentence.','そう แบบบอกต่อเก็บประโยคธรรมดาเต็มรูป'),
+      compare('n3b01','Reportative そう keeps the full plain sentence.','そう แบบบอกต่อใช้ประโยครูปธรรมดาทั้งประโยค'),
       compare('n3b03','ようだ also permits noun comparisons: 猫のようだ.','ようだ เปรียบกับคำนามได้ด้วย เช่น 猫のようだ')]);
   guide('n3b03','Seems to be… / is like…','ดูเหมือนว่า... / เหมือนกับ...',
     'Use clues to infer, or compare one thing with another.','อนุมานจากหลักฐาน หรือเปรียบสิ่งหนึ่งกับอีกสิ่ง',[
@@ -316,7 +316,7 @@ var LESSON_GUIDE_SOURCES = [
       compare('n2b03','Potential + ものなら imagines “if I could”.','รูปสามารถ + ものなら สมมติว่า “ถ้าทำได้”')]);
   guide('n2a20','Although A is true, the expected result did not follow.','แม้ A จะจริง แต่ผลไม่ได้เป็นไปตามคาด',
     'Admit the first fact, then add the unresolved contrast.','ยอมรับข้อแรก แล้วบอกสิ่งที่ยังขัดกัน',[
-      form('V普通形 / いA + ものの','Keep the plain clause.','เก็บอนุประโยครูปธรรมดา','買ったものの、使っていない。'),
+      form('V普通形 / いA + ものの','Use a plain-form clause.','ใช้ประโยครูปธรรมดา','買ったものの、使っていない。'),
       form('なAな / Nである + ものの','Na-adjective → な; noun → である.','คุณศัพท์ な ใช้ な / นามใช้ である','便利なものの、高い。')
     ],['単語は覚えたものの、会話では使えない。','たんごはおぼえたものの、かいわではつかえない。','Although I memorized the words, I cannot use them in conversation.','จำคำศัพท์ได้แล้ว แต่ใช้ตอนสนทนาไม่ได้'],
     'Both clauses describe facts; this is not an “even if” condition.','สองส่วนบอกข้อเท็จจริง ไม่ใช่เงื่อนไขสมมติ “ต่อให้”',[
@@ -324,60 +324,75 @@ var LESSON_GUIDE_SOURCES = [
       compare('n2a27','としても means even if a condition holds.','としても คือถึงแม้เงื่อนไขนั้นจะเป็นจริง')]);
   /* Nine structures the official N2 grammar sections rely on: noun clauses,
      states, passage links and sentence endings. */
-  guide('n2i01','Inside a clause describing a noun, の can mark the subject instead of が.','ในอนุประโยคขยายนาม の ใช้ชี้ประธานแทน が ได้',
-    'First find the noun being described.','หานามที่ถูกขยายก่อน',[
-      form('Nが／Nの + 普通形 + 名詞','First find the noun being described.','หานามที่ถูกขยายก่อน','父の作った椅子は丈夫だ。')
+  guide('n2i01','Inside a description of a noun, の can replace が.','ในส่วนที่ขยายคำนาม ใช้ の แทน が ได้',
+    'Find the noun being described first; the の belongs to the words in front of it.','หาคำนามที่ถูกขยายก่อน の อยู่ในส่วนขยายที่อยู่หน้าคำนามนั้น',[
+      form('Nが + V普通形 + N','The usual form: が marks who does it.','แบบปกติ: が บอกว่าใครทำ','父が作った椅子'),
+      form('Nの + V普通形 + N','Same meaning: inside the description, の can replace が.','ความหมายเดียวกัน: ในส่วนขยายใช้ の แทน が ได้','父の作った椅子'),
+      form('Nの + いA / なAな + N','It works with adjectives too.','ใช้กับคุณศัพท์ได้ด้วย','窓の大きい部屋')
     ],['父の作った椅子は丈夫だ。','ちちのつくったいすはじょうぶだ。','The chair my father made is sturdy.','เก้าอี้ที่พ่อทำแข็งแรง'],
-    '父の作った椅子 = 父が作った椅子. This does not mean が can always become の: the clause must modify a noun, and ambiguity or the construction can restrict the substitution.',
-    '父の作った椅子 = 父が作った椅子 ไม่ได้แปลว่าเปลี่ยน が เป็น の ได้ทุกที่ ต้องอยู่ในส่วนขยายนาม และบางโครงสร้างหรือความกำกวมอาจทำให้เปลี่ยนไม่ได้',[]);
-  guide('n2i02','A change has happened, and its result holds at the reference time.','เกิดการเปลี่ยนแปลงแล้ว และผลยังคงอยู่ ณ เวลาที่กล่าวถึง',
-    'ている is not always “doing right now”. Check the verb and the reference time.','ている ไม่ได้แปลว่ากำลังทำเสมอ ดูชนิดกริยาและเวลาที่อ้างถึง',[
-      form('変化のVて + いる','ている is not always “doing right now”. Check the verb and the reference time.','ている ไม่ได้แปลว่ากำลังทำเสมอ ดูชนิดกริยาและเวลาที่อ้างถึง','窓が開いている。')
+    'Only inside a description of a noun. A sentence on its own needs が: 父が作った, never ×父の作った.','ใช้ได้เฉพาะในส่วนที่ขยายคำนาม ประโยคเดี่ยว ๆ ต้องใช้ が: 父が作った ไม่ใช่ ×父の作った',[]);
+  guide('n2i02','Something changed, and the result is still there.','มีบางอย่างเปลี่ยนไป และผลยังคงอยู่',
+    'Ask what kind of verb it is: a change, or an action that takes time?','ดูว่ากริยาเป็นแบบไหน: การเปลี่ยนแปลง หรือการกระทำที่ใช้เวลา',[
+      form('変化のV + ている','Verbs of change (開く, 結婚する, 来る): the result remains.','กริยาที่บอกการเปลี่ยนแปลง (開く 結婚する 来る): ผลยังคงอยู่','窓が開いている。'),
+      form('動作のV + ている','Action verbs (読む, 食べる): doing it right now.','กริยากิจกรรม (読む 食べる): กำลังทำอยู่','本を読んでいる。'),
+      form('未来の時 + なっている','With a future time: will already have become.','กับเวลาในอนาคต: ถึงตอนนั้นจะเป็นแล้ว','来年は大学生になっている。')
     ],['窓が開いている。','まどがあいている。','The window is open.','หน้าต่างเปิดอยู่'],
-    '開く is the change; 開いている is the resulting open state. With a future time, なっている can mean “will already have become”. With an activity verb such as 読む, ている can instead be ongoing.',
-    '開く คือการเปิด ส่วน 開いている คือสภาพที่เปิดอยู่ ถ้าเป็นเวลาอนาคต なっている อาจแปลว่าตอนนั้นจะกลายเป็นแล้ว แต่กริยากิจกรรมเช่น 読む ใช้ ている บอกกำลังทำได้',[]);
-  guide('n2i03','Eventually / before long; the exact time is unspecified.','เดี๋ยวสักวัน / ในไม่ช้า โดยไม่ระบุเวลาแน่นอน',
-    'Something will happen after some time passes.','เวลาผ่านไปสักพักแล้วจะเกิดบางอย่าง',[
-      form('そのうち + 変化・出来事','Something will happen after some time passes.','เวลาผ่านไปสักพักแล้วจะเกิดบางอย่าง','そのうち、この仕事にも慣れるよ。')
-    ],['そのうち、この仕事にも慣れるよ。','そのうち、このしごとにもなれるよ。','You will get used to this job before long.','เดี๋ยวก็ชินกับงานนี้'],
-    'そのうち is an adverb. Vるうちに instead attaches to an activity or state and means “while/before that situation changes”. Do not confuse the similar-looking forms.',
-    'そのうち เป็นคำวิเศษณ์ ส่วน Vるうちに เชื่อมกับกิจกรรมหรือสภาพ บอกระหว่างนั้น/ก่อนสภาพเปลี่ยน อย่าสับสนเพราะหน้าตาคล้ายกัน',[]);
-  guide('n2i04','Whether or not: place a yes/no question inside a larger sentence.','…หรือไม่ นำคำถามแบบใช่/ไม่ใช่เข้าไปเป็นส่วนหนึ่งของประโยค',
-    'Treat the whole question as one chunk before 分かる, 調べる or a similar expression.','มองคำถามทั้งก้อนเป็นหนึ่งส่วน ก่อน 分かる、調べる หรือสำนวนที่คล้ายกัน',[
-      form('普通形 + かどうか（N・ナAは「だ」を取る）','Treat the whole question as one chunk before 分かる, 調べる or a similar expression.','มองคำถามทั้งก้อนเป็นหนึ่งส่วน ก่อน 分かる、調べる หรือสำนวนที่คล้ายกัน','参加できるかどうか、明日連絡します。')
-    ],['参加できるかどうか、明日連絡します。','さんかできるかどうか、あしたれんらくします。','I will let you know tomorrow whether I can attend.','พรุ่งนี้จะแจ้งว่าเข้าร่วมได้หรือไม่'],
-    '行くかどうか = whether to go. With a question word, use plain か instead: いつ行くか, not いつ行くかどうか. In noun/adjective predicates, omit だ before かどうか.',
-    '行くかどうか = จะไปหรือไม่ ถ้ามีคำถามอย่าง いつ ใช้ か เช่น いつ行くか ไม่ใช่ いつ行くかどうか นามและคุณศัพท์ な ตัด だ ก่อน かどうか',[]);
-  guide('n2i05','Do too much / without doing too much.','ทำมากเกินไป / โดยไม่ทำมากเกินไป',
-    'Use the stem: 飲みます → 飲みすぎる → 飲みすぎずに.','ใช้ฐานรูป ます: 飲みます → 飲みすぎる → 飲みすぎずに',[
-      form('Vます語幹 + すぎる／すぎずに','Use the stem: 飲みます → 飲みすぎる → 飲みすぎずに.','ใช้ฐานรูป ます: 飲みます → 飲みすぎる → 飲みすぎずに','昨日はコーヒーを飲みすぎた。')
+    '結婚している means “is married”, not “is getting married”. 来ている means “is here”, not “is coming”.','結婚している แปลว่า “แต่งงานแล้ว” ไม่ใช่ “กำลังแต่งงาน” ส่วน 来ている แปลว่า “มาถึงแล้ว” ไม่ใช่ “กำลังมา”',[
+      compare('n3b18','てある: someone left it that way on purpose.','てある: มีคนทำทิ้งไว้แบบนั้นโดยตั้งใจ'),
+      compare('n3a01','ているところだ: in the middle of doing it right now.','ているところだ: กำลังอยู่ระหว่างทำพอดี')]);
+  guide('n2i03','Sooner or later; sometime soon.','เดี๋ยวสักวัน / อีกไม่นาน',
+    'No exact time: something will happen after a while.','ไม่ระบุเวลาแน่นอน แค่บอกว่าผ่านไปสักพักจะเกิดขึ้น',[
+      form('そのうち + 変化','A change that will come with time.','การเปลี่ยนแปลงที่จะมาถึงเมื่อเวลาผ่านไป','そのうち慣れるよ。'),
+      form('そのうち + 予定','A vague plan or a polite promise.','แผนหรือคำสัญญาแบบสุภาพที่ไม่ระบุเวลา','そのうち、また連絡します。')
+    ],['そのうち、この仕事にも慣れるよ。','そのうち、このしごとにもなれるよ。','You will get used to this job before long.','เดี๋ยวก็ชินกับงานนี้เอง'],
+    'そのうち stands alone. A verb + うちに means “while” or “before it changes”: 若いうちに.','そのうち ใช้เดี่ยว ๆ ส่วน กริยา + うちに แปลว่า “ระหว่างที่” หรือ “ก่อนที่จะเปลี่ยน” เช่น 若いうちに',[
+      compare('n3a03','うちに joins a verb or adjective: while it lasts, or before it changes.','うちに ต่อกับกริยาหรือคุณศัพท์: ระหว่างที่ยังเป็นอยู่ หรือก่อนจะเปลี่ยน'),
+      compare('a410','やがて: in time; calmer and more literary.','やがて: เมื่อเวลาผ่านไป สงบและเป็นภาษาเขียนกว่า')]);
+  guide('n2i04','Whether or not.','…หรือไม่',
+    'Put a yes-or-no question inside a longer sentence.','ใส่คำถามแบบใช่หรือไม่ใช่ไว้ในประโยคที่ยาวขึ้น',[
+      form('V普通形 / いA + かどうか','Verbs and い-adjectives use the plain form.','กริยาและคุณศัพท์ い ใช้รูปธรรมดา','行けるかどうか'),
+      form('なA / N + かどうか','Drop だ: 正確かどうか, 本当かどうか.','ตัด だ ออก: 正確かどうか 本当かどうか','本当かどうか'),
+      form('疑問詞 … + か','With a question word, use plain か.','ถ้ามีคำคำถาม ใช้ か เฉย ๆ','いつ行くか')
+    ],['参加できるかどうか、明日連絡します。','さんかできるかどうか、あしたれんらくします。','I will let you know tomorrow whether I can come.','พรุ่งนี้จะแจ้งว่าเข้าร่วมได้หรือไม่'],
+    'Not ×いつ行くかどうか: a question word already makes it a question.','ไม่ใช่ ×いつ行くかどうか เพราะมีคำคำถามอยู่แล้ว',[]);
+  guide('n2i05','Too much / without overdoing it.','…เกินไป / โดยไม่…เกินไป',
+    'ます-stem or adjective stem + すぎる.','ฐานของรูป ます หรือรากคุณศัพท์ + すぎる',[
+      form('Vます語幹 + すぎる','Do too much: 飲みすぎる, 働きすぎる.','ทำมากเกินไป: 飲みすぎる 働きすぎる','飲みすぎた。'),
+      form('いA（い）/ なA + すぎる','Too …: 高すぎる, 静かすぎる.','…เกินไป: 高すぎる 静かすぎる','この服は高すぎる。'),
+      form('〜すぎずに','Without overdoing it.','โดยไม่…เกินไป','無理しすぎずに続ける。')
     ],['昨日はコーヒーを飲みすぎた。','きのうはコーヒーをのみすぎた。','I drank too much coffee yesterday.','เมื่อวานดื่มกาแฟมากเกินไป'],
-    'V-stem + すぎる means excess. Plain V/N + にすぎない means merely or no more than. Similar sound, different connection and meaning. すぎる conjugates as an ichidan verb.',
-    'ฐานกริยา + すぎる คือเกินไป ส่วน Vรูปธรรมดา/N + にすぎない คือเพียงแค่ เสียงคล้ายแต่เชื่อมและหมายความต่างกัน すぎる ผันแบบกริยากลุ่มสอง',[]);
-  guide('n2i06','Say things like…; quote a remark with some distance or emotion.','พูดอะไรทำนองว่า… ยกคำพูดโดยเว้นระยะหรือแสดงความรู้สึก',
-    'Find the quoted words, then the person or action they describe.','หาคำพูดที่ถูกยกมา แล้วดูว่าขยายคนหรือการกระทำใด',[
-      form('引用する言葉 + とか言う／なんていう','Find the quoted words, then the person or action they describe.','หาคำพูดที่ถูกยกมา แล้วดูว่าขยายคนหรือการกระทำใด','彼は「面倒だ」とか言って、手伝わなかった。')
-    ],['彼は「面倒だ」とか言って、手伝わなかった。','かれは「めんどうだ」とかいって、てつだわなかった。','He said something like “It’s a bother” and did not help.','เขาพูดทำนองว่า “ยุ่งยาก” แล้วไม่ช่วย'],
-    'とか loosely quotes. なんていう often adds surprise or disapproval; it can modify a noun. Neutral と is also a quotation marker, but these forms add the speaker’s stance.',
-    'とか ยกคำพูดแบบไม่เจาะจง なんていう มักเพิ่มความประหลาดใจหรือไม่เห็นด้วย และขยายนามได้ ส่วน と เป็นเครื่องหมายคำพูดกลาง ๆ แต่รูปเหล่านี้เพิ่มท่าทีผู้พูด',[]);
-  guide('n2i07','Follow what each word points to and what each sentence does in the passage.','ตามให้ทันว่าแต่ละคำอ้างถึงอะไร และแต่ละประโยคทำหน้าที่ใดในบทความ',
-    'Ask: looking backward, introducing what follows, asking how, or summarizing?','ถามตัวเองว่า ชี้ย้อนหลัง เกริ่นสิ่งที่จะตามมา ถามวิธี หรือสรุป',[
-      form('こう・そう・どのように・彼ら／彼女たち','Ask: looking backward, introducing what follows, asking how, or summarizing?','ถามตัวเองว่า ชี้ย้อนหลัง เกริ่นสิ่งที่จะตามมา ถามวิธี หรือสรุป','先生はこう言った。「毎日少しずつ続けましょう。」')
-    ],['先生はこう言った。「毎日少しずつ続けましょう。」','せんせいはこういった。「まいにちすこしずつつづけましょう。」','The teacher said this: “Keep at it a little every day.”','ครูพูดดังนี้ว่า “ทำต่อไปวันละนิดนะ”'],
-    'こう can introduce an upcoming quotation; そう commonly refers to available context. A pronoun must match the specific group just described, not merely a nearby noun. A conclusion can state the writer’s own summary without adding hearsay.',
-    'こう ใช้เกริ่นคำพูดที่จะตามมาได้ そう มักชี้บริบทที่มีอยู่แล้ว สรรพนามต้องตรงกลุ่มที่อธิบาย ไม่ใช่แค่นามที่อยู่ใกล้ บทสรุปอาจสรุปตรง ๆ โดยไม่ต้องเพิ่มว่าได้ยินมา',[]);
-  guide('n2i08','Besides / in addition to that item.','นอกจากสิ่งนั้นแล้ว ยังมีอย่างอื่น',
-    'A known item comes first; additional examples follow.','เริ่มด้วยสิ่งที่กล่าวถึงแล้ว ตามด้วยตัวอย่างเพิ่มเติม',[
-      form('N + のほか（に）','A known item comes first; additional examples follow.','เริ่มด้วยสิ่งที่กล่าวถึงแล้ว ตามด้วยตัวอย่างเพิ่มเติม','英語のほかに、タイ語も話せます。')
-    ],['英語のほかに、タイ語も話せます。','えいごのほかに、タイごもはなせます。','Besides English, I can also speak Thai.','นอกจากอังกฤษแล้ว ยังพูดไทยได้'],
-    'In a list, のほか adds items alongside the first one. にかわって replaces it. The negative pattern ほかに…ない has a different limiting use.',
-    'ในรายการ のほか เพิ่มสิ่งที่มีควบคู่กับอันแรก ส่วน にかわって แทนที่อันแรก รูปปฏิเสธ ほかに…ない มีการใช้จำกัดอีกแบบ',[]);
-  guide('n2i09','Probably… / I wonder whether…','คงจะ… / จะ…หรือไม่',
-    'Without か, predict; with か, pose a question or wonder.','ไม่มี か คือคาดการณ์ มี か คือถามหรือสงสัย',[
-      form('普通形 + だろう（か）（N・ナAは「だ」を取る）','Without か, predict; with か, pose a question or wonder.','ไม่มี か คือคาดการณ์ มี か คือถามหรือสงสัย','明日は晴れるだろう。')
-    ],['明日は晴れるだろう。','あしたははれるだろう。','It will probably be sunny tomorrow.','พรุ่งนี้อากาศคงแจ่มใส'],
-    'Context decides the time; だろう does not automatically mean future. だろうか can address the reader in writing. Do not confuse this with hearsay そうだ or a past expectation はずだった.',
-    'บริบทกำหนดเวลา だろう ไม่ได้เป็นอนาคตเสมอ だろうか ใช้ถามผู้อ่านในงานเขียนได้ ต่างจาก そうだ ที่ได้ยินมา และ はずだった ที่เคยคาดไว้',[]);
+    'It changes like 食べる: すぎない, すぎて, すぎた. Do not confuse it with にすぎない (merely).','ผันแบบ 食べる: すぎない すぎて すぎた อย่าสับสนกับ にすぎない (เป็นเพียง)',[
+      compare('b415','にすぎない: merely; no more than.','にすぎない: เป็นเพียง…เท่านั้น')]);
+  guide('n2i06','Says something like…','พูดทำนองว่า…',
+    'Quote words loosely, often with doubt or disapproval.','ยกคำพูดแบบหลวม ๆ มักแฝงความสงสัยหรือไม่เห็นด้วย',[
+      form('「…」とか言う','Quote vaguely: something like that.','ยกคำพูดแบบคลุมเครือ: ประมาณนั้น','「忙しい」とか言って'),
+      form('「…」なんていう + N','Describe a noun, with surprise or disapproval.','ขยายคำนาม แฝงความแปลกใจหรือไม่เห็นด้วย','「無料」なんていう話')
+    ],['彼は「面倒だ」とか言って、手伝わなかった。','かれは「めんどうだ」とかいって、てつだわなかった。','He said something like “It’s a hassle” and did not help.','เขาพูดทำนองว่า “ยุ่งยาก” แล้วก็ไม่ช่วย'],
+    'Plain と is a neutral quote. とか and なんて add the speaker’s attitude.','と ธรรมดาเป็นการยกคำพูดแบบกลาง ๆ ส่วน とか และ なんて เพิ่มท่าทีของผู้พูด',[
+      compare('n2g04','なんて after a sentence can also show surprise.','なんて ท้ายประโยคใช้แสดงความประหลาดใจได้ด้วย')]);
+  guide('n2i07','Following the links in a passage.','การตามคำชี้และการเชื่อมในบทความ',
+    'For each こ/そ word or pronoun, find what it points to.','สำหรับคำชี้ こ/そ และสรรพนามแต่ละตัว ให้หาว่ามันชี้ไปที่อะไร',[
+      form('こう / このように','Often points forward, to what is about to be said.','มักชี้ไปข้างหน้า ถึงสิ่งที่กำลังจะพูด','先生はこう言った。「…」'),
+      form('そう / そのように','Points back, to what was just said.','ชี้ย้อนกลับ ถึงสิ่งที่เพิ่งพูดไป','私もそう思う。'),
+      form('彼ら / 彼女たち','Must match the group just described.','ต้องตรงกับกลุ่มที่เพิ่งพูดถึง','子どもたちは…。彼らは…')
+    ],['先生はこう言った。「毎日少しずつ続けましょう。」','せんせいはこういった。「まいにちすこしずつつづけましょう。」','The teacher said this: “Keep at it, a little every day.”','ครูพูดไว้ว่า “ทำต่อไปทุกวัน ทีละนิดนะ”'],
+    'In passage questions, ask what each sentence does: an example, a reason or the conclusion.','ในข้อสอบบทความ ให้ถามว่าแต่ละประโยคทำหน้าที่อะไร: ยกตัวอย่าง ให้เหตุผล หรือสรุป',[]);
+  guide('n2i08','Besides; as well as.','นอกจาก…แล้ว',
+    'Name one item, then add others.','บอกสิ่งหนึ่งก่อน แล้วเพิ่มสิ่งอื่นตามมา',[
+      form('N + のほか（に）… も','Add more: X, and also Y.','เพิ่ม: X แล้วยังมี Y ด้วย','英語のほかに、タイ語も'),
+      form('N + のほか（に）… ない','With a negative: nothing but X.','กับรูปปฏิเสธ: ไม่มีอะไรนอกจาก X','彼のほかに頼れる人はいない。')
+    ],['英語のほかに、タイ語も話せます。','えいごのほかに、タイごもはなせます。','Besides English, I can also speak Thai.','นอกจากภาษาอังกฤษแล้ว ยังพูดภาษาไทยได้ด้วย'],
+    'のほか adds to X; にかわって replaces X.','のほか เพิ่มจาก X ส่วน にかわって แทนที่ X',[
+      compare('b309','に代わって: in place of X, not as well as X.','に代わって: แทน X ไม่ใช่เพิ่มจาก X')]);
+  guide('n2i09','Probably… / I wonder if…','คงจะ… / …หรือเปล่านะ',
+    'Without か it guesses; with か it asks or wonders.','ไม่มี か คือการคาดเดา มี か คือการถามหรือสงสัย',[
+      form('V普通形 / いA + だろう','A guess: the plain form of でしょう.','การคาดเดา เป็นรูปธรรมดาของ でしょう','明日は晴れるだろう。'),
+      form('なA / N + だろう','Drop だ: 静かだろう, 雨だろう.','ตัด だ ออก: 静かだろう 雨だろう','明日は雨だろう。'),
+      form('〜だろうか','Wondering, or asking the reader in writing.','สงสัย หรือถามผู้อ่านในงานเขียน','本当だろうか。')
+    ],['明日は晴れるだろう。','あしたははれるだろう。','It will probably be sunny tomorrow.','พรุ่งนี้อากาศคงจะแจ่มใส'],
+    'だろう is not only for the future: 昨日は寒かっただろう. Do not confuse it with hearsay そうだ.','だろう ไม่ได้ใช้กับอนาคตเท่านั้น เช่น 昨日は寒かっただろう อย่าสับสนกับ そうだ (ได้ยินมาว่า)',[
+      compare('n3b05','はずだ: should be so, backed by facts.','はずだ: น่าจะเป็นอย่างนั้น โดยมีข้อเท็จจริงรองรับ'),
+      compare('n3b01','そうだ: I heard it; not my own guess.','そうだ: ได้ยินมา ไม่ใช่การเดาของตัวเอง')]);
 })();
 
 /* The three stages need an immediate form check, not only self-rated recall. */
