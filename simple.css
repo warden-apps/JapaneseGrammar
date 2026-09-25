@@ -97,3 +97,12 @@ mark{background:transparent;color:var(--kin);font-weight:600;border-bottom:2px s
 .practice-opt.meaning-opt{font-family:var(--ui);font-size:16px;line-height:1.55}
 .practice-opt.pick-opt{font-family:var(--jp-sans);font-size:18px}
 .practice-opt:disabled{cursor:default}
+.lesson-hooks{display:grid;gap:10px;margin-top:16px}
+.lesson-hook{padding:12px 14px;border-radius:12px;background:var(--paper2);border:1px solid var(--line)}
+.lesson-hook b{display:block;font:600 11px var(--ui);letter-spacing:.06em;color:var(--ink2);margin-bottom:5px}
+.lesson-hook p{margin:0;font-size:14px;line-height:1.7;color:var(--ink)}
+.hook-picture{border-left:3px solid var(--ai)}
+.hook-like{border-left:3px solid var(--kin-soft)}
+.like-jp{font:500 17px/1.6 var(--jp-sans);margin-right:10px;color:var(--ink)}
+.like-note{font-size:13px;color:var(--ink2)}
+.simple-feedback .lesson-hooks{margin-top:14px}

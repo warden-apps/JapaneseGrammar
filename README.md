@@ -78,9 +78,11 @@ mindmap
 
 ## How studying works
 
-- **Learn, then use it at once.** A new pattern is a short card (01 Meaning ·
-  02 Build it · 03 One example), followed straight away by practice with that
-  pattern. Example sentences highlight the grammar.
+- **Learn, then use it at once.** A new pattern is a short card: the meaning,
+  a picture that makes it stick (*Remember it*), the same idea in easier
+  Japanese, how to build it, one example and the trap to avoid (*Watch out*).
+  Practice with that pattern follows straight away. Example sentences
+  highlight the grammar.
 - **Every pattern has real questions.** Written questions come first. Every
   other pattern is practised from its own examples: *What does it mean?*
   (choose the meaning of the marked grammar) and *Fill the gap* (choose the
@@ -103,7 +105,7 @@ mindmap
 
 | Content | Amount |
 | --- | --- |
-| Library entries | 445 (193 N3, 252 N2), each with EN/TH meaning, connection, notes and 2+ examples (907 in all) |
+| Library entries | 445 (193 N3, 252 N2), each with EN/TH meaning, a memory aid, connection, notes and 2+ examples (907 in all); 361 also give the same idea in easier Japanese |
 | Grammar map | 5 regions · 20 topics · 96 branches, every entry placed once |
 | Structured short lessons | 47 |
 | Comparison tables | 12, with 58 rows ("same translation, different use") |
@@ -161,11 +163,12 @@ The unit tests need only Node:
 node --test tests/*.test.cjs
 ```
 
-These 60 tests cover scheduling and migrations, backups, the one-button Study
+These 63 tests cover scheduling and migrations, backups, the one-button Study
 flow, drill scope and passages, the official answer keys, and the grammar map
 (every entry placed once, search, level filter, lesson links). They also check
-example highlighting, the study-day forecast, and the generated practice (every
-pattern gets a question, and no wrong option shares the answer's meaning).
+example highlighting, the study-day forecast, the lesson card, and the
+generated practice (every pattern gets a question, and no wrong option shares
+the answer's meaning).
 
 The browser suites need Playwright. Start the server first, then run:
 

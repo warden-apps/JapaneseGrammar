@@ -139,18 +139,12 @@ stepView=function(el){
   practiceStepView(el,g,sp);
 };
 
-function practiceMemoryHTML(g){
-  var h='';
-  if(g.lit_en)h+='<div class="feedback-point"><b>'+tx('Remember it','จำง่าย ๆ')+'</b><p>'+tx(g.lit_en,g.lit_th)+'</p></div>';
-  if(g.like)h+='<div class="feedback-point"><b>'+tx('In easier Japanese','พูดง่าย ๆ ว่า')+'</b><p><span lang="ja">≈ '+esc(g.like)+'</span> · '+tx(g.like_en,g.like_th)+'</p></div>';
-  return h;
-}
 function practiceFeedback(g,sp,pick){
   var chosen=sp.opts[pick],ok=!!(chosen&&chosen.ok),ex=sp.example||g.ex[sp.exIdx]||g.ex[0];
   var h='<section class="simple-feedback '+(ok?'is-correct':'needs-review')+'" role="status"><h2>'+tx(ok?'Correct':'Not quite',ok?'ถูกต้อง':'ยังไม่ถูก')+' · <span lang="ja">'+esc(g.p)+'</span></h2><p class="meaning-line">'+tx(g.se,g.st)+'</p>';
   h+=exampleCard(ex,g);
   if(!ok&&chosen){var other=byId(chosen.gid);if(other)h+='<div class="picked-reason"><b>'+tx('Your answer','คำตอบของคุณ')+'</b><p>'+(sp.kind==='pick'?'<span lang="ja">'+esc(other.p)+'</span> = '+tx(other.se,other.st):'“'+tx(other.se,other.st)+'” = <span lang="ja">'+esc(other.p)+'</span>')+'</p></div>';}
-  h+=practiceMemoryHTML(g);
+  h+=lessonHooks(g);
   h+='<details class="optional-detail"><summary>'+tx('What the other choices mean','ตัวเลือกอื่นแปลว่าอะไร')+'</summary>';
   sp.opts.forEach(function(o,n){if(o.ok||n===pick)return;var x=byId(o.gid);if(x)h+='<div class="option-reason"><b lang="ja">'+esc(x.p)+'</b><p>'+tx(x.se,x.st)+'</p></div>';});
   h+='</details><button class="text-btn" data-detail="'+g.id+'">'+tx('See the short lesson','ดูบทเรียนสั้น')+'</button></section>';

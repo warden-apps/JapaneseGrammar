@@ -235,6 +235,8 @@ main{padding:0 18px var(--nav);max-width:720px;margin:0 auto}
 .brk-row[data-lv="N2"] .brk-tr i{background:var(--bengara)}
 .brk-n{flex:none;width:44px;text-align:right;font-size:10.5px;color:var(--ink3)}
 .setrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.setrow[hidden]{display:none}
+html[lang="th"] .rings text{letter-spacing:0}
 .setlb{font-family:var(--jp-serif);font-size:13.5px;color:var(--ink2)}
 .setlb small{display:block;font-family:var(--th);font-size:10.5px;color:var(--ink3);letter-spacing:0;margin-top:2px}
 .seg{display:flex;border:1px solid var(--line2);background:var(--card);border-radius:999px;overflow:hidden;flex:none}
@@ -405,7 +407,7 @@ nav .badge.on{display:block}
 <header class="hdr">
   <div class="hdr-row">
     <div class="brand">
-      <div><div class="brand-jp">筋道</div><div class="tagline">Grammar, made usable.</div></div>
+      <div><div class="brand-jp">筋道</div><div class="tagline" data-th="ไวยากรณ์ที่ใช้ได้จริง">Grammar, made usable.</div></div>
       <div class="brand-ro">Sujimichi</div>
     </div>
     <div class="lvpick" id="lvpick">
@@ -414,7 +416,7 @@ nav .badge.on{display:block}
       <button data-lv="N2">N2</button>
     </div>
   </div>
-  <div class="study-toolbar"><span>N3 foundations → N2 confidence</span><label>Language <select id="study-language" aria-label="Explanation language"><option value="both">EN + ไทย</option><option value="en">English</option><option value="th">ไทย</option></select></label></div>
+  <div class="study-toolbar"><span data-th="ปูพื้น N3 → มั่นใจใน N2">N3 foundations → N2 confidence</span><label><span data-th="ภาษา">Language</span> <select id="study-language" aria-label="Explanation language"><option value="both">EN + ไทย</option><option value="en">English</option><option value="th">ไทย</option></select></label></div>
 </header>
 
 <main>
@@ -422,12 +424,12 @@ nav .badge.on{display:block}
   <section class="pane" id="p-train"><div id="training"></div></section>
 
   <section class="pane" id="p-list">
-    <div class="library-heading"><h1>Grammar library</h1><p>See how the grammar fits together, or look up a pattern.</p></div>
-    <div class="library-links"><button data-view="groups">Compare similar grammar →</button><details><summary>More reference tools</summary><button data-view="forms">Word-form guide</button><button data-view="coverage">Book checklist & sources</button></details></div>
+    <div class="library-heading"><h1 data-th="คลังไวยากรณ์">Grammar library</h1><p data-th="ดูว่าไวยากรณ์เชื่อมโยงกันอย่างไร หรือค้นหารูปที่ต้องการ">See how the grammar fits together, or look up a pattern.</p></div>
+    <div class="library-links"><button data-view="groups"><span data-th="เทียบไวยากรณ์ที่คล้ายกัน →">Compare similar grammar →</span></button><details><summary><span data-th="เครื่องมืออ้างอิงเพิ่มเติม">More reference tools</span></summary><button data-view="forms"><span data-th="คู่มือรูปคำ">Word-form guide</span></button><button data-view="coverage"><span data-th="รายการจากหนังสือและแหล่งอ้างอิง">Book checklist &amp; sources</span></button></details></div>
     <div class="tools">
       <label class="search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-        <input id="q" type="search" autocomplete="off" autocorrect="off" aria-label="Search grammar in Japanese, English or Thai" placeholder="Search Japanese, English, Thai…">
+        <input id="q" type="search" autocomplete="off" autocorrect="off" aria-label="Search grammar in Japanese, English or Thai" placeholder="Search Japanese, English, Thai…" data-th-placeholder="ค้นหาเป็นภาษาญี่ปุ่น อังกฤษ หรือไทย…">
       </label>
       <button class="langtog" id="langtog">EN+TH</button>
     </div>
@@ -438,11 +440,11 @@ nav .badge.on{display:block}
     <div id="gmap"></div>
     <div id="lib-list" hidden>
       <div class="filters" id="filters">
-        <button data-f="all" class="on">All</button>
-        <button data-f="weak">Revisit</button>
-        <button data-f="learn">Learning</button>
-        <button data-f="done">Level 5</button>
-        <button data-f="new">New</button>
+        <button data-f="all" class="on"><span data-th="ทั้งหมด">All</span></button>
+        <button data-f="weak"><span data-th="ควรทบทวน">Revisit</span></button>
+        <button data-f="learn"><span data-th="กำลังเรียน">Learning</span></button>
+        <button data-f="done"><span data-th="ระดับ 5">Level 5</span></button>
+        <button data-f="new"><span data-th="ยังไม่เรียน">New</span></button>
       </div>
       <div id="list"></div>
     </div>
@@ -456,7 +458,7 @@ nav .badge.on{display:block}
         <circle class="ring-bg" cx="100" cy="100" r="66"/>
         <circle class="ring-fg ring-n3" id="r3" cx="100" cy="100" r="66"/>
         <text x="100" y="96" text-anchor="middle" font-size="34" fill="#2b2e34" id="rpct">0%</text>
-        <text x="100" y="118" text-anchor="middle" font-size="10" fill="#6e737a" letter-spacing="3">REVIEW LEVEL 5</text>
+        <text x="100" y="118" text-anchor="middle" font-size="10" fill="#6e737a" letter-spacing="3" data-th="ทบทวนระดับ 5">REVIEW LEVEL 5</text>
       </svg>
     </div>
     <div class="legend">
@@ -464,44 +466,44 @@ nav .badge.on{display:block}
       <div class="leg"><i style="background:#b1573a"></i>N2 <span id="lg2" style="color:#6e737a"></span></div>
     </div>
     <div class="stats">
-      <div class="stat"><b id="s-seen">0</b><span>Explored</span></div>
-      <div class="stat"><b id="s-learn">0</b><span>Learning</span></div>
-      <div class="stat"><b id="s-streak">0</b><span>Day streak</span></div>
+      <div class="stat"><b id="s-seen">0</b><span data-th="เปิดดูแล้ว">Explored</span></div>
+      <div class="stat"><b id="s-learn">0</b><span data-th="กำลังเรียน">Learning</span></div>
+      <div class="stat"><b id="s-streak">0</b><span data-th="วันต่อเนื่อง">Day streak</span></div>
     </div>
-    <p class="gentle">Review levels track your review schedule and self-ratings. Train → Retained tracks unaided answers across separate days. Neither is a predicted JLPT score.</p>
-    <div class="grp-hd"><h2>Review strength · ความคืบหน้า</h2><div class="rule"></div></div>
+    <p class="gentle" data-th="ระดับการทบทวนมาจากตารางทบทวนและคำตอบของคุณ ใช้ช่วยการเรียน ไม่ใช่การทำนายคะแนน JLPT">Review levels come from your review schedule and your answers. They are a study aid, not a predicted JLPT score.</p>
+    <div class="grp-hd"><h2 data-en="Review strength" data-th="ระดับการทบทวน">Review strength · ระดับการทบทวน</h2><div class="rule"></div></div>
     <div class="dist" id="dist"></div>
-    <div class="grp-hd" style="margin-top:26px"><h2>Next 7 days · 7 วันข้างหน้า</h2><div class="rule"></div></div>
+    <div class="grp-hd" style="margin-top:26px"><h2 data-en="Next 7 days" data-th="7 วันข้างหน้า">Next 7 days · 7 วันข้างหน้า</h2><div class="rule"></div></div>
     <div class="fc" id="fc"></div>
-    <div class="grp-hd" style="margin-top:26px"><h2>Settings · ตั้งค่า</h2><div class="rule"></div></div>
+    <div class="grp-hd" style="margin-top:26px"><h2 data-en="Settings" data-th="ตั้งค่า">Settings · ตั้งค่า</h2><div class="rule"></div></div>
     <div class="setrow">
-      <div class="setlb">New patterns / day<small>ไวยากรณ์ใหม่ต่อวัน</small></div>
+      <div class="setlb" data-en="New patterns / day" data-th="ไวยากรณ์ใหม่ต่อวัน">New patterns / day<small>ไวยากรณ์ใหม่ต่อวัน</small></div>
       <div class="seg" id="segnew"><button data-v="0">0</button><button data-v="3">3</button><button data-v="5">5</button><button data-v="10">10</button><button data-v="15">15</button></div>
     </div>
     <div class="setrow">
-      <div class="setlb">Review limit / day<small>ทบทวนสูงสุดต่อวัน</small></div>
+      <div class="setlb" data-en="Review limit / day" data-th="ทบทวนสูงสุดต่อวัน">Review limit / day<small>ทบทวนสูงสุดต่อวัน</small></div>
       <div class="seg" id="segrev"><button data-v="20">20</button><button data-v="40">40</button><button data-v="60">60</button><button data-v="999">∞</button></div>
     </div>
     <div class="setrow">
-      <div class="setlb">Study day starts<small>วันใหม่เริ่มกี่โมง</small></div>
+      <div class="setlb" data-en="Study day starts" data-th="วันใหม่เริ่มกี่โมง">Study day starts<small>วันใหม่เริ่มกี่โมง</small></div>
       <div class="seg" id="segday"><button data-v="0">00:00</button><button data-v="4">04:00</button><button data-v="7">07:00</button></div>
     </div>
     <div class="setrow">
-      <div class="setlb">Theme<small>ธีมสีของแอป</small></div>
-      <div class="seg" id="segtheme"><button data-v="light">Light</button><button data-v="dark">Dark</button><button data-v="auto">Auto</button></div>
+      <div class="setlb" data-en="Theme" data-th="ธีมสีของแอป">Theme<small>ธีมสีของแอป</small></div>
+      <div class="seg" id="segtheme"><button data-v="light"><span data-th="สว่าง">Light</span></button><button data-v="dark"><span data-th="มืด">Dark</span></button><button data-v="auto"><span data-th="อัตโนมัติ">Auto</span></button></div>
     </div>
-    <div class="setrow">
+    <div class="setrow" hidden>
       <div class="setlb">Self-rating buttons<small>ปุ่มประเมินตัวเอง</small></div>
       <div class="seg" id="segrate"><button data-v="2">2</button><button data-v="4">4</button></div>
     </div>
-    <div class="grp-hd" style="margin-top:26px"><h2>By topic · แยกตามหัวข้อ</h2><div class="rule"></div></div>
+    <div class="grp-hd" style="margin-top:26px"><h2 data-en="By topic" data-th="แยกตามหัวข้อ">By topic · แยกตามหัวข้อ</h2><div class="rule"></div></div>
     <div id="brk"></div>
-    <div class="grp-hd" style="margin-top:26px"><h2>Backup · สำรองข้อมูล</h2><div class="rule"></div></div>
+    <div class="grp-hd" style="margin-top:26px"><h2 data-en="Backup" data-th="สำรองข้อมูล">Backup · สำรองข้อมูล</h2><div class="rule"></div></div>
     <textarea class="bk" id="bk" readonly></textarea>
-    <div class="bk-row"><button id="bkcopy">コピー · COPY</button><button id="bkload">復元 · RESTORE</button></div>
-    <button class="go quiet" id="bkdownload">Download progress backup · บันทึกไฟล์สำรอง</button>
+    <div class="bk-row"><button id="bkcopy" data-en="Copy" data-th="คัดลอก">Copy · คัดลอก</button><button id="bkload" data-en="Restore" data-th="กู้คืน">Restore · กู้คืน</button></div>
+    <button class="go quiet" id="bkdownload" data-en="Download progress backup" data-th="ดาวน์โหลดไฟล์สำรองความคืบหน้า">Download progress backup · ดาวน์โหลดไฟล์สำรอง</button>
     <div class="bk-note" id="bknote"></div>
-    <button class="reset" id="reset">Delete all progress · ลบประวัติทั้งหมด</button>
+    <button class="reset" id="reset" data-en="Delete all progress" data-th="ลบความคืบหน้าทั้งหมด">Delete all progress · ลบความคืบหน้าทั้งหมด</button>
   </section>
 </main>
 
@@ -692,7 +694,8 @@ function strength(id){
   }
   return (_sc[id]=Math.max(0,Math.min(100,Math.round(v))));
 }
-var BANDS=[[0,'未学習','not started'],[1,'弱い','shaky'],[35,'育成中','growing'],[60,'強い','strong'],[85,'盤石','solid']];
+var BANDS=[[0,'未学習','not started','ยังไม่เริ่ม'],[1,'弱い','shaky','ยังไม่แน่น'],[35,'育成中','growing','กำลังโต'],[60,'強い','strong','แข็งแรง'],[85,'盤石','solid','แน่นมาก']];
+function bandLabel(i){var b=BANDS[i];return S.lang==='th'?b[3]:b[2].charAt(0).toUpperCase()+b[2].slice(1);}
 function bandIdx(v){return v>=85?4:v>=60?3:v>=35?2:v>0?1:0;}
 function strClass(id){return 's'+bandIdx(strength(id));}
 var BANDCOL=['var(--line2)','var(--bengara)','#c2ac6a','var(--ai)','var(--kin)'];
@@ -701,8 +704,7 @@ function strengthBlock(id){
   return '<div class="sb"><div class="sb-top">'+
     '<div><div class="sb-lb">強度 · Strength</div>'+
     '<div class="sb-n" style="color:'+BANDCOL[i]+'">'+v+'<span style="font-size:14px;color:var(--ink3)">/100</span></div></div>'+
-    '<div style="text-align:right"><div class="sb-band" style="color:'+BANDCOL[i]+'">'+BANDS[i][1]+'</div>'+
-    '<div class="sb-lb" style="margin-top:3px">'+BANDS[i][2]+'</div></div></div>'+
+    '<div style="text-align:right"><div class="sb-band" style="color:'+BANDCOL[i]+'">'+bandLabel(i)+'</div></div></div>'+
     '<div class="sb-tr"><i style="width:'+v+'%;background:'+BANDCOL[i]+'"></i></div>'+
     '<div class="sb-grid">'+
     '<div><span>'+(showTH()?'ตอบไปแล้ว':'answered')+'</span><b>'+att+'</b></div>'+
@@ -729,6 +731,7 @@ function pool(){return S.lv==='all'?GRAMMAR:GRAMMAR.filter(function(g){return g.
 function byId(id){for(var i=0;i<GRAMMAR.length;i++) if(GRAMMAR[i].id===id) return GRAMMAR[i]; return null;}
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 var showEN=function(){return S.lang!=='th';}, showTH=function(){return S.lang!=='en';};
+function uiText(en,th){return S.lang==='th'?th:S.lang==='en'?en:en+' · '+th;}
 
 function forms(p){
   var out=[];
@@ -1243,7 +1246,7 @@ function drawRecord(){
   pool().forEach(function(g){bandN[bandIdx(strength(g.id))]++;});
   var tot=pool().length;
   document.getElementById('dist').innerHTML=[4,3,2,1,0].map(function(i){
-    return '<div class="dist-row"><span class="dist-nm">'+BANDS[i][1]+'</span>'+
+    return '<div class="dist-row"><span class="dist-nm">'+bandLabel(i)+'</span>'+
       '<span class="dist-tr"><i class="s'+i+'" style="width:'+(bandN[i]/tot*100)+'%;background:'+
       BANDCOL[i]+'"></i></span>'+
       '<span class="dist-n">'+bandN[i]+'</span></div>';
@@ -1252,7 +1255,7 @@ function drawRecord(){
   if(bk && bk.hasAttribute('readonly')) bk.value=JSON.stringify(exportProgress());
   document.getElementById('bknote').innerHTML=[showTH()?'ความคืบหน้าเก็บอยู่ในเบราว์เซอร์ของเครื่องนี้เท่านั้น ถ้าล้างข้อมูลเบราว์เซอร์จะหายหมด — ดาวน์โหลดหรือก๊อปไฟล์สำรองเก็บไว้เป็นระยะ':'',
     showEN()?'Progress lives only in this browser on this device. Download or copy a backup now and then — it is your only spare copy.':''].filter(Boolean).join('<br>');
-  var fc=[],lbl=['今日','+1','+2','+3','+4','+5','+6'];
+  var fc=[],lbl=[S.lang==='th'?'วันนี้':'Today','+1','+2','+3','+4','+5','+6'];
   for(var d=0;d<7;d++){
     /* Count study days, not calendar days: after midnight but before the
        day-start hour, today() is still the previous study day. */
@@ -1319,14 +1322,14 @@ document.getElementById('bkcopy').addEventListener('click',function(){
   try{document.execCommand('copy');}catch(e){}
   if(navigator.clipboard) try{navigator.clipboard.writeText(bk.value);}catch(e){}
   bk.setAttribute('readonly','readonly');
-  this.textContent='コピーしました ✓';
-  var b=this; setTimeout(function(){b.textContent='コピー · COPY';},1800);
+  this.textContent=uiText('Copied ✓','คัดลอกแล้ว ✓');
+  var b=this; setTimeout(function(){b.textContent=uiText('Copy','คัดลอก');},1800);
 });
 document.getElementById('bkload').addEventListener('click',function(){
   var bk=document.getElementById('bk');
   if(bk.hasAttribute('readonly')){
     bk.removeAttribute('readonly'); bk.value=''; bk.focus();
-    this.textContent='Paste backup, then tap Restore';
+    this.textContent=uiText('Paste your backup, then tap Restore','วางข้อมูลสำรอง แล้วแตะกู้คืน');
     return;
   }
   try{
@@ -1335,11 +1338,11 @@ document.getElementById('bkload').addEventListener('click',function(){
     S.q=null; TRAIN_VIEW='home'; clearCaches(); save(); buildToday(true); applyTheme();
     bk.setAttribute('readonly','readonly'); updateStudyLanguage(); updBadge();
     document.querySelectorAll('#lvpick button').forEach(function(x){x.classList.toggle('on',x.dataset.lv===S.lv);});
-    this.textContent='Restored ✓';
-    var b2=this; setTimeout(function(){b2.textContent='復元 · RESTORE';},1800);
+    this.textContent=uiText('Restored ✓','กู้คืนแล้ว ✓');
+    var b2=this; setTimeout(function(){b2.textContent=uiText('Restore','กู้คืน');},1800);
   }catch(e){
-    this.textContent='読み込めません ✕';
-    var b3=this; setTimeout(function(){b3.textContent='復元 · RESTORE';},1800);
+    this.textContent=uiText('Could not read that backup ✕','อ่านข้อมูลสำรองนี้ไม่ได้ ✕');
+    var b3=this; setTimeout(function(){b3.textContent=uiText('Restore','กู้คืน');},1800);
   }
 });
 document.getElementById('reset').addEventListener('click',function(){

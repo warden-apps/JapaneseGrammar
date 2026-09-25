@@ -154,23 +154,35 @@ function exampleCard(e,g,extras){
   if(extras!==false) h+='<details class="optional-detail example-extras"><summary>'+tx(S.lang==='both'?'Reading & Thai':'Reading','คำอ่าน')+'</summary><p lang="ja">'+esc(e.k||'')+'</p>'+(S.lang==='both'?'<p lang="th">'+esc(e.t)+'</p>':'')+'</details>';
   return h+'</div>';
 }
+/* Two memory aids from the lesson data: a picture of how the pattern is
+   built, and the same idea in easier Japanese. */
+function lessonHooks(g){
+  var h='';
+  if(g.lit_en)h+='<div class="lesson-hook hook-picture"><b>'+tx('Remember it','จำง่าย ๆ')+'</b><p>'+tx(g.lit_en,g.lit_th)+'</p></div>';
+  if(g.like)h+='<div class="lesson-hook hook-like"><b>'+tx('In easier Japanese','พูดง่าย ๆ ว่า')+'</b><p><span class="like-jp" lang="ja">≈ '+esc(g.like)+'</span><span class="like-note">'+tx(g.like_en,g.like_th)+'</span></p></div>';
+  return h?'<div class="lesson-hooks">'+h+'</div>':'';
+}
 function lessonCard(g,options){
   options=options||{};var guide=lessonGuide(g), e=guide?guide.example:g.ex[0];
   var h='<article class="lesson-card" data-lesson="'+g.id+'"><header class="lesson-title"><span class="tag '+g.lv+'">'+g.lv+'</span><h1 lang="ja">'+esc(g.p)+'</h1></header>';
-  h+='<section class="lesson-meaning"><h2>'+tx('01 · Meaning','01 · ความหมาย')+'</h2><p class="meaning-line">'+tx(guide?guide.meaning_en:g.se,guide?guide.meaning_th:g.st)+'</p>';
-  if(guide)h+='<p class="use-cue">'+tx(guide.cue_en,guide.cue_th)+'</p>';
-  h+='</section><section class="lesson-forms"><h2>'+tx('02 · Build it','02 · วิธีเชื่อม')+'</h2>';
+  h+='<section class="lesson-meaning"><h2>'+tx('Meaning','ความหมาย')+'</h2><p class="meaning-line">'+tx(guide?guide.meaning_en:g.se,guide?guide.meaning_th:g.st)+'</p>';
+  h+='<p class="use-cue">'+(guide?tx(guide.cue_en,guide.cue_th):tx(g.en,g.th))+'</p>'+lessonHooks(g)+'</section>';
+  h+='<section class="lesson-forms"><h2>'+tx('Build it','วิธีเชื่อม')+'</h2>';
   if(guide){h+='<div class="form-rows">';guide.forms.forEach(function(row){h+='<div class="form-row"><div class="form-code" lang="ja">'+esc(row.form)+'</div><div class="form-meaning">'+tx(row.en,row.th)+'</div>'+(row.example?'<div class="form-model" lang="ja">'+esc(row.example)+'</div>':'')+'</div>';});h+='</div>';}
   else h+='<div class="form-rows"><div class="form-row fallback-rule"><div class="form-code">'+esc(cleanConnection(g))+'</div></div></div>';
-  h+='</section><section class="lesson-example"><h2>'+tx('03 · One example','03 · ตัวอย่างหนึ่งประโยค')+'</h2>'+exampleCard(e,g)+'</section>';
+  h+='</section><section class="lesson-example"><h2>'+tx('Example','ตัวอย่าง')+'</h2>'+exampleCard(e,g)+'</section>';
   if(guide&&guide.compare&&guide.compare.length){
-    h+=options.compact?'<details class="optional-detail lesson-contrast"><summary>'+tx('04 · Compare similar grammar','04 · เทียบกับไวยากรณ์ที่คล้ายกัน')+'</summary>':'<section class="lesson-contrast"><h2>'+tx('04 · Tell it apart','04 · แยกให้ออก')+'</h2>';
+    h+=options.compact?'<details class="optional-detail lesson-contrast"><summary>'+tx('Compare similar grammar','เทียบกับไวยากรณ์ที่คล้ายกัน')+'</summary>':'<section class="lesson-contrast"><h2>'+tx('Tell it apart','แยกให้ออก')+'</h2>';
     guide.compare.forEach(function(other){var target=byId(other.id);if(target)h+='<div class="distinction-row"><button data-detail="'+other.id+'" lang="ja">'+esc(target.p)+'</button><p>'+tx(other.en,other.th)+'</p></div>';});h+=options.compact?'</details>':'</section>';
   }
-  if(guide&&guide.watch_en&&!options.compact)h+='<p class="watch-line"><b>'+tx('Remember: ','จำไว้: ')+'</b>'+tx(guide.watch_en,guide.watch_th)+'</p>';
-  h+='<details class="optional-detail lesson-more"><summary>'+tx('More details & examples','รายละเอียดและตัวอย่างเพิ่มเติม')+'</summary><div class="extra-notes"><h3>'+tx('Meaning & usage','ความหมายและวิธีใช้')+'</h3><p>'+tx(g.en,g.th)+'</p><p>'+tx(g.note_en,g.note_th)+'</p><h3>'+tx('Full connection reference','วิธีเชื่อมฉบับเต็ม')+'</h3><p>'+esc(g.conn)+'</p>';
-  if(S.lang==='both')h+='<details><summary>Thai explanation · คำอธิบายภาษาไทย</summary><p lang="th">'+esc(g.th)+'</p><p lang="th">'+esc(g.note_th)+'</p></details>';
-  g.ex.slice(1).forEach(function(ex){h+=exampleCard(ex,g);});
+  /* The traps: the guide's own warning when there is one, otherwise the usage notes. */
+  var watchEn=guide&&guide.watch_en?guide.watch_en:g.note_en,watchTh=guide&&guide.watch_en?guide.watch_th:g.note_th;
+  if(watchEn)h+='<p class="watch-line"><b>'+tx('Watch out: ','ระวัง: ')+'</b>'+tx(watchEn,watchTh)+'</p>';
+  h+='<details class="optional-detail lesson-more"><summary>'+tx('More examples & the full rule','ตัวอย่างเพิ่มเติมและกฎฉบับเต็ม')+'</summary><div class="extra-notes">';
+  if(g.ex.length>1){h+='<h3>'+tx('More examples','ตัวอย่างเพิ่มเติม')+'</h3>';g.ex.forEach(function(ex){if(ex!==e)h+=exampleCard(ex,g);});}
+  if(guide)h+='<h3>'+tx('Meaning & usage','ความหมายและวิธีใช้')+'</h3><p>'+tx(g.en,g.th)+'</p><p>'+tx(g.note_en,g.note_th)+'</p>';
+  h+='<h3>'+tx('Full connection rule','วิธีเชื่อมฉบับเต็ม')+'</h3><p lang="ja">'+esc(g.conn)+'</p>';
+  if(S.lang==='both')h+='<details><summary>Thai explanation · คำอธิบายภาษาไทย</summary><p lang="th">'+esc(g.th)+'</p><p lang="th">'+esc(g.note_th)+'</p>'+(g.lit_th?'<p lang="th">'+esc(g.lit_th)+'</p>':'')+'</details>';
   h+='</div></details></article>';return h;
 }
 miniConnection=function(g){
@@ -286,7 +298,25 @@ function practiceOnePattern(id){
   else if(future>S.q.i){var card=S.q.q.splice(future,1)[0];S.q.q.splice(S.q.i,0,card);['gen','ans','rate','reveals'].forEach(function(k){var map=S.q[k]||{};Object.keys(map).forEach(function(n){if(+n>=S.q.i)delete map[n];});});}
   S.q.fin=false;S.q.started=false;startStudy();
 }
+/* Static labels in index.html carry data-th (and data-en when the original is
+   bilingual). English shows data-en or the original; "both" keeps the original. */
+function localizeStatic(){
+  document.querySelectorAll('[data-th]').forEach(function(el){
+    if(el.getAttribute('data-both')===null)el.setAttribute('data-both',el.innerHTML);
+    var en=el.getAttribute('data-en');
+    if(S.lang==='th')el.textContent=el.getAttribute('data-th');
+    else if(S.lang==='en'&&en!==null)el.textContent=en;
+    else el.innerHTML=el.getAttribute('data-both');
+  });
+  document.querySelectorAll('[data-th-placeholder]').forEach(function(el){
+    if(el.getAttribute('data-both-placeholder')===null)el.setAttribute('data-both-placeholder',el.getAttribute('placeholder')||'');
+    el.setAttribute('placeholder',S.lang==='th'?el.getAttribute('data-th-placeholder'):el.getAttribute('data-both-placeholder'));
+  });
+}
+var languageWithoutStatic=updateStudyLanguage;
+updateStudyLanguage=function(){languageWithoutStatic();localizeStatic();};
 function simpleInit(){
+  localizeStatic();
   document.documentElement.lang=S.lang==='th'?'th':'en';
   var option=document.querySelector('#study-language option[value="both"]');if(option)option.textContent='English + Thai on tap';
   document.addEventListener('click',function(event){
