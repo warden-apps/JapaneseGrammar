@@ -65,10 +65,91 @@ function cleanConnection(g){
   conn=connectionPlain(conn,S.lang==='th'?'th':'en');
   return conn.replace(/／/g,' / ').replace(/＋/g,' + ');
 }
+/* Mark the grammar inside an example sentence. Split patterns (たとえ〜ても,
+   〜ば〜ほど) match part by part, in order. The last part may be inflected
+   (ところです, てしまいました, 決して…ません), the first may be voiced
+   (読んでも), and common kana parts may be written in kanji (込めて, 言えば). */
+var GRAMMAR_KANJI=[['こめ','込め'],['こむ','込む'],['ぬき','抜き'],['ぬく','抜く'],['あう','合う'],['あげ','上げ'],['つづけ','続け'],['おわ','終わ'],['かぎり','限り'],['いえば','言えば'],['いうと','言うと'],['いって','言って'],['ちがい','違い'],['違い','ちがい'],['過ぎ','すぎ'],['はじめ','始め']];
+var GRAMMAR_A_TO_I={'か':'き','が':'ぎ','さ':'し','た':'ち','な':'に','ば':'び','ま':'み','ら':'り','わ':'い'};
+var GRAMMAR_ONBIN={'う':['い','っ'],'く':['き','い'],'ぐ':['ぎ','い'],'す':['し'],'つ':['ち','っ'],'ぬ':['に','ん'],'ぶ':['び','ん'],'む':['み','ん'],'る':['り','っ']};
+var KANJI_CHAR=/[一-鿿]/;
+function grammarInflections(seg){
+  var out=[seg];
+  function add(s){if(s&&(s.length>=2||KANJI_CHAR.test(s)||seg.length<=2)&&out.indexOf(s)<0)out.push(s);}
+  GRAMMAR_KANJI.forEach(function(pair){if(seg.indexOf(pair[0])>-1)add(seg.replace(pair[0],pair[1]));});
+  out.slice().forEach(function(s){
+    var at=s.indexOf('です');if(at>1)add(s.slice(0,at));
+    if(/ではない/.test(s)){add(s.replace('ではない','ではありません'));add(s.replace('ではない','じゃない'));}
+    if(/ない$/.test(s)){
+      var base=s.slice(0,-2),last=base.slice(-1);
+      add(base);add(base+'なかっ');add(base+'ず');
+      add((GRAMMAR_A_TO_I[last]?base.slice(0,-1)+GRAMMAR_A_TO_I[last]:base)+'ません');
+    }
+    if(/いい$/.test(s))add(s.slice(0,-2));
+    if(/だ$/.test(s))add(s.slice(0,-1));
+    if(/ている$/.test(s))add(s.slice(0,-2));
+    if(/する$/.test(s)){add(s.slice(0,-2)+'し');add(s.slice(0,-2)+'す');add(s.slice(0,-2)+'さ');}
+    if(/くる$/.test(s)){add(s.slice(0,-2)+'き');add(s.slice(0,-2)+'こ');}
+    var end=s.slice(-1);
+    if(GRAMMAR_ONBIN[end]&&s.length>1){add(s.slice(0,-1));GRAMMAR_ONBIN[end].forEach(function(k){add(s.slice(0,-1)+k);});}
+    if(/い$/.test(s))add(s.slice(0,-1));
+    if(/て$/.test(s)&&s.length>=3)add(s.slice(0,-1));
+    if(/に$/.test(s)&&s.length>=4)add(s.slice(0,-1));
+  });
+  return out;
+}
+function grammarCandidates(p){
+  var alts=[],out=[],seen={};
+  String(p).split(/\s*[／\/]\s*/).forEach(function(part){
+    alts.push(part.replace(/[（(][^）)]*[）)]/g,''));
+    alts.push(part.replace(/[（(]([ぁ-ん]{1,4})[）)]/g,'$1').replace(/[（(][^）)]*[）)]/g,''));
+    (part.match(/[（(][^）)]*〜[^）)]*[）)]/g)||[]).forEach(function(inner){alts.push(inner.slice(1,-1));});
+  });
+  function push(segs){var key=segs.join('〜');if(segs.length&&!seen[key]){seen[key]=1;out.push(segs);}}
+  alts.forEach(function(alt){
+    var segs=alt.replace(/^[\s〜]+/,'').split('〜').map(function(s){return s.trim();}).filter(Boolean);
+    if(!segs.length)return;
+    var head=segs[0].charAt(0),rest=segs[0].slice(1),firsts=[segs[0]],voice={'て':'で','た':'だ'};
+    if(voice[head])firsts.push(voice[head]+rest);
+    if(head==='と'&&segs[0].length>=3)firsts.push('ど'+rest);
+    if(/^[てた]/.test(segs[0])&&segs[0].length>=3)firsts.push(rest);
+    if(/^[をにの]/.test(segs[0])&&segs[0].length>=4)firsts.push(rest);
+    firsts.forEach(function(first){
+      var mid=[first].concat(segs.slice(1,-1));
+      if(segs.length===1)grammarInflections(first).forEach(function(f){push([f]);});
+      else grammarInflections(segs[segs.length-1]).forEach(function(last){push(mid.concat([last]));});
+    });
+  });
+  return out;
+}
+function grammarMatch(text,p){
+  var best=null,core=Math.max.apply(null,String(p).split(/\s*[／\/]\s*/).map(function(alt){return alt.replace(/[（(][^）)]*[）)]/g,'').replace(/[〜\s]/g,'').length;}));
+  grammarCandidates(p).forEach(function(segs){
+    /* Try each start of the first part and keep the tightest complete match:
+       in お名前をお書きください the お of お書き belongs to the pattern. */
+    for(var start=text.indexOf(segs[0]);start>-1;start=text.indexOf(segs[0],start+1)){
+      var spans=[[start,start+segs[0].length]],len=segs[0].length,at=spans[0][1],ok=true;
+      for(var i=1;i<segs.length&&ok;i++){
+        var found=text.indexOf(segs[i],at);
+        if(found<0){ok=false;break;}
+        spans.push([found,found+segs[i].length]);len+=segs[i].length;at=found+segs[i].length;
+      }
+      if(!ok)break;
+      if(len<2&&core>1&&!KANJI_CHAR.test(text.slice(start,start+len)))return;
+      var width=at-start;
+      if(!best||len>best.len||(len===best.len&&width<best.width))best={len:len,width:width,spans:spans};
+      if(segs.length===1)break;
+    }
+  });
+  return best?best.spans:[];
+}
+function markGrammar(text,p){
+  var h='',at=0;
+  (p?grammarMatch(text,p):[]).forEach(function(span){h+=esc(text.slice(at,span[0]))+'<mark>'+esc(text.slice(span[0],span[1]))+'</mark>';at=span[1];});
+  return h+esc(text.slice(at));
+}
 function exampleCard(e,g,extras){
-  var sentence=esc(e.j), parts=forms(g.p);
-  var target=parts.find(function(p){return e.j.indexOf(p)>=0;});
-  if(target) sentence=sentence.replace(esc(target),'<mark>'+esc(target)+'</mark>');
+  var sentence=markGrammar(e.j,g.p);
   var h='<div class="simple-example"><div lang="ja" class="example-jp">'+sentence+'</div><p>'+tx(e.e,e.t)+'</p>';
   if(extras!==false) h+='<details class="optional-detail example-extras"><summary>'+tx(S.lang==='both'?'Reading & Thai':'Reading','คำอ่าน')+'</summary><p lang="ja">'+esc(e.k||'')+'</p>'+(S.lang==='both'?'<p lang="th">'+esc(e.t)+'</p>':'')+'</details>';
   return h+'</div>';

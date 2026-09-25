@@ -103,3 +103,19 @@ test('authored daily answers record training evidence once even when a saved ans
   app.run('renderToday();');
   assert.equal(app.run('S.mastery.items[exerciseId].attempts'), 1);
 });
+
+test('example sentences highlight their grammar, including split and inflected patterns', () => {
+  const app = loadApp();
+  const marked = (text, pattern) => app.run(`markGrammar(${JSON.stringify(text)}, ${JSON.stringify(pattern)})`);
+  assert.equal(marked('たとえ雨が降っても、行きます。', 'たとえ〜ても'), '<mark>たとえ</mark>雨が降っ<mark>ても</mark>、行きます。');
+  assert.equal(marked('今から出かけるところです。', '〜ところだ'), '今から出かける<mark>ところ</mark>です。');
+  assert.equal(marked('この約束は決して忘れません。', '決して〜ない'), 'この約束は<mark>決して</mark>忘れ<mark>ません</mark>。');
+  assert.equal(marked('本を読んでから寝る。', '〜てから'), '本を読ん<mark>でから</mark>寝る。');
+  assert.equal(marked('こちらにお名前をお書きください。', 'お〜願う / お〜ください'), 'こちらにお名前を<mark>お</mark>書き<mark>ください</mark>。', 'the tightest match wins');
+  assert.equal(marked('感謝を込めて書きます。', '〜をこめて'), '感謝<mark>を込めて</mark>書きます。', 'kana patterns match kanji spellings');
+  assert.equal(marked('A&B<C>', '〜ところだ'), 'A&amp;B&lt;C&gt;', 'text without a match is still escaped');
+  const coverage = app.snapshot(`(() => { let all = 0, hit = 0;
+    GRAMMAR.forEach(g => g.ex.forEach(e => { all++; if (grammarMatch(e.j, g.p).length) hit++; }));
+    return {all, hit}; })()`);
+  assert.ok(coverage.hit / coverage.all > 0.95, `only ${coverage.hit}/${coverage.all} examples highlight their grammar`);
+});
