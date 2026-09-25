@@ -257,4 +257,16 @@ test('an unanswered quiz cached by the old app is replaced without erasing its q
   assert.ok(app.run(`!S.q.gen[0].opts.some(o => o.t === 'legacy synonym')`));
   assert.equal(app.run('S.q.asked'), 0);
 });
+
+test('the review forecast counts study days, not calendar days', () => {
+  const app = loadApp();
+  app.reset({lv: 'all', dayStart: 4});
+  app.setTime('2026-09-20T02:00:00');
+  assert.equal(app.run('today()'), '2026-09-19', 'before 4am it is still the previous study day');
+  const id = app.run('GRAMMAR[0].id');
+  app.run(`S.box.${id}=2; S.last.${id}='2026-09-19'; S.q=null; drawRecord();`);
+  const bars = [...app.node('fc').innerHTML.matchAll(/<b>(\d+)<\/b>/g)].map(m => +m[1]);
+  assert.equal(bars[1], 1, 'a one-day card is due on the next study day (+1)');
+  assert.equal(bars.slice(2).reduce((a, b) => a + b, 0), 0, 'and on no later day');
+});
 }
