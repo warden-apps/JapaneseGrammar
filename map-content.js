@@ -244,7 +244,7 @@ var GRAMMAR_MAP = [
       ids:['n3b19','n3b20','n3b21','n3b22']},
     {id:'others', en:'What others feel or want', th:'ความรู้สึกของคนอื่น',
       ids:['n3c10','n3c28']},
-    {id:'keigo', en:'Polite language (keigo)', th:'ภาษาสุภาพ (เคโงะ)',
+    {id:'keigo', en:'Polite language (keigo)', th:'ภาษาสุภาพ (เคโกะ)',
       ids:['n3e01','n3e02','n3e03','n2e01','n3g02','n2f20']},
     {id:'orders', en:'Orders', th:'คำสั่ง',
       ids:['n3g03','b410','b306']}
