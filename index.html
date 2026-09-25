@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="mastery.css">
 <link rel="stylesheet" href="simple.css">
 <link rel="stylesheet" href="jlpt.css">
+<link rel="stylesheet" href="map.css">
 <style>
 :root{
   --paper:#f7f0df; --paper2:#f0e7d2; --paper3:#e7dcc2; --card:#fffcf4;
@@ -422,7 +423,7 @@ nav .badge.on{display:block}
   <section class="pane" id="p-prac"><div id="prac"></div></section>
 
   <section class="pane" id="p-list">
-    <div class="library-heading"><h1>Grammar library</h1><p>Look up a pattern or compare similar meanings.</p></div>
+    <div class="library-heading"><h1>Grammar library</h1><p>See how the grammar fits together, or look up a pattern.</p></div>
     <div class="library-links"><button data-view="groups">Compare similar grammar →</button><details><summary>More reference tools</summary><button data-view="forms">Word-form guide</button><button data-view="coverage">Book checklist & sources</button></details></div>
     <div class="tools">
       <label class="search">
@@ -431,14 +432,21 @@ nav .badge.on{display:block}
       </label>
       <button class="langtog" id="langtog">EN+TH</button>
     </div>
-    <div class="filters" id="filters">
-      <button data-f="all" class="on">All</button>
-      <button data-f="weak">Revisit</button>
-      <button data-f="learn">Learning</button>
-      <button data-f="done">Level 5</button>
-      <button data-f="new">New</button>
+    <div class="lib-switch" id="lib-switch" role="group" aria-label="Library view">
+      <button data-lib="map" class="on" aria-pressed="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M5.6 6.3l4 3.4M18.4 6.3l-4 3.4M5.6 17.7l4-3.4M18.4 17.7l-4-3.4"/></svg>Map <small>แผนผัง</small></button>
+      <button data-lib="list" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/></svg>List <small>รายการ</small></button>
     </div>
-    <div id="list"></div>
+    <div id="gmap"></div>
+    <div id="lib-list" hidden>
+      <div class="filters" id="filters">
+        <button data-f="all" class="on">All</button>
+        <button data-f="weak">Revisit</button>
+        <button data-f="learn">Learning</button>
+        <button data-f="done">Level 5</button>
+        <button data-f="new">New</button>
+      </div>
+      <div id="list"></div>
+    </div>
   </section>
 
   <section class="pane" id="p-rec">
@@ -4510,6 +4518,7 @@ tr_en:"The number of foreigners living in Japan is steadily increasing. Despite 
 <script src="n2-exam-lessons.js"></script>
 <script src="jlpt-official.js"></script>
 <script src="jlpt-n2-practice.js"></script>
+<script src="map-content.js"></script>
 <script>
 GRAMMAR.forEach(function(g){var s=SHORT[g.id]||[g.se||g.en,g.st||g.th]; g.se=s[0]; g.st=s[1];});
 var SIDX={};
@@ -5702,8 +5711,9 @@ document.getElementById('reset').addEventListener('click',function(){
 <script src="mastery.js"></script>
 <script src="simple.js"></script>
 <script src="jlpt.js"></script>
+<script src="map.js"></script>
 <script>
-applyTheme(); buildToday(); drawList(); renderToday(); drawRecord(); masteryInit(); simpleInit(); drillInit();
+applyTheme(); buildToday(); drawList(); renderToday(); drawRecord(); masteryInit(); simpleInit(); drillInit(); mapInit();
 
 /* Offline. Only over http(s) — opening the file straight off disk has no
    origin to register against, and the failure is noisy for no reason. */
