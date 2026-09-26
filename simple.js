@@ -65,31 +65,124 @@ function cleanConnection(g){
   conn=connectionPlain(conn,S.lang==='th'?'th':'en');
   return conn.replace(/／/g,' / ').replace(/＋/g,' + ');
 }
+/* Mark the grammar inside an example sentence. Split patterns (たとえ〜ても,
+   〜ば〜ほど) match part by part, in order. The last part may be inflected
+   (ところです, てしまいました, 決して…ません), the first may be voiced
+   (読んでも), and common kana parts may be written in kanji (込めて, 言えば). */
+var GRAMMAR_KANJI=[['こめ','込め'],['こむ','込む'],['ぬき','抜き'],['ぬく','抜く'],['あう','合う'],['あげ','上げ'],['つづけ','続け'],['おわ','終わ'],['かぎり','限り'],['いえば','言えば'],['いうと','言うと'],['いって','言って'],['ちがい','違い'],['違い','ちがい'],['過ぎ','すぎ'],['はじめ','始め']];
+var GRAMMAR_A_TO_I={'か':'き','が':'ぎ','さ':'し','た':'ち','な':'に','ば':'び','ま':'み','ら':'り','わ':'い'};
+var GRAMMAR_ONBIN={'う':['い','っ'],'く':['き','い'],'ぐ':['ぎ','い'],'す':['し'],'つ':['ち','っ'],'ぬ':['に','ん'],'ぶ':['び','ん'],'む':['み','ん'],'る':['り','っ']};
+var KANJI_CHAR=/[一-鿿]/;
+function grammarInflections(seg){
+  var out=[seg];
+  function add(s){if(s&&(s.length>=2||KANJI_CHAR.test(s)||seg.length<=2)&&out.indexOf(s)<0)out.push(s);}
+  GRAMMAR_KANJI.forEach(function(pair){if(seg.indexOf(pair[0])>-1)add(seg.replace(pair[0],pair[1]));});
+  out.slice().forEach(function(s){
+    var at=s.indexOf('です');if(at>1)add(s.slice(0,at));
+    if(/ではない/.test(s)){add(s.replace('ではない','ではありません'));add(s.replace('ではない','じゃない'));}
+    if(/ない$/.test(s)){
+      var base=s.slice(0,-2),last=base.slice(-1);
+      add(base);add(base+'なかっ');add(base+'ず');
+      add((GRAMMAR_A_TO_I[last]?base.slice(0,-1)+GRAMMAR_A_TO_I[last]:base)+'ません');
+    }
+    if(/いい$/.test(s))add(s.slice(0,-2));
+    if(/だ$/.test(s))add(s.slice(0,-1));
+    if(/ている$/.test(s))add(s.slice(0,-2));
+    if(/する$/.test(s)){add(s.slice(0,-2)+'し');add(s.slice(0,-2)+'す');add(s.slice(0,-2)+'さ');}
+    if(/くる$/.test(s)){add(s.slice(0,-2)+'き');add(s.slice(0,-2)+'こ');}
+    var end=s.slice(-1);
+    if(GRAMMAR_ONBIN[end]&&s.length>1){add(s.slice(0,-1));GRAMMAR_ONBIN[end].forEach(function(k){add(s.slice(0,-1)+k);});}
+    if(/い$/.test(s))add(s.slice(0,-1));
+    if(/て$/.test(s)&&s.length>=3)add(s.slice(0,-1));
+    if(/に$/.test(s)&&s.length>=4)add(s.slice(0,-1));
+  });
+  return out;
+}
+function grammarCandidates(p){
+  var alts=[],out=[],seen={};
+  String(p).split(/\s*[／\/]\s*/).forEach(function(part){
+    alts.push(part.replace(/[（(][^）)]*[）)]/g,''));
+    alts.push(part.replace(/[（(]([ぁ-ん]{1,4})[）)]/g,'$1').replace(/[（(][^）)]*[）)]/g,''));
+    (part.match(/[（(][^）)]*〜[^）)]*[）)]/g)||[]).forEach(function(inner){alts.push(inner.slice(1,-1));});
+  });
+  function push(segs){var key=segs.join('〜');if(segs.length&&!seen[key]){seen[key]=1;out.push(segs);}}
+  alts.forEach(function(alt){
+    var segs=alt.replace(/^[\s〜]+/,'').split('〜').map(function(s){return s.trim();}).filter(Boolean);
+    if(!segs.length)return;
+    var head=segs[0].charAt(0),rest=segs[0].slice(1),firsts=[segs[0]],voice={'て':'で','た':'だ'};
+    if(voice[head])firsts.push(voice[head]+rest);
+    if(head==='と'&&segs[0].length>=3)firsts.push('ど'+rest);
+    if(/^[てた]/.test(segs[0])&&segs[0].length>=3)firsts.push(rest);
+    if(/^[をにの]/.test(segs[0])&&segs[0].length>=4)firsts.push(rest);
+    firsts.forEach(function(first){
+      var mid=[first].concat(segs.slice(1,-1));
+      if(segs.length===1)grammarInflections(first).forEach(function(f){push([f]);});
+      else grammarInflections(segs[segs.length-1]).forEach(function(last){push(mid.concat([last]));});
+    });
+  });
+  return out;
+}
+function grammarMatch(text,p){
+  var best=null,core=Math.max.apply(null,String(p).split(/\s*[／\/]\s*/).map(function(alt){return alt.replace(/[（(][^）)]*[）)]/g,'').replace(/[〜\s]/g,'').length;}));
+  grammarCandidates(p).forEach(function(segs){
+    /* Try each start of the first part and keep the tightest complete match:
+       in お名前をお書きください the お of お書き belongs to the pattern. */
+    for(var start=text.indexOf(segs[0]);start>-1;start=text.indexOf(segs[0],start+1)){
+      var spans=[[start,start+segs[0].length]],len=segs[0].length,at=spans[0][1],ok=true;
+      for(var i=1;i<segs.length&&ok;i++){
+        var found=text.indexOf(segs[i],at);
+        if(found<0){ok=false;break;}
+        spans.push([found,found+segs[i].length]);len+=segs[i].length;at=found+segs[i].length;
+      }
+      if(!ok)break;
+      if(len<2&&core>1&&!KANJI_CHAR.test(text.slice(start,start+len)))return;
+      var width=at-start;
+      if(!best||len>best.len||(len===best.len&&width<best.width))best={len:len,width:width,spans:spans};
+      if(segs.length===1)break;
+    }
+  });
+  return best?best.spans:[];
+}
+function markGrammar(text,p){
+  var h='',at=0;
+  (p?grammarMatch(text,p):[]).forEach(function(span){h+=esc(text.slice(at,span[0]))+'<mark>'+esc(text.slice(span[0],span[1]))+'</mark>';at=span[1];});
+  return h+esc(text.slice(at));
+}
 function exampleCard(e,g,extras){
-  var sentence=esc(e.j), parts=forms(g.p);
-  var target=parts.find(function(p){return e.j.indexOf(p)>=0;});
-  if(target) sentence=sentence.replace(esc(target),'<mark>'+esc(target)+'</mark>');
+  var sentence=markGrammar(e.j,g.p);
   var h='<div class="simple-example"><div lang="ja" class="example-jp">'+sentence+'</div><p>'+tx(e.e,e.t)+'</p>';
   if(extras!==false) h+='<details class="optional-detail example-extras"><summary>'+tx(S.lang==='both'?'Reading & Thai':'Reading','คำอ่าน')+'</summary><p lang="ja">'+esc(e.k||'')+'</p>'+(S.lang==='both'?'<p lang="th">'+esc(e.t)+'</p>':'')+'</details>';
   return h+'</div>';
 }
+/* Two memory aids from the lesson data: a picture of how the pattern is
+   built, and the same idea in easier Japanese. */
+function lessonHooks(g){
+  var h='';
+  if(g.lit_en)h+='<div class="lesson-hook hook-picture"><b>'+tx('Remember it','จำง่าย ๆ')+'</b><p>'+tx(g.lit_en,g.lit_th)+'</p></div>';
+  if(g.like)h+='<div class="lesson-hook hook-like"><b>'+tx('In easier Japanese','พูดง่าย ๆ ว่า')+'</b><p><span class="like-jp" lang="ja">≈ '+esc(g.like)+'</span><span class="like-note">'+tx(g.like_en,g.like_th)+'</span></p></div>';
+  return h?'<div class="lesson-hooks">'+h+'</div>':'';
+}
 function lessonCard(g,options){
   options=options||{};var guide=lessonGuide(g), e=guide?guide.example:g.ex[0];
   var h='<article class="lesson-card" data-lesson="'+g.id+'"><header class="lesson-title"><span class="tag '+g.lv+'">'+g.lv+'</span><h1 lang="ja">'+esc(g.p)+'</h1></header>';
-  h+='<section class="lesson-meaning"><h2>'+tx('01 · Meaning','01 · ความหมาย')+'</h2><p class="meaning-line">'+tx(guide?guide.meaning_en:g.se,guide?guide.meaning_th:g.st)+'</p>';
-  if(guide)h+='<p class="use-cue">'+tx(guide.cue_en,guide.cue_th)+'</p>';
-  h+='</section><section class="lesson-forms"><h2>'+tx('02 · Build it','02 · วิธีเชื่อม')+'</h2>';
+  h+='<section class="lesson-meaning"><h2>'+tx('Meaning','ความหมาย')+'</h2><p class="meaning-line">'+tx(guide?guide.meaning_en:g.se,guide?guide.meaning_th:g.st)+'</p>';
+  h+='<p class="use-cue">'+(guide?tx(guide.cue_en,guide.cue_th):tx(g.en,g.th))+'</p>'+lessonHooks(g)+'</section>';
+  h+='<section class="lesson-forms"><h2>'+tx('Build it','วิธีเชื่อม')+'</h2>';
   if(guide){h+='<div class="form-rows">';guide.forms.forEach(function(row){h+='<div class="form-row"><div class="form-code" lang="ja">'+esc(row.form)+'</div><div class="form-meaning">'+tx(row.en,row.th)+'</div>'+(row.example?'<div class="form-model" lang="ja">'+esc(row.example)+'</div>':'')+'</div>';});h+='</div>';}
   else h+='<div class="form-rows"><div class="form-row fallback-rule"><div class="form-code">'+esc(cleanConnection(g))+'</div></div></div>';
-  h+='</section><section class="lesson-example"><h2>'+tx('03 · One example','03 · ตัวอย่างหนึ่งประโยค')+'</h2>'+exampleCard(e,g)+'</section>';
+  h+='</section><section class="lesson-example"><h2>'+tx('Example','ตัวอย่าง')+'</h2>'+exampleCard(e,g)+'</section>';
   if(guide&&guide.compare&&guide.compare.length){
-    h+=options.compact?'<details class="optional-detail lesson-contrast"><summary>'+tx('04 · Compare similar grammar','04 · เทียบกับไวยากรณ์ที่คล้ายกัน')+'</summary>':'<section class="lesson-contrast"><h2>'+tx('04 · Tell it apart','04 · แยกให้ออก')+'</h2>';
+    h+=options.compact?'<details class="optional-detail lesson-contrast"><summary>'+tx('Compare similar grammar','เทียบกับไวยากรณ์ที่คล้ายกัน')+'</summary>':'<section class="lesson-contrast"><h2>'+tx('Tell it apart','แยกให้ออก')+'</h2>';
     guide.compare.forEach(function(other){var target=byId(other.id);if(target)h+='<div class="distinction-row"><button data-detail="'+other.id+'" lang="ja">'+esc(target.p)+'</button><p>'+tx(other.en,other.th)+'</p></div>';});h+=options.compact?'</details>':'</section>';
   }
-  if(guide&&guide.watch_en&&!options.compact)h+='<p class="watch-line"><b>'+tx('Remember: ','จำไว้: ')+'</b>'+tx(guide.watch_en,guide.watch_th)+'</p>';
-  h+='<details class="optional-detail lesson-more"><summary>'+tx('More details & examples','รายละเอียดและตัวอย่างเพิ่มเติม')+'</summary><div class="extra-notes"><h3>'+tx('Meaning & usage','ความหมายและวิธีใช้')+'</h3><p>'+tx(g.en,g.th)+'</p><p>'+tx(g.note_en,g.note_th)+'</p><h3>'+tx('Full connection reference','วิธีเชื่อมฉบับเต็ม')+'</h3><p>'+esc(g.conn)+'</p>';
-  if(S.lang==='both')h+='<details><summary>Thai explanation · คำอธิบายภาษาไทย</summary><p lang="th">'+esc(g.th)+'</p><p lang="th">'+esc(g.note_th)+'</p></details>';
-  g.ex.slice(1).forEach(function(ex){h+=exampleCard(ex,g);});
+  /* The traps: the guide's own warning when there is one, otherwise the usage notes. */
+  var watchEn=guide&&guide.watch_en?guide.watch_en:g.note_en,watchTh=guide&&guide.watch_en?guide.watch_th:g.note_th;
+  if(watchEn)h+='<p class="watch-line"><b>'+tx('Watch out: ','ระวัง: ')+'</b>'+tx(watchEn,watchTh)+'</p>';
+  h+='<details class="optional-detail lesson-more"><summary>'+tx('More examples & the full rule','ตัวอย่างเพิ่มเติมและกฎฉบับเต็ม')+'</summary><div class="extra-notes">';
+  if(g.ex.length>1){h+='<h3>'+tx('More examples','ตัวอย่างเพิ่มเติม')+'</h3>';g.ex.forEach(function(ex){if(ex!==e)h+=exampleCard(ex,g);});}
+  if(guide)h+='<h3>'+tx('Meaning & usage','ความหมายและวิธีใช้')+'</h3><p>'+tx(g.en,g.th)+'</p><p>'+tx(g.note_en,g.note_th)+'</p>';
+  h+='<h3>'+tx('Full connection rule','วิธีเชื่อมฉบับเต็ม')+'</h3><p lang="ja">'+esc(g.conn)+'</p>';
+  if(S.lang==='both')h+='<details><summary>Thai explanation · คำอธิบายภาษาไทย</summary><p lang="th">'+esc(g.th)+'</p><p lang="th">'+esc(g.note_th)+'</p>'+(g.lit_th?'<p lang="th">'+esc(g.lit_th)+'</p>':'')+'</details>';
   h+='</div></details></article>';return h;
 }
 miniConnection=function(g){
@@ -205,7 +298,25 @@ function practiceOnePattern(id){
   else if(future>S.q.i){var card=S.q.q.splice(future,1)[0];S.q.q.splice(S.q.i,0,card);['gen','ans','rate','reveals'].forEach(function(k){var map=S.q[k]||{};Object.keys(map).forEach(function(n){if(+n>=S.q.i)delete map[n];});});}
   S.q.fin=false;S.q.started=false;startStudy();
 }
+/* Static labels in index.html carry data-th (and data-en when the original is
+   bilingual). English shows data-en or the original; "both" keeps the original. */
+function localizeStatic(){
+  document.querySelectorAll('[data-th]').forEach(function(el){
+    if(el.getAttribute('data-both')===null)el.setAttribute('data-both',el.innerHTML);
+    var en=el.getAttribute('data-en');
+    if(S.lang==='th')el.textContent=el.getAttribute('data-th');
+    else if(S.lang==='en'&&en!==null)el.textContent=en;
+    else el.innerHTML=el.getAttribute('data-both');
+  });
+  document.querySelectorAll('[data-th-placeholder]').forEach(function(el){
+    if(el.getAttribute('data-both-placeholder')===null)el.setAttribute('data-both-placeholder',el.getAttribute('placeholder')||'');
+    el.setAttribute('placeholder',S.lang==='th'?el.getAttribute('data-th-placeholder'):el.getAttribute('data-both-placeholder'));
+  });
+}
+var languageWithoutStatic=updateStudyLanguage;
+updateStudyLanguage=function(){languageWithoutStatic();localizeStatic();};
 function simpleInit(){
+  localizeStatic();
   document.documentElement.lang=S.lang==='th'?'th':'en';
   var option=document.querySelector('#study-language option[value="both"]');if(option)option.textContent='English + Thai on tap';
   document.addEventListener('click',function(event){

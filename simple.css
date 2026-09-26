@@ -92,3 +92,32 @@ mark{background:transparent;color:var(--kin);font-weight:600;border-bottom:2px s
 .help-choices{display:flex;flex-wrap:wrap;gap:18px}
 #langtog{display:none}
 @media(max-width:520px){.lesson-card{padding:18px 16px}.lesson-title h1{font-size:24px}.form-row{grid-template-columns:1fr;padding:12px}.form-code{font-size:16px}.form-model{font-size:12px;margin-top:3px}.meaning-line{font-size:18px}.comparison-header{display:none}.comparison-line{grid-template-columns:1fr;gap:6px;padding:16px 18px 8px}.comparison-pattern{font-size:20px}.comparison-meaning{font-size:16px;font-weight:500}.comparison-use{font-size:13px}.comparison-entry>.optional-detail{margin:0 18px 14px}.distinction-row{grid-template-columns:1fr;gap:4px;margin-top:16px}.meaning-index-row{grid-template-columns:1fr;gap:6px}.study-home{padding-top:24px}.study-home h1{font-size:32px}.study-toolbar>span{display:none}.study-toolbar{justify-content:flex-end}.library-links{flex-wrap:wrap}.library-links details{text-align:left}.library-links details button{margin-left:0}.example-jp{font-size:19px}}
+.question-translation{font-size:15px;line-height:1.7;color:var(--ink2);margin:-6px 0 18px}
+.practice-target{font:500 22px/1.5 var(--jp-sans);margin:10px 0 0;color:var(--kin)}
+.practice-opt.meaning-opt{font-family:var(--ui);font-size:16px;line-height:1.55}
+.practice-opt.pick-opt{font-family:var(--jp-sans);font-size:18px}
+.practice-opt:disabled{cursor:default}
+.lesson-hooks{display:grid;gap:10px;margin-top:16px}
+.lesson-hook{padding:12px 14px;border-radius:12px;background:var(--paper2);border:1px solid var(--line)}
+.lesson-hook b{display:block;font:600 11px var(--ui);letter-spacing:.06em;color:var(--ink2);margin-bottom:5px}
+.lesson-hook p{margin:0;font-size:14px;line-height:1.7;color:var(--ink)}
+.hook-picture{border-left:3px solid var(--ai)}
+.hook-like{border-left:3px solid var(--kin-soft)}
+.like-jp{font:500 17px/1.6 var(--jp-sans);margin-right:10px;color:var(--ink)}
+.like-note{font-size:13px;color:var(--ink2)}
+.simple-feedback .lesson-hooks{margin-top:14px}
+.exam-plan{margin:24px 0 12px;padding:22px 24px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.exam-plan.is-behind{border-left:3px solid var(--kin)}
+.plan-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.plan-head b{display:block;font:500 20px/1.3 var(--lat);color:var(--ink)}
+.plan-head span{display:block;font-size:13px;color:var(--ink2);margin-top:4px}
+.plan-days{text-align:right;flex:none}
+.plan-days b{font:400 34px/1 var(--lat)}
+.plan-bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:18px 0 8px}
+.plan-bar i{display:block;height:100%;background:var(--green)}
+.plan-count{font-size:12px;color:var(--ink2);margin:0 0 12px}
+.exam-plan>p{font-size:14px;line-height:1.7;color:var(--ink);margin:10px 0}
+.exam-plan>.gentle{font-size:12px;color:var(--ink2)}
+.exam-plan .plan-pace{margin-top:12px;letter-spacing:0;font-size:15px}
+.date-input{padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font:14px var(--ui)}
+@media(max-width:520px){.exam-plan{padding:20px 16px}}
