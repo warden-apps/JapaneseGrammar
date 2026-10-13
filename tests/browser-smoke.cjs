@@ -19,10 +19,11 @@ const url = process.env.TEST_URL || 'http://127.0.0.1:8775';
     assert.equal(await page.locator('#training [data-start-study]').count(),0);
     await shot('simple-home-mobile');
     await page.locator('#today [data-start-study]').click();
-    assert.equal(await page.locator('#today .form-row').count(),3);
+    await page.locator('#lesson-next').click();
+    assert.equal(await page.locator('#today .phrase-tab').count(),3);
     assert.equal(await page.locator('#today .lesson-more').getAttribute('open'),null);
     assert.equal(await page.locator('#today .lesson-contrast').getAttribute('open'),null);
-    assert.ok((await page.locator('#today').innerText()).includes('just about to start'));
+    assert.ok((await page.locator('#today').innerText()).includes('just about to have lunch'));
     await shot('simple-lesson-mobile');
     const firstId=await page.evaluate(()=>S.q.q[S.q.i].id);
     await page.locator('#got').click();
@@ -41,6 +42,7 @@ const url = process.env.TEST_URL || 'http://127.0.0.1:8775';
     for(let n=0;n<16;n++){
       if(await page.locator('#today [data-rest-study]').count())break;
       if(await page.locator('#today [data-start-study]').count())break;
+      if(await page.locator('#lesson-next').count()){await page.locator('#lesson-next').click();continue;}
       if(await page.locator('#got').count()){await page.locator('#got').click();continue;}
       if(await page.locator('#recall-reveal').count()){await page.locator('#recall-reveal').click();continue;}
       if(await page.locator('[data-daily-choices]').count()){await page.locator('[data-daily-choices]').click();continue;}
@@ -61,15 +63,15 @@ const url = process.env.TEST_URL || 'http://127.0.0.1:8775';
     await page.locator('#sheet.on').waitFor();
     assert.ok(await page.locator('#sbody .lesson-card').count());
     await page.locator('.d-close-top').click();
-    await page.locator('#study-language').selectOption('th');
+    await page.locator('#study-language [data-study-language="th"]').click();
     assert.ok((await page.locator('#training').innerText()).includes('ต้องขอบคุณ'));
-    await page.locator('#study-language').selectOption('en');
+    await page.locator('#study-language [data-study-language="en"]').click();
     await page.locator('[data-browse-library]').click();
     await page.locator('#p-list .library-links details summary').click();
     await page.locator('#p-list [data-view="coverage"]').click();
     const chapter=page.locator('.coverage-chapter').nth(15);
     await chapter.locator('summary').click();
-    assert.ok((await chapter.innerText()).includes('Because'));
+    assert.ok((await chapter.innerText()).includes('Credit a cause for a welcome result'));
     await chapter.locator('[data-simple-compare="causes"]').click();
     assert.equal(await page.locator('.comparison-entry').count(),6);
     await page.locator('#nav [data-p="p-list"]').click();

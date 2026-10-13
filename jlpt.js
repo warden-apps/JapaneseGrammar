@@ -29,9 +29,9 @@ function drillPool(scope){
   });});
 }
 function drillSourceHTML(q,feedback){
-  if(!q.source)return '<p class="question-source">'+tx('Original practice · '+drillLevel(q),'โจทย์ที่แอปเขียน · '+drillLevel(q))+'</p>';
+  if(!q.source)return '<p class="question-source">'+tx('Original practice · '+drillLevel(q),'โจทย์เขียนใหม่ · '+drillLevel(q))+'</p>';
   var s=JLPT_OFFICIAL_SOURCES[q.source.edition],url=s.url+'#page='+q.source.page;
-  var h='<div class="question-source official-source"><span>'+tx('Official N2 · '+q.source.edition+' workbook · Q'+q.source.number,'ข้อสอบจริง N2 · หนังสือฝึกปี '+q.source.edition+' · ข้อ '+q.source.number)+'</span><a href="'+url+'" target="_blank" rel="noopener noreferrer">'+tx('Source: Official Worldwide Japanese-Language Proficiency Test Website','ที่มา: เว็บไซต์ทางการของการสอบ JLPT')+'</a>';
+  var h='<div class="question-source official-source"><span>'+tx('Official N2 · '+q.source.edition+' workbook · Q'+q.source.number,'N2 ทางการ · หนังสือปี '+q.source.edition+' · ข้อ '+q.source.number)+'</span><a href="'+url+'" target="_blank" rel="noopener noreferrer">'+tx('Source: Official Worldwide Japanese-Language Proficiency Test Website','ที่มา: เว็บไซต์ทางการ Japanese-Language Proficiency Test')+'</a>';
   if(feedback)h+='<p>'+tx('English/Thai explanation and translation by this app. Options may appear in a different order.','คำอธิบายและคำแปลอังกฤษ/ไทยเขียนโดยแอปนี้ ตัวเลือกอาจแสดงต่างลำดับจากต้นฉบับ')+'</p><a href="'+s.answers+'#page=1" target="_blank" rel="noopener noreferrer">'+tx('Official answer key · original option '+(q.answer+1),'เฉลยทางการ · ตัวเลือกเดิมข้อ '+(q.answer+1))+'</a>';
   return h+'</div>';
 }
@@ -39,7 +39,7 @@ function drillType(q){return q.kind==='order'?tx('Sentence order · ★','เร
 function drillLaunchHTML(){
   var d=drillState(),p=drillPool(d.scope),n=p.length,s=d.session,official=p.filter(function(q){return !!q.source;}).length;
   var resume=s&&s.i<s.queue.length&&s.scope===d.scope&&s.lv===S.lv;
-  return '<section class="drill-launch"><div class="simple-kicker">'+tx('TEST YOUR GRAMMAR','ทดสอบไวยากรณ์')+'</div><h2>'+tx('Random JLPT drill','สุ่มโจทย์แนว JLPT')+'</h2><p>'+tx('Sentence gaps, ★ order and passages. Feedback after every answer.','เติมไวยากรณ์ เรียงประโยค ★ และบทความ เฉลยทันทีทุกข้อ')+'</p><label for="drill-scope">'+tx('Target grammar','ไวยากรณ์เป้าหมาย')+'</label><select id="drill-scope"><option value="studied"'+(d.scope==='studied'?' selected':'')+'>'+tx('Grammar I’ve studied','ไวยากรณ์ที่เคยเรียน')+'</option><option value="all"'+(d.scope==='all'?' selected':'')+'>'+tx('All — studied or new','ทั้งหมด ทั้งที่เรียนแล้วและยังไม่เรียน')+'</option></select><p class="drill-pool-note">'+tx(n+' available · '+official+' official + '+(n-official)+' original','มีโจทย์ '+n+' ข้อ · ข้อสอบจริง '+official+' ข้อ + โจทย์ที่แอปเขียน '+(n-official)+' ข้อ')+'</p><button class="go quiet" data-start-drill'+(!n?' disabled':'')+'>'+tx(resume?'Continue random drill':'Start random drill',resume?'ทำโจทย์สุ่มต่อ':'เริ่มสุ่มโจทย์')+' →</button>'+(!n?'<p class="gentle">'+tx('Study a pattern first, or select All.','เรียนไวยากรณ์ก่อน หรือเลือกทั้งหมด')+'</p>':'')+'<details class="optional-detail"><summary>'+tx('About these questions','เกี่ยวกับโจทย์')+'</summary><p>'+tx('Includes 44 N2 questions from the official 2012 and 2018 practice workbooks, which select questions used in real tests. Years refer to publication, not exam dates. Each question labels its source.','มี N2 ทางการ 44 ข้อจากหนังสือฝึกปี 2012 และ 2018 ซึ่งคัดเลือกโจทย์ที่เคยออกสอบจริง ปีคือปีพิมพ์ ไม่ใช่ปีสอบ แต่ละข้อระบุที่มา')+'</p><p>'+tx('Up to 10 questions per round, favoring less-practised items. This is a grammar drill, not a complete JLPT mock or scaled score. All tested targets must be encountered for Studied scope; distractors can be unfamiliar. The bank does not cover every lesson.','รอบละไม่เกิน 10 ข้อ เน้นข้อที่ฝึกน้อย เป็นการฝึกไวยากรณ์ ไม่ใช่ข้อสอบ JLPT เต็มชุดหรือคะแนนปรับมาตรฐาน โหมดเคยเรียนกำหนดว่าต้องเคยพบทุกไวยากรณ์เป้าหมาย ตัวลวงอาจยังไม่เคยเรียน คลังโจทย์ยังไม่ครอบคลุมทุกบท')+'</p><a href="https://www.jlpt.jp/e/samples/sampleindex.html" target="_blank" rel="noopener noreferrer">'+tx('Official workbooks','หนังสือฝึกทางการ')+'</a> · <a href="https://www.jlpt.jp/e/policy.html" target="_blank" rel="noopener noreferrer">'+tx('Source and reuse terms','ที่มาและข้อกำหนดการใช้')+'</a></details></section>';
+  return '<section class="drill-launch"><div class="simple-kicker">'+tx('TEST YOUR GRAMMAR','ทดสอบไวยากรณ์')+'</div><h2>'+tx('Random JLPT drill','สุ่มโจทย์แนว JLPT')+'</h2><p>'+tx('Sentence gaps, ★ order and passages. Feedback after every answer.','เติมไวยากรณ์ เรียงประโยค ★ และบทความ เฉลยทันทีทุกข้อ')+'</p><label for="drill-scope">'+tx('Target grammar','ไวยากรณ์เป้าหมาย')+'</label><select id="drill-scope"><option value="studied"'+(d.scope==='studied'?' selected':'')+'>'+tx('Encountered in Study','เคยพบใน Study')+'</option><option value="all"'+(d.scope==='all'?' selected':'')+'>'+tx('All — studied or new','ทั้งหมด — เคยเรียนหรือยังไม่เคย')+'</option></select><p class="drill-pool-note">'+n+' '+tx('available · '+official+' official + '+(n-official)+' original','ข้อที่ใช้ได้ · ทางการ '+official+' + เขียนใหม่ '+(n-official))+'</p><button class="go quiet" data-start-drill'+(!n?' disabled':'')+'>'+tx(resume?'Continue random drill':'Start random drill',resume?'ทำโจทย์สุ่มต่อ':'เริ่มสุ่มโจทย์')+' →</button>'+(!n?'<p class="gentle">'+tx('Study a pattern first, or select All.','เรียนไวยากรณ์ก่อน หรือเลือกทั้งหมด')+'</p>':'')+'<details class="optional-detail"><summary>'+tx('About these questions','เกี่ยวกับโจทย์')+'</summary><p>'+tx('Includes 44 N2 questions from the official 2012 and 2018 practice workbooks, which select questions used in real tests. Years refer to publication, not exam dates. Each question labels its source.','มี N2 ทางการ 44 ข้อจากหนังสือฝึกปี 2012 และ 2018 ซึ่งคัดเลือกโจทย์ที่เคยออกสอบจริง ปีคือปีพิมพ์ ไม่ใช่ปีสอบ แต่ละข้อระบุที่มา')+'</p><p>'+tx('Up to 10 questions per round, favoring less-practised items. This is a grammar drill, not a complete JLPT mock or scaled score. All tested targets must be encountered for Studied scope; distractors can be unfamiliar. The bank does not cover every lesson.','รอบละไม่เกิน 10 ข้อ เน้นข้อที่ฝึกน้อย เป็นการฝึกไวยากรณ์ ไม่ใช่ข้อสอบ JLPT เต็มชุดหรือคะแนนปรับมาตรฐาน โหมดเคยเรียนกำหนดว่าต้องเคยพบทุกไวยากรณ์เป้าหมาย ตัวลวงอาจยังไม่เคยเรียน คลังโจทย์ยังไม่ครอบคลุมทุกบท')+'</p><a href="https://www.jlpt.jp/e/samples/sampleindex.html" target="_blank" rel="noopener noreferrer">'+tx('Official workbooks','หนังสือฝึกทางการ')+'</a> · <a href="https://www.jlpt.jp/e/policy.html" target="_blank" rel="noopener noreferrer">'+tx('Source and reuse terms','ที่มาและข้อกำหนดการใช้')+'</a></details></section>';
 }
 var homeWithoutDrill=renderStudyHome;
 renderStudyHome=function(el){homeWithoutDrill(el);el.innerHTML+=drillLaunchHTML();};
@@ -97,26 +97,28 @@ function completedDrillSentence(q){
   return text;
 }
 function drillPromptHTML(q,session){
-  if(q.kind==='order')return '<p class="gentle">'+tx('Arrange all four parts in your head. Which part belongs at ★?','ลองเรียงทั้งสี่ส่วนในใจ ส่วนไหนอยู่ตรง ★?')+'</p><div class="question-sentence order-sentence" lang="ja">'+esc(q.before)+q.parts.map(function(p,i){return '<span class="order-slot'+(i===q.star?' star-slot':'')+'">'+(i===q.star?'★':'＿＿')+'</span>';}).join(' ')+esc(q.after)+'</div>';
+  if(q.kind==='order')return '<p class="gentle">'+tx('Which part belongs at ★?','ส่วนไหนอยู่ตรง ★?')+'</p><div class="reading-scope question-reading"><div class="question-sentence order-sentence reading-target" lang="ja">'+esc(q.before)+q.parts.map(function(p,i){return '<span class="order-slot'+(i===q.star?' star-slot':'')+'">'+(i===q.star?'★':'＿＿')+'</span>';}).join(' ')+esc(q.after)+'</div>'+readingDisclosure(q.before+q.parts.map(function(p,i){return i===q.star?'★':'＿＿';}).join(' ')+q.after)+'</div>';
   var text=esc(q.stem);
   if(q.kind==='text'){
     /* Earlier answers provide their completed context; later blanks stay blank.
        Never disclose a future answer while explaining the current blank. */
     JLPT_QUESTIONS.filter(function(x){return x.passage===q.passage;}).forEach(function(x){
       var pos=session.queue.findIndex(function(item){return item.id===x.id;});
-      var done=pos>=0&&pos<session.i&&session.answers[pos];
+      var done=pos>=0&&pos<historyIndex(session)&&session.answers[pos];
       text=text.replace('【'+x.blank+'】',done?'<span class="passage-filled">'+esc(x.options[x.answer].text)+'</span>':'<span class="passage-blank'+(x.id===q.id?' current-blank':'')+'">【'+x.blank+'】</span>');
     });
     return '<p class="gentle">'+tx('Read the whole passage. Answer blank ','อ่านทั้งบทความ แล้วตอบช่องที่ ')+q.blank+'.</p><div class="question-sentence passage-text" lang="ja">'+text+'</div>';
   }
-  return '<p class="gentle">'+tx('Choose the most natural expression for this context.','เลือกสำนวนที่เป็นธรรมชาติที่สุดในบริบทนี้')+'</p><div class="question-sentence" lang="ja">'+text.replace('＿＿','<span class="blank">＿＿</span>')+'</div>';
+  return '<div class="reading-scope question-reading"><div class="question-sentence reading-target" lang="ja">'+text.replace('＿＿','<span class="blank">＿＿</span>')+'</div>'+readingDisclosure(q.stem)+'</div>';
 }
 function drillFeedback(q,pick){
   var correct=pick===q.answer;
   var h='<section class="simple-feedback '+(correct?'is-correct':'needs-review')+'" role="status"><h2>'+tx(correct?'Correct':'Not quite',correct?'ถูกต้อง':'ยังไม่ถูก')+' · <span lang="ja">'+esc(q.options[q.answer].text)+'</span></h2><p>'+tx(q.en,q.th)+'</p>';
   if(!correct)h+='<div class="picked-reason"><b lang="ja">'+esc(q.options[pick].text)+'</b><p>'+tx(q.options[pick].en,q.options[pick].th)+'</p></div>';
-  if(q.kind==='order')h+='<div class="completed-order" lang="ja">'+esc(q.before)+q.parts.map(function(part,i){return '<span'+(i===q.star?' class="correct-star"':'')+'>'+esc(part)+'</span>';}).join(' ')+esc(q.after)+'</div>';
-  else if(q.kind==='choice')h+='<p lang="ja" class="feedback-jp">'+esc(completedDrillSentence(q))+'</p>';
+  if(q.kind!=='text')h+='<div class="reading-scope">';
+  if(q.kind==='order')h+='<div class="completed-order reading-target" lang="ja">'+esc(q.before)+q.parts.map(function(part,i){return '<span'+(i===q.star?' class="correct-star"':'')+'>'+esc(part)+'</span>';}).join(' ')+esc(q.after)+'</div>';
+  else if(q.kind==='choice')h+='<p lang="ja" class="feedback-jp reading-target">'+esc(completedDrillSentence(q))+'</p>';
+  if(q.kind!=='text')h+=readingDisclosure(completedDrillSentence(q))+'</div>';
   h+='<p class="gentle">'+tx(q.translation_en,q.translation_th)+'</p><details class="optional-detail"><summary>'+tx('Why not the others?','ทำไมตัวเลือกอื่นไม่เหมาะ?')+'</summary>';
   q.options.forEach(function(o,i){if(i!==q.answer)h+='<div class="option-reason"><b lang="ja">'+esc(o.text)+'</b><p>'+tx(o.en,o.th)+'</p></div>';});
   h+='</details>';
@@ -140,14 +142,14 @@ function renderDrill(el){
   if(s.i>=s.queue.length){
     var right=Object.keys(s.answers).filter(function(i){return s.answers[i].correct;}).length;
     var missed=[];s.queue.forEach(function(item,i){if(s.answers[i]&&!s.answers[i].correct){var g=byId(drillQuestion(item.id).gid);if(missed.indexOf(g)<0)missed.push(g);}});
-    el.innerHTML='<section class="drill-result"><div class="simple-kicker">'+tx('DRILL COMPLETE','จบรอบฝึก')+'</div><h1>'+right+' / '+s.queue.length+'</h1><p>'+tx('Correct in this practice round. This is not a JLPT score.','จำนวนข้อถูกในรอบนี้ ไม่ใช่คะแนน JLPT')+'</p>'+(missed.length?'<h2>'+tx('Worth another look','รูปที่ควรทบทวน')+'</h2>'+missed.map(function(g){return '<button class="text-btn missed-pattern" data-detail="'+g.id+'">'+esc(g.p)+'</button>';}).join(''):'<p>'+tx('Next time you will get another mix.','ครั้งต่อไปจะได้โจทย์อีกชุด')+'</p>')+'<button class="go primary-study" data-pause-drill>'+tx('Back to Study','กลับไปหน้าเรียน')+'</button></section>';return;
+    el.innerHTML='<section class="drill-result"><div class="simple-kicker">'+tx('DRILL COMPLETE','จบรอบฝึก')+'</div><h1>'+right+' / '+s.queue.length+'</h1><p>'+tx('Correct in this practice round. This is not a JLPT score.','จำนวนข้อถูกในรอบนี้ ไม่ใช่คะแนน JLPT')+'</p>'+(missed.length?'<h2>'+tx('Worth another look','รูปที่ควรทบทวน')+'</h2>'+missed.map(function(g){return '<button class="text-btn missed-pattern" data-detail="'+g.id+'">'+esc(g.p)+'</button>';}).join(''):'<p>'+tx('Next time you will get another mix.','ครั้งต่อไปจะได้โจทย์อีกชุด')+'</p>')+'<button class="go primary-study" data-pause-drill>'+tx('Back to Study','กลับไป Study')+'</button></section>';return;
   }
-  var item=s.queue[s.i],q=drillQuestion(item.id),a=s.answers[s.i];
-  var h='<div class="drill-hd"><span class="cnt">'+tx('Random drill ','โจทย์สุ่ม ')+(s.i+1)+' / '+s.queue.length+'</span><button class="chip" data-pause-drill>'+tx('Pause','พัก')+'</button></div><div class="simple-kicker">'+drillType(q)+'</div>'+drillSourceHTML(q,false)+drillPromptHTML(q,s)+'<div class="opts drill-options">';
+  var at=historyIndex(s),item=s.queue[at],q=drillQuestion(item.id),a=s.answers[at];
+  var h=studyHeader('drill',at,tx('Random drill ','โจทย์สุ่ม ')+(at+1)+' / '+s.queue.length)+(at<s.i?'<p class="history-note">'+tx('Looking back · your current question is saved.','กำลังย้อนดู · บันทึกข้อที่กำลังทำไว้แล้ว')+'</p>':'')+'<div class="simple-kicker">'+drillType(q)+'</div>'+drillSourceHTML(q,false)+drillPromptHTML(q,s)+'<div class="opts drill-options">';
   item.options.forEach(function(n,i){var cls=a?(n===q.answer?' right':n===a.pick?' wrong':' dim'):'';
     h+='<button class="drill-option'+cls+'" data-drill-answer="'+n+'"'+(a?' disabled':'')+'><span class="option-number">'+(i+1)+'</span><span lang="ja">'+esc(q.options[n].text)+'</span>'+(a&&n===q.answer?'<span class="answer-mark">✓</span>':a&&n===a.pick?'<span class="answer-mark">×</span>':'')+'</button>';
   });h+='</div>';
-  if(a)h+=drillFeedback(q,a.pick)+'<button class="go primary-study" data-drill-next>'+tx(s.i+1===s.queue.length?'See results':'Next question',s.i+1===s.queue.length?'ดูผล':'ข้อต่อไป')+' →</button>';
+  if(a)h+=drillFeedback(q,a.pick)+(at<s.i?historyNext('drill',s):'<button class="go primary-study" data-drill-next>'+tx(s.i+1===s.queue.length?'See results':'Next question',s.i+1===s.queue.length?'ดูผล':'ข้อต่อไป')+' →</button>');
   el.innerHTML=h;
 }
 var todayWithoutDrill=renderToday;
@@ -158,10 +160,13 @@ renderToday=function(){
   return todayWithoutDrill();
 };
 
-/* Daily study: use new contexts, rotate examples, and retrieve without choices
-   on later attempts. Old answered caches remain intact. */
+/* Daily study: rotate authored contexts. Old answered caches remain intact. */
 var previousMakeSpec=makeSpec;
 var questionWithoutSource=questionHTML;
+function exerciseSpec(e){
+  return {version:5,recallFirst:false,exerciseId:e.id,kind:'cloze',key:e.answer,ct:e.ja.replace('＿＿','\u0001'),exIdx:0,prompt_en:e.prompt_en,prompt_th:e.prompt_th,why_en:e.why_en,why_th:e.why_th,
+    example:{j:e.ja.replace('＿＿',e.answer),k:'',e:e.en,t:e.th},opts:shuffle(e.options.map(function(t){return {t:t,ok:t===e.answer};}))};
+}
 questionHTML=function(g,sp){
   var q=sp.jlptId&&drillQuestion(sp.jlptId);
   return (q&&q.source?drillSourceHTML(q,false):'')+questionWithoutSource(g,sp);
@@ -179,17 +184,17 @@ makeSpec=function(g,base){
        if another exists. Entries with no authored choices retain honest recall. */
     var authored=MASTERY_EXERCISES.filter(function(e){return e.gid===g.id;});
     if(authored.length){shuffle(authored);authored.sort(function(a,b){return ((d.daily[a.id]||0)+(d.lastDaily[g.id]===a.id?10000:0))-((d.daily[b.id]||0)+(d.lastDaily[g.id]===b.id?10000:0));});
-      var e=authored[0];spec={version:4,exerciseId:e.id,kind:'cloze',key:e.answer,ct:e.ja.replace('＿＿','\u0001'),exIdx:0,prompt_en:e.prompt_en,prompt_th:e.prompt_th,why_en:e.why_en,why_th:e.why_th,
-        example:{j:e.ja.replace('＿＿',e.answer),k:'',e:e.en,t:e.th},opts:shuffle(e.options.map(function(t){return {t:t,ok:t===e.answer};}))};
+      spec=exerciseSpec(authored[0]);
     }else spec=previousMakeSpec(g,base);
   }
-  spec.version=4;spec.recallFirst=spec.kind==='cloze'&&((S.att[g.id]||0)>0||boxOf(g.id)>1);
+  spec.version=5;spec.recallFirst=false;
   return spec;
 };
 specAt=function(i){
-  if(S.q.gen[i]&&(S.q.gen[i].version===4||S.q.ans[i]!==undefined))return S.q.gen[i];
+  if(S.q.gen[i]&&([4,5].includes(S.q.gen[i].version)||S.q.ans[i]!==undefined)){S.q.gen[i].recallFirst=false;return S.q.gen[i];}
   var g=byId(S.q.q[i].id);if(!g)return null;
-  S.q.gen[i]=makeSpec(g);save();return S.q.gen[i];
+  var exercise=trainingExercise(S.q.q[i].exerciseId);
+  S.q.gen[i]=exercise&&exercise.gid===g.id?exerciseSpec(exercise):makeSpec(g);save();return S.q.gen[i];
 };
 function recordDailyAttempt(g,sp,correct){
   var d=drillState(),id=sp.jlptId||sp.exerciseId;
@@ -201,6 +206,7 @@ function dailyRating(g,r){
   if(r==='again')return r;
   if((S.q.assisted||{})[S.q.i])return 'again';
   if(dayLedger().learned[g.id])return 'hard';
+  if(!isDue(g.id))return 'practice';
   return r;
 }
 var dailyStepWithoutRecall=stepView;
@@ -208,11 +214,7 @@ stepView=function(el){
   var item=S.q.q[S.q.i],g=item&&byId(item.id);if(!g)return dailyStepWithoutRecall(el);
   markStudyEncounter(g.id);
   if(item.m==='learn')return dailyStepWithoutRecall(el);
-  var sp=specAt(S.q.i);
-  if(!sp||!sp.recallFirst||S.q.ans[S.q.i]!==undefined||(S.q.assisted||{})[S.q.i])return dailyStepWithoutRecall(el);
-  el.innerHTML=headBar()+questionHTML(g,sp)+'<form id="daily-recall-form" class="daily-recall-form"><label for="daily-recall-input">'+tx('Recall the missing grammar before looking at choices.','ลองนึกไวยากรณ์ที่หายไปก่อนดูตัวเลือก')+'</label><input id="daily-recall-input" lang="ja" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+tx('Type the missing expression','พิมพ์ไวยากรณ์ที่หายไป')+'"><button class="go primary-study" type="submit">'+tx('Check answer','ตรวจคำตอบ')+'</button></form><p id="daily-recall-notice" role="status"></p><button class="text-btn" data-daily-choices>'+tx('I need the choices','ขอดูตัวเลือก')+'</button>';
-  wireHead();save();
-  document.getElementById('daily-recall-form').onsubmit=function(event){event.preventDefault();if(event.isComposing)return;checkDailyRecall(document.getElementById('daily-recall-input').value);};
+  return dailyStepWithoutRecall(el);
 };
 function dailyChoices(){
   if(!S.q||S.q.ans[S.q.i]!==undefined)return;
@@ -237,7 +239,7 @@ verdictHTML=function(g,ex,rated){
   var sp=S.q.gen[S.q.i]||{},pick=S.q.ans[S.q.i],q=sp.jlptId&&drillQuestion(sp.jlptId);
   if(!q||pick===undefined)return feedbackWithoutDrill(g,ex,rated);
   var selected=q.options.findIndex(function(o){return o.text===sp.opts[pick].t;}),ok=sp.opts[pick].ok;
-  var note=(S.q.assisted||{})[S.q.i]?tx('Choices helped this time. This will return for recall.','รอบนี้ใช้ตัวเลือกช่วย จะกลับมาให้ลองนึกเองอีกครั้ง'):dayLedger().learned[g.id]?tx('First practice done. A later review checks whether it stayed with you.','ฝึกครั้งแรกแล้ว รอบทบทวนภายหลังจะตรวจว่ายังจำได้หรือไม่'):'';
+  var note=(S.q.assisted||{})[S.q.i]?tx('Practised with help. We’ll revisit this one.','รอบนี้ใช้ตัวช่วย เราจะนำกลับมาทบทวน'):dayLedger().learned[g.id]?tx('First practice done. We’ll check again on another day.','ฝึกครั้งแรกแล้ว เราจะเช็กอีกครั้งในวันถัดไป'):ok&&!isDue(g.id)?tx('Extra practice complete. Your next scheduled review stays the same.','ฝึกเสริมแล้ว รอบทบทวนถัดไปยังเป็นวันเดิม'):'';
   return drillFeedback(q,selected)+(note?'<p class="gentle">'+note+'</p>':'')+'<button class="go primary-study" data-r="'+(ok?'good':'again')+'">'+tx('Continue','ต่อไป')+' →</button>';
 };
 

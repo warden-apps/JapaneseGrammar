@@ -1,96 +1,94 @@
 # Grammar coverage and source review
 
-## Lesson rewrite and practice for every pattern — 25 September 2026
+## Shin Kanzen Master N2 audit — 11 October 2026
 
-**English and Thai.** Every lesson's English and Thai was rewritten: the short
-meaning, the one-line explanation, the usage notes and both example
-translations. The English is plain and short. The Thai reads as natural Thai
-rather than word-for-word English, drops the polite ครับ/ค่ะ from example
-translations, and uses one set of grammar terms throughout (รูปพจนานุกรม,
-รูป て/た/ない, ฐานของรูป ます, รูปธรรมดา, คุณศัพท์ い/な, รูปเจตนา, รูปสามารถ,
-รูปถูกกระทำ, รูปให้ทำ, คำยกย่อง, คำถ่อมตน). Patterns that shared the same short
-meaning now have distinct ones. No Japanese was changed: every example
-sentence, reading, pattern name and connection rule is byte-for-byte the same.
+**Status: supplied checklist mapped; full printed index and every book explanation
+not verified.** Do not describe this as a complete digital edition or 211/211 check.
 
-**Two new memory aids per lesson.**
+The [publisher's book page](https://www.3anet.co.jp/np/books/3602/), ISBN
+9784883195657, advertises 211 grammar forms. Its public contents list the main
+chapters and later topic headings, but not a complete itemized index of all forms
+and explanations. Chapter 21 is absent from that web table of contents; its mapping
+uses the user's supplied list. The discontinued publisher companion's 198 forms
+are a different scope, not a replacement for the book's 211-form claim.
 
-- *Remember it* (`lit_en`, `lit_th`, all 445 lessons): how the pattern is
-  built, or a picture that makes it stick. Some are word origins (際 "edge,
-  moment", 限り "limit"); others are deliberately simple images (ずつ as dealing
-  cards into equal piles). They are learning aids, not etymological claims.
-- *In easier Japanese* (`like`, `like_en`, `like_th`, 361 lessons): a more
-  familiar pattern that says nearly the same thing, and how the two differ
-  (〜に際して ≈ 〜時に, but formal and for big occasions). Lessons with no
-  honest equivalent have none.
+- All 156 rows in the supplied chapter/supplement checklist link to 171 existing
+  app lessons. Grouped variants and repeated senses make these counts different
+  from the publisher's grammar-form count.
+- `kanzen-cues.js` adds a short original English/Thai choosing cue to every mapped
+  lesson. Cues highlight attachment, scope, viewpoint, tone, or a useful contrast;
+  they are tendencies to check in context, not one-keyword answer tricks.
+- `kanzen-content.js` adds 22 original support lessons: seven organization topics,
+  three sentence-building skills and twelve passage-grammar skills matching the
+  public topic headings. Each has two original translated examples, key clues,
+  notes and links to related grammar. These are topic introductions, not proof of
+  every subpoint covered in those book sections. Grammar-properties guidance also
+  covers negative endings, question words, numbers, noun modifiers and fixed pairs.
+- Expanded 上で to include dictionary-form “in doing”, with its own phrase tab;
+  expanded ところだった to include negative verbs; clarified 得る readings and
+  exposed the というわけではない, おかげだ, せいだ and perspective にしても variants.
+- N2 daily study/library eligibility now includes book-mapped lessons with an N3
+  label. Their original IDs, level labels and saved progress remain intact.
+- `kanzen-practice.js` adds 28 original items: 22 contextual choices, three ★ order
+  questions and three connected passage blanks. These are independent exercises,
+  not questions reproduced from this textbook or presented as official exams.
+  Current totals: **467 library entries; 146 N2 questions (44 official, 102 original);
+  181 questions across the full bank.** The 22 skill lessons are not 22 newly
+  discovered missing grammar forms.
 
-**The nine exam-basics lesson guides** (n2i01–n2i09) were rewritten so each
-form row explains that form, and each warning is short.
+For the underlying teaching concepts, primary references include the
+[Japan Foundation grammar series](https://www.jpf.go.jp/j/project/japanese/teach/tsushin/grammar/backnumber.html),
+[its discussion of time in Japanese](https://www.jpf.go.jp/j/project/japanese/teach/tsushin/language/202206.html),
+and [Tokyo University of Foreign Studies grammar modules](https://www.coelang.tufs.ac.jp/mt/ja/gmod/).
+Examples, cues and translations were independently written; they have not received
+external linguistic review. The publisher page verifies scope, not these wordings.
 
-**Generated practice.** About a quarter of the patterns had written questions;
-the rest had only a self-check. Every pattern without a written question now
-gets two question types built from its own examples: choose the meaning of the
-marked grammar, or choose the grammar that fills a gap (with the translation
-shown). Wrong options are chosen automatically, and never from the answer's own
-map branch, its comparison table, its lesson's "tell it apart" list, or any
-pattern whose short meaning shares a content word with the answer's. No two
-wrong options come from the same branch. Tests check these rules for every
-pattern. The limits: a gap question asks you to recognise which pattern fits,
-not to produce its exact inflected form; and the wrong options are clearly
-different in meaning, so the fine distinctions still come from the written
-questions and comparison tables.
+The pasted vocabulary glosses, every printed explanation, and the book's mock
+exams are **not** claimed to have been reproduced or exhaustively audited. Word
+lookup supplies dictionary help in the app's sentences. A clear copy of the book's
+complete 索引 (index) is needed to finish form-by-form verification; section pages
+would also be needed to check all of the book's teaching subpoints.
 
-As before, this is a careful review backed by automated checks, not an
-external specialist review of every sentence.
+See [KANZEN-COVERAGE.md](KANZEN-COVERAGE.md) for the row-by-row mapping and limits.
 
-## Grammar map and consistency review — 25 September 2026
+## Phrase-first learning and word help — 11 October 2026
 
-The library's 30 category labels (41 groups once split by level) mixed meaning
-with register and did not match between levels (逆接 for N3 but 逆接・対比 for
-N2; 条件・仮定 but 条件). Two catch-all groups, 接続・助詞 and 慣用・書き言葉,
-held 75 patterns with unrelated functions. The new **grammar map** (`map-content.js`) is an independent,
-meaning-based arrangement of all 445 entries: 5 regions, 20 topics and 96
-branches. It was designed for this app and is not copied from Shin Kanzen
-Master or any other book, although several branches line up with the book's
-chapters and link to the same comparison tables. Each entry sits in the branch
-for its main use; eleven cross-links point to a second sense filed elsewhere
-(ため as cause and as purpose). The original category labels remain in the data
-but no longer drive the interface. A test fails if any entry is missing from
-the map or placed twice.
+All 467 lessons now lead with translated example phrases. Existing lesson
+examples remain available as tabs; connection formulas are optional reference.
+`phrase-content.js` adds 46 original models for 22 lessons, prioritizing the
+first N2 sequence plus 際に and the three stages of ところだ. Situation labels
+distinguish different attachments: 利用する際に, 訪れた際に and 申し込みの際に,
+for example. The models are authored teaching choices, not verbatim textbook
+sentences or a corpus-based ranking of “most used” phrases. The other lessons
+reuse their existing authored examples; every possible attachment has not been
+given a new phrase model in this revision.
 
-Corrections made during this review:
+For 際に, formal contexts, verb dictionary/past forms and noun + の were checked
+against [Japanese teacher Tanosuke's explanation](https://tanosuke.com/sai/).
+The [Japan Foundation grammar index](https://www.kyozai.jpf.go.jp/kyozai/grammar/text/kanalist/ja/render.do)
+also includes 際 / 際に / 際は. Existing source notes below still apply to the
+rest of the grammar content. New sentences and English/Thai translations were
+written independently; there has been no external linguistic review.
 
-- Nineteen short glosses from the 30 corrected lessons were capitalised, and
-  the nine N2 support lessons used a whole sentence as their gloss. All now
-  follow the short lowercase style of the other entries.
-- 次第に (gradually) was displayed as 〜次第に, which suggests an attachment
-  like 〜次第 (as soon as). It is a standalone adverb.
-- The てから example 手を洗ってから食べてください was glossed "wash your hands
-  before eating". It now follows the step order the lesson teaches ("first,
-  then eat"), as the Thai already did.
-- Example highlighting now finds split, inflected and kanji-spelled patterns
-  (たとえ…ても, ところです, 決して…ません, 込めて): 881 of 907 examples, up
-  from 681. The remainder are conjugations such as the passive and keigo.
+Word help uses a local subset of the EDRDG **JMdict** English dictionary,
+distributed as jmdict-simplified release `3.6.2+20261005200550`, with token
+boundaries and surface readings from kuromoji/IPADIC. It covers over 3,300 word
+forms in app content. Most definitions are English; a few common terms have
+original Thai notes. Dictionary senses are listed without claiming automatic
+context disambiguation. Some proper names have only a reading. See
+[DICTIONARY-NOTICES.md](DICTIONARY-NOTICES.md) for attribution, licences,
+transformation details and rebuilding. Lookups work offline and send no text
+to a remote dictionary service.
 
-Checked and deliberately left unchanged:
-
-- The examples for 〜らしい, 〜ようだ／みたいだ and 〜しかない include a
-  second sense (typical of, simile, only). Each entry's explanation presents
-  both senses on purpose.
-- The にしても example under 〜にしたら／にすれば／にしてみれば is
-  intentional; the connection note covers that "for that person too" use.
-- Noun + ことだし: references differ. Nである is the most common form, and
-  some also give Nの. The lesson keeps its existing rule.
-- Near-duplicate entries (に違いない ×2, において ×2, ことか ×2, にすぎない／
-  でしかない ×3) keep their separate IDs so saved progress is not lost. The map
-  puts each set in the same branch so they are seen together.
-
-This is a structural and consistency review backed by automated checks, not
-an external specialist review of every sentence.
+Typing has been removed from daily and targeted practice, including old saved
+typed-recall steps. Choices are the default, while hints/reveals still count as
+help. Optional hide-and-say practice does not change scores or review levels.
+Custom daily limits accept integers 0–100 and preserve existing daily ledgers.
 
 ## Official N2 expansion — 23 September 2026
 
-The current N2 drill contains **118 questions: 44 official and 74 original**.
-The complete bank is 153 questions including the existing N3/mixed material.
+At this stage, the N2 drill contained **118 questions: 44 official and 74 original**.
+The complete bank was 153 questions including the existing N3/mixed material.
 This expansion prioritizes N2, as requested. It adds no N3 examination questions.
 
 | Official N2 workbook | Included section | Questions | Verified key |

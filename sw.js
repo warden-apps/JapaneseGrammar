@@ -2,8 +2,9 @@
    offline upgrade cannot leave the page with only half its scripts.
    Bump CACHE on every release. Progress lives separately in localStorage. */
 const PREFIX = 'sujimichi-' + new URL(self.registration.scope).pathname + '-';
-const CACHE = PREFIX + 'v10-20260925-guides';
-const CORE = ['./', './index.html', './grammar.js', './book-checklist.js', './mastery-content.js', './mastery.js', './mastery.css', './lesson-guides.js', './comparison-guides.js', './simple.js', './simple.css', './jlpt-content.js', './jlpt-official.js', './jlpt-n2-practice.js', './jlpt.js', './jlpt.css', './map-content.js', './map.js', './map.css', './practice.js', './plan.js'];
+const CACHE = PREFIX + 'v9-20261013-thai-word-help';
+const CORE = ['./', './index.html', './grammar-expansion.js', './mastery-content.js', './mastery.js', './mastery.css', './lesson-guides.js', './comparison-guides.js', './simple.js', './simple.css', './jlpt-content.js', './n2-exam-lessons.js', './jlpt-official.js', './jlpt-n2-practice.js', './kanzen-content.js', './kanzen-cues.js', './kanzen-practice.js', './KANZEN-COVERAGE.md', './jlpt.js', './jlpt.css', './phrase-content.js', './flow.css', './word-help-data.js', './word-help.js', './DICTIONARY-NOTICES.md'];
+CORE.push('./STUDY-METHOD.md','./sentence-readings.js','./furigana.js','./study.css');
 const ASSETS = ['./manifest.json','./favicon.ico','./apple-touch-icon.png','./icons/paper.png','./icons/icon.svg','./icons/icon-16.png','./icons/icon-32.png','./icons/icon-48.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(async cache => {

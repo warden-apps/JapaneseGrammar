@@ -91,15 +91,16 @@ test('daily practice rotates contexts and records only one exposure per submitte
   a.click('today','.opt',{i:String(a.run('answer'))});a.click('today','.opt',{i:String(a.run('answer'))});
   assert.equal(a.run('drillState().daily[firstId]'),1);assert.equal(a.run('S.att.n3a01'),1);
   assert.notEqual(a.run('makeSpec(byId("n3a01")).jlptId'),a.run('firstId'));
-  assert.equal(a.run('makeSpec(byId("n3a01")).recallFirst'),true);
+  assert.equal(a.run('makeSpec(byId("n3a01")).recallFirst'),false);
 });
-test('later daily reviews hide choices until recall and a typed correct answer survives reload',()=>{
+test('later daily reviews show tap choices and a correct answer survives reload',()=>{
   const a=loadApp();a.reset({box:{n3a01:2},att:{n3a01:1},last:{n3a01:'2026-09-17'}});daily(a);
-  a.run('renderToday();');assert.match(a.node('today').innerHTML,/daily-recall-input/);
-  assert.doesNotMatch(a.node('today').innerHTML,/class="opt"/);
-  a.run('checkDailyRecall(" "+specAt(0).key+"。");checkDailyRecall(specAt(0).key);');
+  a.run('renderToday();');assert.doesNotMatch(a.node('today').innerHTML,/daily-recall-input|<form/);
+  assert.match(a.node('today').innerHTML,/class="opt"/);
+  const answer=String(a.run('specAt(0).opts.findIndex(o=>o.ok)'));
+  a.click('today','.opt',{i:answer});a.click('today','.opt',{i:answer});
   assert.equal(a.run('S.q.asked'),1);assert.equal(a.run('S.att.n3a01'),2);
-  assert.match(a.node('today').innerHTML,/Correct/);
+  assert.match(a.node('verdict').innerHTML,/Correct/);
   const b=loadApp(JSON.parse(a.storage.get('sujimichi.v4')));
   assert.equal(b.run('S.q.asked'),1);assert.match(b.node('today').innerHTML,/Correct/);
 });
@@ -113,7 +114,7 @@ test('first-day success and assisted recall do not promote memory; later unaided
   b.click('today','.opt',{i:String(b.run('sp.opts.findIndex(o=>o.ok)'))});b.click('today','[data-r]',{r:'good'});
   assert.equal(b.run('boxOf("n3a01")'),1);assert.equal(b.run('S.q.again.n3a01'),1);
   const c=loadApp();c.reset({box:{n3a01:2},att:{n3a01:1},last:{n3a01:'2026-09-17'}});daily(c);
-  c.run('checkDailyRecall(specAt(0).key);');c.click('today','[data-r]',{r:'good'});
+  c.click('today','.opt',{i:String(c.run('specAt(0).opts.findIndex(o=>o.ok)'))});c.click('today','[data-r]',{r:'good'});
   assert.equal(c.run('boxOf("n3a01")'),3);
 });
 test('v7 backups preserve drill evidence, import no stale session and reject malformed evidence atomically',()=>{

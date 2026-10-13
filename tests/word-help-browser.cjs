@@ -1,0 +1,66 @@
+const assert=require('node:assert/strict'),path=require('node:path');
+const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
+(async()=>{
+ const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true});
+ try{
+  const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),page=await context.newPage(),errors=[];
+  page.setDefaultTimeout(10000);page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(process.env.TEST_URL||'http://127.0.0.1:8775/');await page.locator('[data-start-study]').waitFor();
+  await page.locator('#study-language [data-study-language="th"]').click();
+  await page.locator('[data-start-study]').click();await page.locator('#lesson-next').click();
+  const panel=page.locator('#today .phrase-panel:not([hidden])'),reading=panel.locator('[data-toggle-reading]');
+  await reading.click();await panel.locator('.jp-word').first().waitFor();
+  const wordButton=panel.locator('.jp-word').first(),wordId=await wordButton.getAttribute('data-word-id');
+  const evidence=()=>page.evaluate(()=>JSON.stringify({q:S.q,box:S.box,att:S.att,cor:S.cor,seen:S.seen,day:S.day,mastery:S.mastery}));
+  const before=await evidence();await wordButton.click();
+  const dialog=page.locator('#word-help-dialog'),definitions=dialog.locator('.word-definitions');
+  assert.equal(await definitions.getAttribute('lang'),'th');
+  assert.equal(await definitions.innerText(),await page.evaluate(id=>WORD_HELP_DATA.words[id].t,wordId));
+  assert.equal(await dialog.locator('.word-definitions[lang="en"]').count(),0);
+  await page.screenshot({path:path.join(__dirname,'word-help-thai-mobile.png'),fullPage:true});
+  await dialog.locator('[data-study-language="en"]').click();
+  assert.equal(await definitions.getAttribute('lang'),'en');assert.equal(await page.locator('html').getAttribute('lang'),'en');
+  assert.equal(await page.evaluate(()=>document.activeElement.dataset.studyLanguage),'en');
+  await dialog.locator('[data-study-language="th"]').click();
+  assert.equal(await definitions.getAttribute('lang'),'th');assert.equal(await page.evaluate(()=>document.activeElement.dataset.studyLanguage),'th');
+  await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});
+  assert.equal(await page.evaluate(()=>document.activeElement.dataset.wordId),wordId);
+  assert.equal(await reading.getAttribute('aria-pressed'),'true');assert.ok(await panel.locator('ruby').count());
+  assert.equal(await evidence(),before,'Dictionary lookup and language changes must not change learning evidence');
+  assert.equal(await page.evaluate(()=>lessonStage()),1);
+  // The sheet and the daily card can contain the same word. Return to the sheet.
+  await page.evaluate(()=>openDetail(S.q.q[S.q.i].id));
+  await page.locator('#sbody .phrase-panel:not([hidden]) .jp-word').first().click();
+  await dialog.locator('[data-study-language="en"]').click();await dialog.locator('[data-study-language="th"]').click();
+  await dialog.locator('[data-close-word]').click();await dialog.waitFor({state:'hidden'});
+  assert.equal(await page.evaluate(()=>!!document.activeElement.closest('#sbody')),true);
+  await page.locator('#sbody .d-close-top').click();
+  // Lookup inside the lesson sheet must retain example selection and return focus.
+  await page.evaluate(()=>openDetail('n3a07'));await page.locator('#sbody [data-phrase-index="1"]').click();
+  const sheetPanel=page.locator('#sbody .phrase-panel:not([hidden])');await sheetPanel.locator('[data-toggle-reading]').click();
+  const visit=sheetPanel.locator('.jp-word').filter({hasText:'訪れ'}).first();await visit.click();
+  assert.match(await definitions.innerText(),/เยือน/);assert.match(await dialog.locator('.word-base').innerText(),/訪れる/);
+  await dialog.locator('[data-study-language="en"]').click();await dialog.locator('[data-study-language="th"]').click();
+  await dialog.locator('[data-close-word]').click();await dialog.waitFor({state:'hidden'});
+  assert.equal(await page.locator('#sbody [data-phrase-index="1"]').getAttribute('aria-pressed'),'true');
+  assert.match(await page.evaluate(()=>document.activeElement.textContent),/訪/);
+  assert.equal(await sheetPanel.locator('[data-toggle-reading]').getAttribute('aria-pressed'),'true');
+  await page.locator('#sbody .d-close-top').click();
+  await page.locator('#nav [data-p="p-rec"]').click();await page.locator('#segtheme [data-v="dark"]').click();
+  await page.evaluate(()=>openDetail('n3a07'));await page.locator('#sbody .phrase-panel:not([hidden]) .jp-word').filter({hasText:'利用'}).first().click();
+  assert.equal(await definitions.innerText(),'การใช้; การใช้บริการ');
+  await page.screenshot({path:path.join(__dirname,'word-help-thai-dark.png'),fullPage:true});
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await dialog.locator('[data-close-word]').click();await page.locator('#sbody .d-close-top').click();
+  await page.evaluate(async()=>{await navigator.serviceWorker.ready;});await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+  await context.setOffline(true);await page.reload();
+  assert.equal(await page.evaluate(()=>S.lang),'th');
+  await page.evaluate(()=>openDetail('n3a07'));await page.locator('#sbody .phrase-panel:not([hidden]) .jp-word').filter({hasText:'際'}).first().click();
+  assert.match(await definitions.innerText(),/เมื่อ/);assert.equal(await dialog.locator('.word-reading').innerText(),'さい');
+  await dialog.locator('[data-study-language="en"]').click();assert.match(await definitions.innerText(),/occasion/);
+  await page.setViewportSize({width:1280,height:900});await dialog.locator('[data-study-language="th"]').click();
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.deepEqual(errors,[]);
+  console.log('PASS: Thai/English word popups, inflected forms, one-click switching, reading and stage preservation, keyboard focus, unchanged study evidence, mobile/dark/desktop and offline reload.');
+  await context.close();
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exit(1);});

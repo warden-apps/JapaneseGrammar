@@ -14,7 +14,7 @@ function tr(en,th){
   return (showEN()?'<span>'+esc(en)+'</span>':'')+(showTH()?'<span lang="th" class="thai">'+esc(th)+'</span>':'');
 }
 function trainingExercise(id){return MASTERY_EXERCISES.find(function(e){return e.id===id;});}
-function trainingEligible(){return MASTERY_EXERCISES.filter(function(e){var g=byId(e.gid);return g&&(S.lv==='all'||g.lv===S.lv);});}
+function trainingEligible(){return MASTERY_EXERCISES.filter(function(e){var g=byId(e.gid);return g&&inStudyLevel(g,S.lv);});}
 function trainingDue(e){var r=masteryState().items[e.id];return !r||!r.due||r.due<=today();}
 function trainingMistakes(){return trainingEligible().filter(function(e){return (masteryState().items[e.id]||{}).mistake;});}
 function addStudyDays(date,n){var d=new Date(date+'T12:00:00');d.setDate(d.getDate()+n);return fmt(d);}
@@ -39,7 +39,10 @@ function recordTrainingAnswer(exercise,correct,assisted){
 
 function startTraining(mode,group,gid){
   var m=masteryState();
-  if(m.session&&m.session.i<m.session.queue.length){TRAIN_VIEW='session';showTraining();return;}
+  drillState().active=false;if(S.q)S.q.started=false;
+  var pending=m.session&&m.session.i<m.session.queue.length;
+  var sameTarget=pending&&m.session.queue.slice(m.session.i).every(function(item){var e=trainingExercise(item.id);return e&&(gid?e.gid===gid:inStudyLevel(byId(e.gid),S.lv))&&(!group||e.group===group)&&((mode!=='form'&&mode!=='contrast')||e.kind===mode)&&(mode!=='mistakes'||(m.items[e.id]||{}).mistake);});
+  if(sameTarget){TRAIN_VIEW='session';save();showTraining();return;}
   var candidates=gid?MASTERY_EXERCISES.slice():trainingEligible();
   if(group) candidates=candidates.filter(function(e){return e.group===group;});
   if(gid) candidates=candidates.filter(function(e){return e.gid===gid;});
@@ -58,6 +61,7 @@ function startTraining(mode,group,gid){
     candidates=first.concat(candidates.filter(function(e){return first.indexOf(e)<0;}));
   }
   var selected=candidates.slice(0,6);
+  if(pending){if(!Array.isArray(m.pausedSessions))m.pausedSessions=[];m.pausedSessions.push(m.session);}
   m.session={version:TRAINING_VERSION,mode:mode,lv:S.lv,queue:selected.map(function(e){return {id:e.id,retry:false};}),base:selected.length,i:0,results:{},retries:[],created:today()};
   TRAIN_VIEW='session';save();showTraining();
 }
@@ -117,16 +121,17 @@ function renderTrainingSession(el){
   }
   var item=s.queue[s.i], e=trainingExercise(item.id);if(!e){s.i++;save();return renderTrainingSession(el);}
   var r=s.results[s.i], recall=s.mode==='recall'||e.kind==='recall';
-  if(!s.current||s.current.index!==s.i){s.current={index:s.i,hint:false,choices:!recall,reveal:false,typed:'',options:shuffle(e.options.slice())};save();}
+  if(!s.current||s.current.index!==s.i){s.current={index:s.i,hint:false,choices:true,reveal:false,typed:'',options:shuffle(e.options.slice())};save();}
+  // Migrate saved typed-recall steps to the same tap-to-answer experience.
+  s.current.choices=true;
   var c=s.current, g=byId(e.gid);
   var h='<div class="drill-hd"><button class="chip" data-view="home">Pause · พัก</button><span class="cnt">'+(s.i+1)+' / '+s.queue.length+'</span><span class="tag '+g.lv+'">'+g.lv+'</span></div><div class="prog"><i style="width:'+(s.i/s.queue.length*100)+'%"></i></div>'+
     '<div class="eyebrow">'+(item.retry?'TRY AGAIN · ลองใหม่':(recall?'RECALL':e.kind==='form'?'BUILD THE FORM':'SPOT THE DIFFERENCE'))+'</div>'+
-    '<div class="training-prompt">'+tr(e.prompt_en,e.prompt_th)+'</div><div class="sentence-card"><div class="ex-j" lang="ja">'+esc(e.ja).replace('＿＿','<span class="blank">＿＿</span>')+'</div>'+
-    '<details class="reading-help"><summary>Reading · คำอ่าน</summary><div lang="ja">'+esc(e.kana)+'</div></details></div>';
+    '<div class="training-prompt">'+tr(e.prompt_en,e.prompt_th)+'</div><div class="sentence-card reading-scope"><div class="ex-j reading-target" lang="ja">'+esc(e.ja).replace('＿＿','<span class="blank">＿＿</span>')+'</div>'+
+    readingDisclosure(e.ja,e.kana)+'</div>';
   if(!r){
     if(c.hint) h+='<div class="training-hint">'+tr(e.hint_en,e.hint_th)+'</div>';
     if(c.choices){h+='<div class="opts">';c.options.forEach(function(option,i){h+='<button class="opt" data-answer="'+i+'" lang="ja">'+esc(option)+'</button>';});h+='</div>';}
-    else h+='<form id="training-answer-form"><label for="training-answer">'+tr('Fill the blank in Japanese','เติมช่องว่างเป็นภาษาญี่ปุ่น')+'</label><div class="answer-input-row"><input id="training-answer" type="text" lang="ja" autocomplete="off" autocorrect="off" spellcheck="false" value="'+esc(c.typed)+'" placeholder="日本語…"><button class="chip" type="submit">Check</button></div></form>';
     h+='<div class="training-actions">'+(!c.hint?'<button class="text-btn" data-help="hint">Hint · คำใบ้</button>':'')+(!c.choices?'<button class="text-btn" data-help="choices">Show choices · ดูตัวเลือก</button>':'')+'<button class="text-btn" data-help="reveal">Teach me this one · ดูเฉลย</button></div>';
   }else{
     h+='<div class="training-feedback '+(r.correct?'is-correct':'is-learning')+'" role="status"><b>'+tr(r.correct?(r.assisted?'Correct with help':'You got it'):'Let’s repair this',r.correct?(r.assisted?'ถูกแล้ว โดยมีตัวช่วย':'ถูกต้อง'):'มาฝึกข้อนี้อีกนิด')+'</b>'+
@@ -142,7 +147,7 @@ function answerTraining(answer,revealed){
   var s=masteryState().session;if(!s||s.results[s.i]||s.i>=s.queue.length) return;
   var item=s.queue[s.i], e=trainingExercise(item.id), c=s.current;
   var correct=!revealed&&normaliseAnswer(answer)===normaliseAnswer(e.answer);
-  var assisted=!!(revealed||c.hint||((s.mode==='recall'||e.kind==='recall')&&c.choices));
+  var assisted=!!(revealed||c.hint||c.reference);
   s.results[s.i]={id:e.id,correct:correct,assisted:assisted,answer:answer,retry:item.retry};
   recordTrainingAnswer(e,correct,assisted);
   if((!correct||assisted)&&!item.retry&&s.retries.indexOf(e.id)<0&&s.retries.length<3){
@@ -231,8 +236,10 @@ function normaliseBackup(o){
     Object.keys(o.mastery.days).forEach(function(d){var n=o.mastery.days[d];if(!date(d)||!Number.isSafeInteger(n)||n<0)throw new Error('Invalid training history');out.mastery.days[d]=n;});
     // Sessions are resumable locally; imports restart them to avoid stale question IDs.
   }
-  var choices={lang:['both','en','th'],lv:['all','N3','N2'],theme:['light','dark','auto'],newPerDay:[0,3,5,10,15],maxRev:[20,40,60,999],rateBtns:[2,4],dayStart:[0,4,7]};
+  if(o.newPerDay!==undefined){if(!Number.isInteger(o.newPerDay)||o.newPerDay<0||o.newPerDay>100)throw new Error('Invalid setting');out.newPerDay=o.newPerDay;}
+  var choices={lang:['both','en','th'],lv:['all','N3','N2'],theme:['light','dark','auto'],maxRev:[20,40,60,999],rateBtns:[2,4],dayStart:[0,4,7]};
   Object.keys(choices).forEach(function(k){if(o[k]!==undefined){if(choices[k].indexOf(o[k])<0)throw new Error('Invalid setting');out[k]=o[k];}});
+  out.lang=out.lang==='th'?'th':'en';
   return out;
 }
 function exportProgress(){
@@ -240,15 +247,34 @@ function exportProgress(){
   var m=masteryState();out.mastery={items:m.items,days:m.days};return out;
 }
 function updateStudyLanguage(){
+  S.lang=S.lang==='th'?'th':'en';
+  var readings=Array.from(document.querySelectorAll('[data-toggle-reading]')).map(function(b){return {reading:b.dataset.reading,on:b.getAttribute('aria-pressed')==='true'};});
+  var phrases=[];
+  document.querySelectorAll('.lesson-card').forEach(function(card){
+    var selected=card.querySelector('.phrase-tab[aria-pressed="true"]'),panel=card.querySelector('.phrase-panel:not([hidden])');
+    phrases.push({id:card.dataset.lesson,sheet:!!card.closest('#sbody'),index:selected?+selected.dataset.phraseIndex:0,covered:!!(panel&&panel.querySelector('.phrase-japanese').hidden),details:Array.from(card.querySelectorAll('details')).map(function(d){return d.open;})});
+  });
+  var pageY=window.scrollY||0,si=document.getElementById('sheetin'),sheetY=si.scrollTop;
   document.documentElement.lang=S.lang==='th'?'th':'en';
-  document.getElementById('study-language').value=S.lang;
-  lt.textContent=langLabel();lt.classList.toggle('on',S.lang!=='both');
-  renderToday();drawList();drawRecord();renderTraining();if(openId)openDetail(openId);
+  renderToday();renderPrac();drawList();drawRecord();renderTraining();if(openId)openDetail(openId);
+  document.querySelectorAll('.lesson-card').forEach(function(card){
+    var previous=phrases.find(function(p){return p.id===card.dataset.lesson&&p.sheet===!!card.closest('#sbody');});if(!previous)return;
+    selectPhrase(card,previous.index);
+    var panel=card.querySelector('.phrase-panel:not([hidden])');if(previous.covered&&panel)coverPhrase(panel,true);
+    card.querySelectorAll('details').forEach(function(d,i){d.open=!!previous.details[i];});
+  });
+  document.querySelectorAll('[data-toggle-reading]').forEach(function(b,i){if(readings[i]&&readings[i].on&&readings[i].reading===b.dataset.reading)toggleReading(b,true);});
+  si.scrollTop=sheetY;window.scrollTo(0,pageY);syncLanguageButtons();
+  if(typeof refreshWordHelp==='function')refreshWordHelp();
+}
+function syncLanguageButtons(){
+  document.querySelectorAll('[data-study-language]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.studyLanguage===S.lang));});
+  lt.textContent=langLabel();
 }
 function masteryInit(){
   masteryState();
-  document.getElementById('study-language').value=S.lang;
-  document.getElementById('study-language').addEventListener('change',function(e){S.lang=e.target.value;save();updateStudyLanguage();});
+  syncLanguageButtons();
+  document.addEventListener('click',function(e){var b=e.target.closest('[data-study-language]');if(!b||!['en','th'].includes(b.dataset.studyLanguage)||b.dataset.studyLanguage===S.lang)return;S.lang=b.dataset.studyLanguage;save();updateStudyLanguage();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&openId)closeSheet();});
   document.getElementById('bkdownload').addEventListener('click',function(){
     var blob=new Blob([JSON.stringify(exportProgress(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob);
@@ -269,9 +295,9 @@ function masteryInit(){
     if(b.dataset.patternPractice){closeSheet();startTraining('mixed',null,b.dataset.patternPractice);return;}
     if(b.dataset.trainingAudio){var ex=trainingExercise(b.dataset.trainingAudio);speak(ex.ja.replace('＿＿',ex.answer));return;}
     var s=masteryState().session;
-    if(b.dataset.finish){masteryState().session=null;TRAIN_VIEW=b.dataset.finish;save();showTraining();renderStudyLaunch();return;}
+    if(b.dataset.finish){var m=masteryState();m.session=(m.pausedSessions||[]).pop()||null;TRAIN_VIEW=b.dataset.finish;save();showTraining();renderStudyLaunch();return;}
     if(!s||s.i>=s.queue.length)return;
-    if(b.hasAttribute('data-next-training')){s.i++;s.current=null;save();renderTraining();window.scrollTo(0,0);return;}
+    if(b.hasAttribute('data-next-training')){if(!s.results[s.i])return;s.i++;s.current=null;save();renderTraining();window.scrollTo(0,0);return;}
     if(b.dataset.help){
       if(b.dataset.help==='reveal'){answerTraining('',true);return;}
       s.current[b.dataset.help]=true;save();renderTraining();return;

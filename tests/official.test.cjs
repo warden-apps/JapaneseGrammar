@@ -26,7 +26,7 @@ test('all 44 official N2 answers match the published answer keys, with precise p
 });
 test('N2 is the fresh default and official exam level does not hide questions tagged to foundation lessons',()=>{
   const a=loadApp();assert.equal(a.run('S.lv'),'N2');
-  assert.equal(a.run('drillPool("all").length'),118);
+  assert.equal(a.run('drillPool("all").length'),146);
   assert.equal(a.run('drillPool("all").filter(q=>q.source).length'),44);
   assert.ok(a.run('drillPool("all").some(q=>q.source&&byId(q.gid).lv==="N3")'));
   const b=loadApp({lv:'N3'});assert.equal(b.run('S.lv'),'N3');

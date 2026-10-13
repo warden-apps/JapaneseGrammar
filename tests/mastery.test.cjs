@@ -134,11 +134,12 @@ test('answer submission is idempotent and missed questions receive only one sess
   assert.equal(app.run('masteryState().items[first.id].attempts'), 2);
 });
 
-test('recall help is counted as assisted and reveal is never counted as a correct answer', () => {
+test('tap choices are the default; hints are assisted and revealing is never correct', () => {
   const app = trainingApp();
   app.run(`startTraining('recall'); var s=masteryState().session; var e=trainingExercise(s.queue[0].id);`);
-  assert.equal(app.run('s.current.choices'), false);
-  app.documentClick({help: 'choices'});
+  assert.equal(app.run('s.current.choices'), true);
+  assert.doesNotMatch(app.node('training').innerHTML, /training-answer-form|<input/);
+  app.documentClick({help: 'hint'});
   app.run('answerTraining(e.answer,false);');
   assert.equal(app.run('s.results[0].assisted'), true);
   assert.equal(app.run('s.results[0].correct'), true);
