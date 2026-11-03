@@ -3,7 +3,7 @@ var WORD_SURFACES=null,WORD_HELP_RETURN=null,WORD_HELP_ID=null,WORD_HELP_SCOPE=n
 function wordParts(text){
   if(typeof WORD_HELP_DATA==='undefined')return [[text,null]];
   if(WORD_HELP_DATA.segments[text])return WORD_HELP_DATA.segments[text];
-  if(!WORD_SURFACES){WORD_SURFACES={};Object.keys(WORD_HELP_DATA.words).forEach(function(id){var w=WORD_HELP_DATA.words[id];if(!WORD_SURFACES[w.s])WORD_SURFACES[w.s]=id;});}
+  if(!WORD_SURFACES){WORD_SURFACES={};Object.keys(WORD_HELP_DATA.words).forEach(function(id){var w=WORD_HELP_DATA.words[id];if(!/^[\p{Script=Hiragana}]$/u.test(w.s)&&!WORD_SURFACES[w.s])WORD_SURFACES[w.s]=id;});}
   var out=[],plain='';
   for(var i=0;i<text.length;){var id=null,len=0;for(var n=Math.min(24,text.length-i);n>0;n--){var key=text.slice(i,i+n);if(WORD_SURFACES[key]){id=WORD_SURFACES[key];len=n;break;}}
     if(id){if(plain){out.push([plain,null]);plain='';}out.push([text.slice(i,i+len),id]);i+=len;}else{plain+=text[i];i++;}}

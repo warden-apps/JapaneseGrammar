@@ -51,10 +51,12 @@ another available port in the command and URL, such as `8776`.
 - Source notes and attribution in [CONTENT-SOURCES.md](CONTENT-SOURCES.md).
 - Learning-method evidence in [STUDY-METHOD.md](STUDY-METHOD.md) and the bug/button audit in [QA-AUDIT.md](QA-AUDIT.md).
 - Development scripts and tests; see [README.md](README.md) for commands.
+- Later-day drill mistake review, shared question history, and 92 automated
+  regressions plus nine browser suites covering the study and practice flows.
 
 Downloaded reference PDFs, temporary files, rollback copies, generated test
 screenshots and personal progress exports are omitted. The app links directly
 to official sources and does not need local copies of the PDFs.
 
-This snapshot was updated on 13 October 2026. Later edits in the original
+This snapshot was updated on 3 November 2026. Later edits in the original
 project folder are not automatically copied here.

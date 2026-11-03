@@ -1,10 +1,24 @@
 # Bug, button and learning-flow audit
 
-13 October 2026. Tests use isolated browser profiles and do not reset or replace
+3 November 2026. Tests use isolated browser profiles and do not reset or replace
 the user's stored progress. This is a bounded audit, not a guarantee of zero bugs.
 
 ## Fixed in this audit
 
+- Random-drill mistakes were recorded but could be buried under unseen questions.
+  Due mistakes now have priority in subsequent rounds. Eligible sentence-gap
+  mistakes also return through daily Study; passages stay intact in drills.
+  Same-day corrections and help do not clear a delayed check.
+- Study and drill exposure histories were isolated. Rotation now considers both,
+  and a just-practised question cannot earn a daily retention promotion, including
+  when the daily question was saved before entering the drill.
+- A malformed saved drill could break its launch card. Launch and resume now
+  validate the session and recover without deleting learning history.
+- Two authored questions had identical completed sentences. One now uses a
+  different context, with updated English/Thai explanations and offline readings.
+- Dictionary fallback could match single-kana particles to unrelated verb
+  fragments. Those speculative fallback links are excluded; known tokenization
+  remains available. Rebuilt the dictionary for the revised question.
 - Word popups previously had Thai for only a few entries and always displayed
   English definitions underneath. All 3,446 bundled word forms now have Thai
   glosses, with one definition language at a time and a one-click popup switch.
@@ -52,10 +66,18 @@ the user's stored progress. This is a bounded audit, not a guarantee of zero bug
 
 ## Automated coverage
 
-The regression suite has **81 passing tests** across ten test files. The eight
+The regression suite has **92 passing tests** across eleven test files. The nine
 browser suites are `browser-smoke`, `jlpt-browser`, `official-browser`,
 `flow-browser`, `kanzen-browser`, `audit-browser`, `guided-browser` and
-`word-help-browser` (all `.cjs` in `tests`).
+`word-help-browser` and `learning-browser` (all `.cjs` in `tests`).
+
+The learning audit executes **all 724 answer paths** (181 questions × four
+options), checking scoring, immediate feedback, duplicate-submission guards
+and absence of daily promotion from a random-drill answer. It also exercises
+50 generated rounds with a due passage, every question's context/option
+structure, question rotation across modes, same-day repeat protection, later-day
+repair, scope/cap restrictions, malformed sessions, old backups and invalid dates.
+This is behavioral evidence, not an independent judgment of every distractor.
 
 | Surface | Controls and behavior checked |
 | --- | --- |
@@ -63,6 +85,7 @@ browser suites are `browser-smoke`, `jlpt-browser`, `official-browser`,
 | Daily Study | Start, lesson → Try, choices, recall reveal/self-check, immediate feedback, Continue, Back/return, Pause/resume, round boundaries, repeat limits, saved answers after reload |
 | Targeted practice | Correct pattern routing, choices, hints/reveal, feedback, Next, bounded retries, Done, preserved prior session, automatic later-day review |
 | Random drill | Both scopes, empty studied pool, start/resume, sentence gaps, ★ order, contiguous passages, correct/wrong feedback, distractor details, related lesson links, Back, Pause, results |
+| Delayed practice | Due mistake priority, complete passage review, known sentence-gap transfer into daily Study, same-day/help credit guards, shared exposure, offline next-day rollover, preserved early review schedule |
 | Library | Search and no-result state, all five filters, all 467 lesson sheets, all 981 phrase tabs and kanji-only furigana on/off, unchanged sentence text, hide/show, valid related targets, both close buttons and Escape |
 | References | All 12 comparison groups, their lesson links and return buttons, seven form disclosures, all checklist chapters and support sections, chapter comparison links |
 | Language and words | One-click English/Thai, selection and hidden-phrase preservation, word reading/meaning dialog, close button, Escape/focus return, offline dictionary |

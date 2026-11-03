@@ -7,6 +7,12 @@ the browser; progress stays in `localStorage` on the same device and origin.
 
 ## What changed
 
+- **Practice audit (3 November 2026)**: missed drill questions return on later
+  days. Known sentence gaps also feed into daily Study; order and passage mistakes
+  return through the drill. Shared question history reduces repeats across modes,
+  and same-day corrections cannot earn delayed-recall credit. Malformed saved
+  drills recover safely. Replaced a duplicate context and checked all 724 answer
+  paths. See [QA-AUDIT.md](QA-AUDIT.md) and [STUDY-METHOD.md](STUDY-METHOD.md).
 - **Guided Study (12 October 2026)**: a new pattern opens on Meaning, then Example,
   then Try it, with one main next button and a numbered route. Extra notes stay
   below the next action. Back returns from the example to its meaning; Pause,
@@ -18,7 +24,7 @@ the browser; progress stays in `localStorage` on the same device and origin.
 - **Inline furigana**: Reading / คำอ่าน toggles kana directly above the sentence's
   kanji, leaving existing kana unannotated. Word lookup still works. Before answering,
   readings keep the blank or ★ slots; feedback annotates the completed sentence.
-  The app bundles 1,738 offline readings, preferring authored kana and otherwise
+  The app bundles 1,740 offline readings, preferring authored kana and otherwise
   using Kuromoji/IPADIC with selected contextual corrections. Readings are not
   a claim of exhaustive native-speaker review; see DICTIONARY-NOTICES.md.
 - **More color**: violet, mint and peach identify the learning stages, with a
@@ -200,10 +206,10 @@ The existing Perl server remains available if preferred.
 ## Validation
 
 ```bash
-node --test tests/legacy.test.cjs tests/mastery.test.cjs tests/simplify.test.cjs tests/jlpt.test.cjs tests/official.test.cjs tests/flow.test.cjs tests/kanzen.test.cjs tests/audit.test.cjs tests/guided.test.cjs tests/word-help.test.cjs
+node --test tests/legacy.test.cjs tests/mastery.test.cjs tests/simplify.test.cjs tests/jlpt.test.cjs tests/official.test.cjs tests/flow.test.cjs tests/kanzen.test.cjs tests/audit.test.cjs tests/guided.test.cjs tests/word-help.test.cjs tests/learning-audit.test.cjs
 ```
 
-The 81 regressions cover existing queue limits and migrations, wrong-answer
+The 92 regressions cover existing queue limits and migrations, wrong-answer
 handling, study-day boundaries, backups, training retention, duplicate submissions,
 session resume, content references, the single Study entry point and all three
 ところだ forms, drill scope, passage eligibility, answer feedback, question
@@ -232,6 +238,9 @@ feedback readings, guided-stage persistence and offline assets in both languages
 `node tests/word-help-browser.cjs` checks Thai definitions, switching within the
 popup, inflected forms, keyboard focus after the lesson redraws, unchanged
 study evidence, and offline use in mobile, desktop and dark layouts.
+`node tests/learning-browser.cjs` checks delayed mistake review in both Study
+and drills, offline day rollover, early-credit protection, malformed-session
+recovery and complete passage reviews in English and Thai.
 Set `PLAYWRIGHT_PATH` if the package is outside
 Node's normal search path; `BROWSER_CHANNEL` defaults to `chrome`. The smoke check
 covers the guided lesson/practice sequence, session limits, answer persistence,

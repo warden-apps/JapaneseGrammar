@@ -124,7 +124,7 @@ test('v7 backups preserve drill evidence, import no stale session and reject mal
   const before=a.snapshot('S');
   assert.throws(()=>a.run('backup.drill.stats.j01={attempts:1,correct:2,last:today()};normaliseBackup(backup);'),/Invalid drill score/);
   assert.deepEqual(a.snapshot('S'),before);
-  assert.deepEqual(a.snapshot('normaliseBackup({box:{}}).drill'),{scope:'studied',stats:{},daily:{},lastDaily:{},encountered:{}});
+  assert.deepEqual(a.snapshot('normaliseBackup({box:{}}).drill'),{scope:'studied',stats:{},daily:{},lastDaily:{},encountered:{},reviews:{},lastPractised:{}});
 });
 test('Study home does not disclose the next review answer, and level changes pause an incompatible drill',()=>{
   const a=loadApp();a.reset({box:{n3a01:2},newPerDay:0});daily(a);

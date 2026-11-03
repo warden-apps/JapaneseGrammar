@@ -4912,6 +4912,7 @@ function planTail(){
   // Bring saved targeted exercises back through the same daily Study path.
   // One exercise per pattern per day; session retries already handle today.
   var exerciseReviews={};
+  var drillReviews=typeof dailyDrillReviews==='function'?dailyDrillReviews():{};
   if(typeof MASTERY_EXERCISES!=='undefined')MASTERY_EXERCISES.forEach(function(e){
     var r=S.mastery&&S.mastery.items&&S.mastery.items[e.id];
     if(inPool[e.gid]&&r&&r.attempts>0&&r.last!==today()&&(!r.due||r.due<=today())){
@@ -4926,7 +4927,7 @@ function planTail(){
     var held={}; L.newIds.forEach(function(id){held[id]=1;});
     for(var i=0;i<p.length&&room>0;i++){
       var g=p[i];
-      if(held[g.id]||boxOf(g.id)!==0||exerciseReviews[g.id]) continue;
+      if(held[g.id]||boxOf(g.id)!==0||exerciseReviews[g.id]||drillReviews[g.id]) continue;
       L.newIds.push(g.id); held[g.id]=1; room--;
     }
   }
@@ -4935,13 +4936,13 @@ function planTail(){
 
   /* reviews: due, not already finished today, not part of today's new batch */
   var cap=Math.max(0,(S.maxRev||0)-revDoneToday());
-  var rev=p.filter(function(g){return !inNew[g.id]&&!L.done[g.id]&&((boxOf(g.id)>0&&isDue(g.id))||exerciseReviews[g.id]);})
+  var rev=p.filter(function(g){return !inNew[g.id]&&!L.done[g.id]&&((boxOf(g.id)>0&&isDue(g.id))||exerciseReviews[g.id]||drillReviews[g.id]);})
            .sort(function(a,b){return (S.last[a.id]||'')<(S.last[b.id]||'')?-1:1;})
            .slice(0,cap).map(function(g){return g.id;});
   shuffle(rev);
 
   var q=[];
-  rev.forEach(function(id){var c={id:id,m:'quiz'};if(exerciseReviews[id])c.exerciseId=exerciseReviews[id];q.push(c);});
+  rev.forEach(function(id){var c={id:id,m:'quiz'};if(exerciseReviews[id])c.exerciseId=exerciseReviews[id];else if(drillReviews[id])c.jlptId=drillReviews[id];q.push(c);});
   nw.forEach(function(id){
     if(!L.learned[id]) q.push({id:id,m:'learn'});
     if(!L.done[id]) q.push({id:id,m:'quiz'});

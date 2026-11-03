@@ -77,6 +77,10 @@ function noteReferenceUse(id){
   }
   var s=masteryState().session,e=s&&s.queue[s.i]&&trainingExercise(s.queue[s.i].id);
   if(e&&e.gid===id&&!s.results[s.i]&&s.current&&!s.current.reference){s.current.reference=true;changed=true;}
+  var drill=drillState().session,current=validDrillSession(drill)&&drill.queue[drill.i],test=current&&drillQuestion(current.id);
+  if(test&&!drill.answers[drill.i]&&questionTargets(test).indexOf(id)>=0){
+    if(!drill.assisted)drill.assisted={};if(!drill.assisted[drill.i]){drill.assisted[drill.i]=true;changed=true;}
+  }
   if(changed)save();
 }
 function moveDailyCard(from,to,card){

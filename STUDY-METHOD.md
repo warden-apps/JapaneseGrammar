@@ -1,6 +1,6 @@
 # How this app supports grammar learning
 
-Reviewed 12 October 2026. Research supports the principles below, not this app
+Reviewed 3 November 2026. Research supports the principles below, not this app
 as a tested intervention. No method guarantees N2 success. These papers do not
 establish one ideal schedule for every learner or for every grammar pattern.
 
@@ -40,6 +40,17 @@ establish one ideal schedule for every learner or for every grammar pattern.
   days. The level filter, daily cap and one-exercise-per-pattern limit apply.
 - Random JLPT drills save attempts and feedback separately. Their scores do not
   promote the daily review level or estimate an exam score.
+- Missed or assisted drill questions are scheduled for a later study day.
+  New drill rounds prioritize due mistakes while keeping passage blanks together
+  and mixing formats. Known sentence-gap mistakes can also enter daily Study,
+  within its level filter and review cap. Unstudied targets stay in the drill
+  until encountered in Study; order/passage questions return in later drills.
+  The next-day delay is a practical default, not a research-derived optimum.
+- Daily Study and random drills share question-exposure history. A same-day
+  repeat cannot promote the daily review level or clear a pending delayed check.
+  Looking up the relevant lesson or revisiting its answer counts as help.
+  A correct, unassisted attempt on a later due day clears the question's repair
+  flag; it does not certify general mastery of the grammar.
 - The 0–100 **practice index** summarizes review level, answer history, lapses
   and lateness. Its weights are a design heuristic. It is neither a probability
   of remembering nor a validated measurement of mastery or exam readiness.
@@ -61,6 +72,25 @@ reduces repetition where alternatives exist; it cannot remove familiarity
 with a small bank or ensure transfer to real conversations. The app has not
 undergone an independent linguistic review of every explanation and distractor.
 
+With the N2 Study filter, 310 entries are eligible, including mapped foundations
+and support skills. Currently 92 have an eligible sentence-gap drill question,
+nine more have an authored targeted exercise, and 209 use reveal-and-compare
+self-checks. Some of those also appear in order or passage drills. These counts
+describe the app's current routes, not an official exhaustive N2 grammar list.
+
+For exam preparation, complete due Study reviews, then use the mixed drill to
+practise choosing grammar under context. Before tapping, consider both meaning
+and what attaches immediately before/after the blank. After a mistake, identify
+the clue that changes the answer. The precise daily workload should fit your
+available time; the app's selectable 20 new patterns is not a universal target.
+
+Grammar practice is only part of N2 preparation. The official test also assesses
+vocabulary, reading and listening. Passing requires an overall 90/180 and at
+least 19/60 in each scoring section; a high grammar-drill percentage cannot be
+converted to those scaled scores. See the official
+[test structure](https://www.jlpt.jp/e/guideline/testsections.html) and
+[passing requirements](https://www.jlpt.jp/e/guideline/results.html).
+
 ## Primary sources
 
 - Kim, S. K., & Webb, S. (2022). *The Effects of Spaced Practice on Second
@@ -78,4 +108,4 @@ undergone an independent linguistic review of every explanation and distractor.
 - Nakata, T., & Suzuki, Y. (2019). *Mixing Grammar Exercises Facilitates
   Long-Term Retention: Effects of Blocking, Interleaving, and Increasing Practice*.
   The Modern Language Journal, 103, 629–647.
-  [Author-hosted paper](https://yuichisuzuki.net/wp-content/uploads/2023/04/Nakata-Suzuki-2019-MLJ.pdf).
+  [Publisher abstract and paper](https://onlinelibrary.wiley.com/doi/10.1111/modl.12581).

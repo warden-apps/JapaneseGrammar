@@ -5,8 +5,23 @@ function drillState(){
   var d=S.drill;
   if(!d.stats)d.stats={};if(!d.daily)d.daily={};if(!d.lastDaily)d.lastDaily={};
   if(!d.encountered)d.encountered={};
+  if(!d.reviews)d.reviews={};if(!d.lastPractised)d.lastPractised={};
   if(d.scope!=='all')d.scope='studied';
   return d;
+}
+function questionUses(id){var d=drillState();return (d.daily[id]||0)+(d.stats[id]&&d.stats[id].attempts||0);}
+function questionPractisedToday(id){var d=drillState();return d.lastPractised[id]===today()||!!(d.stats[id]&&d.stats[id].last===today());}
+function drillReviewDue(id){var r=drillState().reviews[id];return !!(r&&r.due<=today()&&r.last<today());}
+function recordQuestionReview(id,correct,assisted){
+  var d=drillState(),r=d.reviews[id],day=today();
+  if(!correct||assisted)d.reviews[id]={last:day,due:addStudyDays(day,1)};
+  else if(r&&r.last<day&&r.due<=day)delete d.reviews[id];
+  d.lastPractised[id]=day;
+}
+function dailyDrillReviews(){
+  var out={};
+  drillPool('studied').filter(function(q){return q.kind==='choice'&&drillReviewDue(q.id);}).sort(function(a,b){return drillState().reviews[a.id].due.localeCompare(drillState().reviews[b.id].due);}).forEach(function(q){if(!out[q.gid])out[q.gid]=q.id;});
+  return out;
 }
 function encounteredInStudy(id){
   /* Historical box/answer evidence predates explicit encounter tracking.
@@ -38,8 +53,8 @@ function drillSourceHTML(q,feedback){
 function drillType(q){return q.kind==='order'?tx('Sentence order · ★','เรียงประโยค · ★'):q.kind==='text'?tx('Grammar in a passage','ไวยากรณ์ในบทความ'):tx('Choose the grammar','เลือกไวยากรณ์');}
 function drillLaunchHTML(){
   var d=drillState(),p=drillPool(d.scope),n=p.length,s=d.session,official=p.filter(function(q){return !!q.source;}).length;
-  var resume=s&&s.i<s.queue.length&&s.scope===d.scope&&s.lv===S.lv;
-  return '<section class="drill-launch"><div class="simple-kicker">'+tx('TEST YOUR GRAMMAR','ทดสอบไวยากรณ์')+'</div><h2>'+tx('Random JLPT drill','สุ่มโจทย์แนว JLPT')+'</h2><p>'+tx('Sentence gaps, ★ order and passages. Feedback after every answer.','เติมไวยากรณ์ เรียงประโยค ★ และบทความ เฉลยทันทีทุกข้อ')+'</p><label for="drill-scope">'+tx('Target grammar','ไวยากรณ์เป้าหมาย')+'</label><select id="drill-scope"><option value="studied"'+(d.scope==='studied'?' selected':'')+'>'+tx('Encountered in Study','เคยพบใน Study')+'</option><option value="all"'+(d.scope==='all'?' selected':'')+'>'+tx('All — studied or new','ทั้งหมด — เคยเรียนหรือยังไม่เคย')+'</option></select><p class="drill-pool-note">'+n+' '+tx('available · '+official+' official + '+(n-official)+' original','ข้อที่ใช้ได้ · ทางการ '+official+' + เขียนใหม่ '+(n-official))+'</p><button class="go quiet" data-start-drill'+(!n?' disabled':'')+'>'+tx(resume?'Continue random drill':'Start random drill',resume?'ทำโจทย์สุ่มต่อ':'เริ่มสุ่มโจทย์')+' →</button>'+(!n?'<p class="gentle">'+tx('Study a pattern first, or select All.','เรียนไวยากรณ์ก่อน หรือเลือกทั้งหมด')+'</p>':'')+'<details class="optional-detail"><summary>'+tx('About these questions','เกี่ยวกับโจทย์')+'</summary><p>'+tx('Includes 44 N2 questions from the official 2012 and 2018 practice workbooks, which select questions used in real tests. Years refer to publication, not exam dates. Each question labels its source.','มี N2 ทางการ 44 ข้อจากหนังสือฝึกปี 2012 และ 2018 ซึ่งคัดเลือกโจทย์ที่เคยออกสอบจริง ปีคือปีพิมพ์ ไม่ใช่ปีสอบ แต่ละข้อระบุที่มา')+'</p><p>'+tx('Up to 10 questions per round, favoring less-practised items. This is a grammar drill, not a complete JLPT mock or scaled score. All tested targets must be encountered for Studied scope; distractors can be unfamiliar. The bank does not cover every lesson.','รอบละไม่เกิน 10 ข้อ เน้นข้อที่ฝึกน้อย เป็นการฝึกไวยากรณ์ ไม่ใช่ข้อสอบ JLPT เต็มชุดหรือคะแนนปรับมาตรฐาน โหมดเคยเรียนกำหนดว่าต้องเคยพบทุกไวยากรณ์เป้าหมาย ตัวลวงอาจยังไม่เคยเรียน คลังโจทย์ยังไม่ครอบคลุมทุกบท')+'</p><a href="https://www.jlpt.jp/e/samples/sampleindex.html" target="_blank" rel="noopener noreferrer">'+tx('Official workbooks','หนังสือฝึกทางการ')+'</a> · <a href="https://www.jlpt.jp/e/policy.html" target="_blank" rel="noopener noreferrer">'+tx('Source and reuse terms','ที่มาและข้อกำหนดการใช้')+'</a></details></section>';
+  var resume=validDrillSession(s)&&s.i<s.queue.length&&s.scope===d.scope&&s.lv===S.lv;
+  return '<section class="drill-launch"><div class="simple-kicker">'+tx('TEST YOUR GRAMMAR','ทดสอบไวยากรณ์')+'</div><h2>'+tx('Random JLPT drill','สุ่มโจทย์แนว JLPT')+'</h2><p>'+tx('Sentence gaps, ★ order and passages. Feedback after every answer.','เติมไวยากรณ์ เรียงประโยค ★ และบทความ เฉลยทันทีทุกข้อ')+'</p><label for="drill-scope">'+tx('Target grammar','ไวยากรณ์เป้าหมาย')+'</label><select id="drill-scope"><option value="studied"'+(d.scope==='studied'?' selected':'')+'>'+tx('Encountered in Study','เคยพบใน Study')+'</option><option value="all"'+(d.scope==='all'?' selected':'')+'>'+tx('All — studied or new','ทั้งหมด — เคยเรียนหรือยังไม่เคย')+'</option></select><p class="drill-pool-note">'+n+' '+tx('available · '+official+' official + '+(n-official)+' original','ข้อที่ใช้ได้ · ทางการ '+official+' + เขียนใหม่ '+(n-official))+'</p><button class="go quiet" data-start-drill'+(!n?' disabled':'')+'>'+tx(resume?'Continue random drill':'Start random drill',resume?'ทำโจทย์สุ่มต่อ':'เริ่มสุ่มโจทย์')+' →</button>'+(!n?'<p class="gentle">'+tx('Study a pattern first, or select All.','เรียนไวยากรณ์ก่อน หรือเลือกทั้งหมด')+'</p>':'')+'<details class="optional-detail"><summary>'+tx('About these questions','เกี่ยวกับโจทย์')+'</summary><p>'+tx('Includes 44 N2 questions from the official 2012 and 2018 practice workbooks, which select questions used in real tests. Years refer to publication, not exam dates. Each question labels its source.','มี N2 ทางการ 44 ข้อจากหนังสือฝึกปี 2012 และ 2018 ซึ่งคัดเลือกโจทย์ที่เคยออกสอบจริง ปีคือปีพิมพ์ ไม่ใช่ปีสอบ แต่ละข้อระบุที่มา')+'</p><p>'+tx('Up to 10 questions per round. Due mistakes come first, followed by less-practised items. Known sentence-gap mistakes also return through daily Study; order and passage mistakes return in later drills. This is a grammar drill, not a complete JLPT mock or scaled score. All tested targets must be encountered for Studied scope; distractors can be unfamiliar. The bank does not cover every lesson.','รอบละไม่เกิน 10 ข้อ ให้ข้อที่พลาดและถึงรอบทบทวนมาก่อน แล้วจึงเลือกข้อที่ฝึกน้อย ข้อเติมไวยากรณ์ที่เคยเรียนจะกลับมาใน Study ส่วนข้อเรียงประโยคและบทความกลับมาในโจทย์สุ่มรอบถัดไป เป็นการฝึกไวยากรณ์ ไม่ใช่ข้อสอบ JLPT เต็มชุดหรือคะแนนปรับมาตรฐาน โหมดเคยเรียนกำหนดว่าต้องเคยพบทุกไวยากรณ์เป้าหมาย ตัวลวงอาจยังไม่เคยเรียน คลังโจทย์ยังไม่ครอบคลุมทุกบท')+'</p><a href="https://www.jlpt.jp/e/samples/sampleindex.html" target="_blank" rel="noopener noreferrer">'+tx('Official workbooks','หนังสือฝึกทางการ')+'</a> · <a href="https://www.jlpt.jp/e/policy.html" target="_blank" rel="noopener noreferrer">'+tx('Source and reuse terms','ที่มาและข้อกำหนดการใช้')+'</a></details></section>';
 }
 var homeWithoutDrill=renderStudyHome;
 renderStudyHome=function(el){homeWithoutDrill(el);el.innerHTML+=drillLaunchHTML();};
@@ -50,15 +65,22 @@ function makeDrillQueue(scope){
     if(q.passage){if(seen[q.passage])return;seen[q.passage]=1;units.text.push(p.filter(function(x){return x.passage===q.passage;}));}
     else units[q.kind].push([q]);
   });
-  Object.keys(units).forEach(function(k){shuffle(units[k]);units[k].sort(function(a,b){
-    function uses(u){return Math.max.apply(null,u.map(function(q){return (d.stats[q.id]||{}).attempts||0;}));}
-    return uses(a)-uses(b);
-  });});
+  function priority(u){var due=u.filter(function(q){return drillReviewDue(q.id);}).map(function(q){return d.reviews[q.id].due;}).sort();return due[0]||'9999-99-99';}
+  function uses(u){return Math.max.apply(null,u.map(function(q){return questionUses(q.id);}));}
+  function compare(a,b){return priority(a).localeCompare(priority(b))||uses(a)-uses(b);}
+  Object.keys(units).forEach(function(k){shuffle(units[k]);units[k].sort(compare);});
   var out=[],kinds=shuffle(['choice','order','text']);
+  function take(unit){units[unit[0].kind].splice(units[unit[0].kind].indexOf(unit),1);unit.forEach(function(q){out.push({id:q.id,options:shuffle([0,1,2,3])});});}
+  // Reserve the oldest due mistake first; otherwise unseen items can bury it.
+  var repairs=Object.values(units).flat().filter(function(u){return u.some(function(q){return drillReviewDue(q.id);});});
+  repairs.sort(compare);if(repairs.length)take(repairs[0]);
   // Include a real test item whenever scope permits. Whole passages remain a unit.
   var officialUnits=Object.values(units).flat().filter(function(u){return !!u[0].source;});
-  shuffle(officialUnits);officialUnits.sort(function(a,b){return Math.max.apply(null,a.map(function(q){return (d.stats[q.id]||{}).attempts||0;}))-Math.max.apply(null,b.map(function(q){return (d.stats[q.id]||{}).attempts||0;}));});
-  if(officialUnits.length){var first=officialUnits[0];units[first[0].kind].splice(units[first[0].kind].indexOf(first),1);first.forEach(function(q){out.push({id:q.id,options:shuffle([0,1,2,3])});});}
+  shuffle(officialUnits);officialUnits.sort(compare);
+  if(!out.some(function(item){return !!drillQuestion(item.id).source;})){
+    var first=officialUnits.find(function(u){var missing=kinds.filter(function(k){return k!==u[0].kind&&units[k].length&&!out.some(function(item){return drillQuestion(item.id).kind===k;});});return out.length+u.length+missing.length<=10;});
+    if(first)take(first);
+  }
   // Reserve one unit of each missing format before filling spare places.
   // Otherwise two five-blank official passages can consume an entire round.
   kinds.forEach(function(k){
@@ -77,17 +99,19 @@ function makeDrillQueue(scope){
 }
 function startDrill(){
   var d=drillState(),s=d.session;
-  if(!s||s.i>=s.queue.length||s.scope!==d.scope||s.lv!==S.lv){
+  if(!validDrillSession(s)||s.i>=s.queue.length||s.scope!==d.scope||s.lv!==S.lv){
     var queue=makeDrillQueue(d.scope);if(!queue.length)return;
     d.session={version:1,scope:d.scope,lv:S.lv,queue:queue,i:0,answers:{},created:today()};
   }
   d.active=true;save();activateSimplePane('p-today');renderToday();window.scrollTo(0,0);
 }
 function validDrillSession(s){
-  return s&&s.version===1&&Array.isArray(s.queue)&&s.queue.length>0&&s.queue.length<=10&&
+  if(!(s&&s.version===1&&['all','studied'].includes(s.scope)&&['all','N3','N2'].includes(s.lv)&&Array.isArray(s.queue)&&s.queue.length>0&&s.queue.length<=10&&
     Number.isInteger(s.i)&&s.i>=0&&s.i<=s.queue.length&&s.answers&&typeof s.answers==='object'&&!Array.isArray(s.answers)&&
-    Object.keys(s.answers).every(function(k){var a=s.answers[k];return Number.isInteger(+k)&&+k>=0&&+k<s.queue.length&&a&&Number.isInteger(a.pick)&&a.pick>=0&&a.pick<4&&typeof a.correct==='boolean';})&&
-    s.queue.every(function(item){return drillQuestion(item.id)&&Array.isArray(item.options)&&item.options.length===4&&new Set(item.options).size===4&&item.options.every(function(n){return Number.isInteger(n)&&n>=0&&n<4;});});
+    s.queue.every(function(item){return item&&drillQuestion(item.id)&&Array.isArray(item.options)&&item.options.length===4&&new Set(item.options).size===4&&item.options.every(function(n){return Number.isInteger(n)&&n>=0&&n<4;});})))return false;
+  return new Set(s.queue.map(function(item){return item.id;})).size===s.queue.length&&
+    s.queue.slice(0,s.i).every(function(_,i){return !!s.answers[i];})&&
+    Object.keys(s.answers).every(function(k){var a=s.answers[k];return String(+k)===k&&Number.isInteger(+k)&&+k>=0&&+k<=s.i&&+k<s.queue.length&&a&&Number.isInteger(a.pick)&&a.pick>=0&&a.pick<4&&a.correct===(a.pick===drillQuestion(s.queue[k].id).answer);});
 }
 function completedDrillSentence(q){
   if(q.kind==='order')return q.before+q.parts.join('')+q.after;
@@ -132,6 +156,7 @@ function submitDrill(pick){
   var q=drillQuestion(s.queue[s.i].id),correct=pick===q.answer;
   s.answers[s.i]={pick:pick,correct:correct};
   var r=d.stats[q.id]||{attempts:0,correct:0};r.attempts++;if(correct)r.correct++;r.last=today();d.stats[q.id]=r;
+  recordQuestionReview(q.id,correct,!!(s.assisted||{})[s.i]);
   /* Random-drill success never promotes a daily card or marks it encountered in Study. */
   save();renderToday();
   var feedback=document.querySelector('#today .simple-feedback');if(feedback)feedback.scrollIntoView({block:'nearest',behavior:'smooth'});
@@ -145,11 +170,12 @@ function renderDrill(el){
     el.innerHTML='<section class="drill-result"><div class="simple-kicker">'+tx('DRILL COMPLETE','จบรอบฝึก')+'</div><h1>'+right+' / '+s.queue.length+'</h1><p>'+tx('Correct in this practice round. This is not a JLPT score.','จำนวนข้อถูกในรอบนี้ ไม่ใช่คะแนน JLPT')+'</p>'+(missed.length?'<h2>'+tx('Worth another look','รูปที่ควรทบทวน')+'</h2>'+missed.map(function(g){return '<button class="text-btn missed-pattern" data-detail="'+g.id+'">'+esc(g.p)+'</button>';}).join(''):'<p>'+tx('Next time you will get another mix.','ครั้งต่อไปจะได้โจทย์อีกชุด')+'</p>')+'<button class="go primary-study" data-pause-drill>'+tx('Back to Study','กลับไป Study')+'</button></section>';return;
   }
   var at=historyIndex(s),item=s.queue[at],q=drillQuestion(item.id),a=s.answers[at];
+  if(at<s.i)questionTargets(q).forEach(noteReferenceUse);
   var h=studyHeader('drill',at,tx('Random drill ','โจทย์สุ่ม ')+(at+1)+' / '+s.queue.length)+(at<s.i?'<p class="history-note">'+tx('Looking back · your current question is saved.','กำลังย้อนดู · บันทึกข้อที่กำลังทำไว้แล้ว')+'</p>':'')+'<div class="simple-kicker">'+drillType(q)+'</div>'+drillSourceHTML(q,false)+drillPromptHTML(q,s)+'<div class="opts drill-options">';
   item.options.forEach(function(n,i){var cls=a?(n===q.answer?' right':n===a.pick?' wrong':' dim'):'';
     h+='<button class="drill-option'+cls+'" data-drill-answer="'+n+'"'+(a?' disabled':'')+'><span class="option-number">'+(i+1)+'</span><span lang="ja">'+esc(q.options[n].text)+'</span>'+(a&&n===q.answer?'<span class="answer-mark">✓</span>':a&&n===a.pick?'<span class="answer-mark">×</span>':'')+'</button>';
   });h+='</div>';
-  if(a)h+=drillFeedback(q,a.pick)+(at<s.i?historyNext('drill',s):'<button class="go primary-study" data-drill-next>'+tx(s.i+1===s.queue.length?'See results':'Next question',s.i+1===s.queue.length?'ดูผล':'ข้อต่อไป')+' →</button>');
+  if(a)h+=drillFeedback(q,a.pick)+(at===s.i&&d.reviews[q.id]?'<p class="gentle">'+tx('Saved for review on a later day.','บันทึกไว้ทบทวนในวันถัดไปแล้ว')+'</p>':'')+(at<s.i?historyNext('drill',s):'<button class="go primary-study" data-drill-next>'+tx(s.i+1===s.queue.length?'See results':'Next question',s.i+1===s.queue.length?'ดูผล':'ข้อต่อไป')+' →</button>');
   el.innerHTML=h;
 }
 var todayWithoutDrill=renderToday;
@@ -167,6 +193,11 @@ function exerciseSpec(e){
   return {version:5,recallFirst:false,exerciseId:e.id,kind:'cloze',key:e.answer,ct:e.ja.replace('＿＿','\u0001'),exIdx:0,prompt_en:e.prompt_en,prompt_th:e.prompt_th,why_en:e.why_en,why_th:e.why_th,
     example:{j:e.ja.replace('＿＿',e.answer),k:'',e:e.en,t:e.th},opts:shuffle(e.options.map(function(t){return {t:t,ok:t===e.answer};}))};
 }
+function drillSpec(q){
+  return {version:5,recallFirst:false,jlptId:q.id,kind:'cloze',key:q.options[q.answer].text,ct:q.stem.replace('＿＿','\u0001'),exIdx:0,
+    why_en:q.en,why_th:q.th,example:{j:completedDrillSentence(q),k:'',e:q.translation_en,t:q.translation_th},
+    opts:shuffle(q.options.map(function(o,i){return {t:o.text,ok:i===q.answer};}))};
+}
 questionHTML=function(g,sp){
   var q=sp.jlptId&&drillQuestion(sp.jlptId);
   return (q&&q.source?drillSourceHTML(q,false):'')+questionWithoutSource(g,sp);
@@ -175,10 +206,9 @@ makeSpec=function(g,base){
   var d=drillState(),bank=JLPT_QUESTIONS.filter(function(q){return q.kind==='choice'&&q.gid===g.id&&questionTargets(q).every(function(id){return id===g.id||encounteredInStudy(id);});});
   var spec;
   if(bank.length){
-    shuffle(bank);bank.sort(function(a,b){return ((d.daily[a.id]||0)+(d.lastDaily[g.id]===a.id?10000:0))-((d.daily[b.id]||0)+(d.lastDaily[g.id]===b.id?10000:0));});
-    var q=bank[0];spec={version:4,jlptId:q.id,kind:'cloze',key:q.options[q.answer].text,ct:q.stem.replace('＿＿','\u0001'),exIdx:0,
-      why_en:q.en,why_th:q.th,example:{j:completedDrillSentence(q),k:'',e:q.translation_en,t:q.translation_th},
-      opts:shuffle(q.options.map(function(o,i){return {t:o.text,ok:i===q.answer};}))};
+    shuffle(bank);bank.sort(function(a,b){return (drillReviewDue(b.id)?1:0)-(drillReviewDue(a.id)?1:0)||
+      ((questionPractisedToday(a.id)?100000:0)+questionUses(a.id)+(d.lastDaily[g.id]===a.id?10000:0))-((questionPractisedToday(b.id)?100000:0)+questionUses(b.id)+(d.lastDaily[g.id]===b.id?10000:0));});
+    spec=drillSpec(bank[0]);
   }else{
     /* Choose the least-used legacy authored question, avoiding the last prompt
        if another exists. Entries with no authored choices retain honest recall. */
@@ -194,18 +224,21 @@ specAt=function(i){
   if(S.q.gen[i]&&([4,5].includes(S.q.gen[i].version)||S.q.ans[i]!==undefined)){S.q.gen[i].recallFirst=false;return S.q.gen[i];}
   var g=byId(S.q.q[i].id);if(!g)return null;
   var exercise=trainingExercise(S.q.q[i].exerciseId);
-  S.q.gen[i]=exercise&&exercise.gid===g.id?exerciseSpec(exercise):makeSpec(g);save();return S.q.gen[i];
+  var reviewed=drillQuestion(S.q.q[i].jlptId);
+  S.q.gen[i]=exercise&&exercise.gid===g.id?exerciseSpec(exercise):reviewed&&reviewed.kind==='choice'&&reviewed.gid===g.id?drillSpec(reviewed):makeSpec(g);save();return S.q.gen[i];
 };
 function recordDailyAttempt(g,sp,correct){
   var d=drillState(),id=sp.jlptId||sp.exerciseId;
   markStudyEncounter(g.id);
   if(id){d.daily[id]=(d.daily[id]||0)+1;d.lastDaily[g.id]=id;}
+  if(sp.jlptId){sp.repeatedToday=questionPractisedToday(id);recordQuestionReview(id,correct,!!(S.q.assisted||{})[S.q.i]||sp.repeatedToday);}
   if(sp.exerciseId){var e=trainingExercise(sp.exerciseId);if(e)recordTrainingAnswer(e,correct,!!(S.q.assisted||{})[S.q.i]||!!dayLedger().learned[g.id]);}
 }
 function dailyRating(g,r){
   if(r==='again')return r;
   if((S.q.assisted||{})[S.q.i])return 'again';
   if(dayLedger().learned[g.id])return 'hard';
+  if((S.q.gen[S.q.i]||{}).repeatedToday)return 'practice';
   if(!isDue(g.id))return 'practice';
   return r;
 }
@@ -247,7 +280,7 @@ verdictHTML=function(g,ex,rated){
 var backupWithoutDrill=normaliseBackup,exportWithoutDrill=exportProgress;
 normaliseBackup=function(o){
   var out=backupWithoutDrill(o),d=o.drill;
-  out.drill={scope:'studied',stats:{},daily:{},lastDaily:{},encountered:{}};
+  out.drill={scope:'studied',stats:{},daily:{},lastDaily:{},encountered:{},reviews:{},lastPractised:{}};
   if(d===undefined)return out;
   function obj(v){return v&&typeof v==='object'&&!Array.isArray(v);}
   function count(v){return Number.isSafeInteger(v)&&v>=0;}
@@ -258,9 +291,18 @@ normaliseBackup=function(o){
   Object.keys(d.daily).forEach(function(id){if(!drillQuestion(id)&&!trainingExercise(id))return;if(!count(d.daily[id]))throw new Error('Invalid daily exposure');out.drill.daily[id]=d.daily[id];});
   Object.keys(d.lastDaily).forEach(function(id){if(!byId(id))return;var q=drillQuestion(d.lastDaily[id])||trainingExercise(d.lastDaily[id]);if(!q||q.gid!==id)throw new Error('Invalid daily question');out.drill.lastDaily[id]=q.id;});
   Object.keys(d.encountered).forEach(function(id){if(!byId(id))return;if(d.encountered[id]!==1)throw new Error('Invalid Study encounter');out.drill.encountered[id]=1;});
+  function validDate(value){return typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&!isNaN(Date.parse(value))&&new Date(value+'T12:00:00Z').toISOString().slice(0,10)===value;}
+  if(d.reviews!==undefined){
+    if(!obj(d.reviews))throw new Error('Invalid drill reviews');
+    Object.keys(d.reviews).forEach(function(id){if(!drillQuestion(id))return;var r=d.reviews[id];if(!obj(r)||!validDate(r.last)||!validDate(r.due)||r.due<=r.last)throw new Error('Invalid drill review date');out.drill.reviews[id]={last:r.last,due:r.due};});
+  }
+  if(d.lastPractised!==undefined){
+    if(!obj(d.lastPractised))throw new Error('Invalid question history');
+    Object.keys(d.lastPractised).forEach(function(id){if(!drillQuestion(id))return;if(!validDate(d.lastPractised[id]))throw new Error('Invalid question date');out.drill.lastPractised[id]=d.lastPractised[id];});
+  }
   return out;
 };
-exportProgress=function(){var out=exportWithoutDrill(),d=drillState();out.v=7;out.drill={scope:d.scope,stats:d.stats,daily:d.daily,lastDaily:d.lastDaily,encountered:d.encountered};return out;};
+exportProgress=function(){var out=exportWithoutDrill(),d=drillState();out.v=7;out.drill={scope:d.scope,stats:d.stats,daily:d.daily,lastDaily:d.lastDaily,encountered:d.encountered,reviews:d.reviews,lastPractised:d.lastPractised};return out;};
 function drillInit(){
   document.addEventListener('change',function(event){if(event.target.id==='drill-scope'){drillState().scope=event.target.value==='all'?'all':'studied';save();renderToday();}});
   document.addEventListener('click',function(event){

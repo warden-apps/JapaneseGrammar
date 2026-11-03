@@ -133,11 +133,11 @@
     'Although I quietly pointed out the problem, far from apologizing, he shouted at me. There was not one word of apology.',
     'ทั้งที่เตือนอย่างใจเย็น เขาไม่ขอโทษ แถมกลับตะคอกใส่ฉัน ไม่มีคำขอโทษสักคำ',
     [['ばかりか','ばかりか adds B to an actual A; he did not apologize at all here.','ばかりか เพิ่ม B จาก A ที่เกิดจริง แต่ตรงนี้ไม่ได้ขอโทษเลย'],['上に','上に adds another fact; this is a reversal, not an addition to an apology.','上に เพิ่มอีกข้อเท็จจริง แต่ตรงนี้กลับตรงข้าม ไม่ใช่เพิ่มจากการขอโทษ'],['ついでに','ついでに would make shouting an additional opportunistic action after apologizing.','ついでに จะทำให้ตะคอกเป็นสิ่งที่ทำถือโอกาสต่อจากขอโทษ']]);
-  c(22,'n2a25','値段が高い＿＿、必ず品質がよいとは限らない。','からといって',
-    'Reject the automatic inference “expensive therefore good”. からといって pairs naturally with the limiting negative とは限らない.',
-    'ค้านข้อสรุปว่าแพงจึงดีเสมอ からといって เข้าคู่กับการจำกัดด้วยปฏิเสธ とは限らない',
-    'Just because something is expensive does not necessarily mean it is good quality.',
-    'เพียงเพราะราคาแพง ไม่ได้หมายความว่าคุณภาพดีเสมอ',
+  c(22,'n2a25','長く日本に住んでいる＿＿、敬語を正しく使えるとは限らない。','からといって',
+    'Living in Japan a long time does not automatically imply correct use of honorifics. からといって rejects that inference; とは限らない limits the conclusion.',
+    'การอยู่ญี่ปุ่นมานานไม่ได้แปลว่าใช้คำยกย่องถูกเสมอ からといって ค้านการด่วนสรุป และ とは限らない บอกว่าไม่เป็นเช่นนั้นเสมอไป',
+    'Living in Japan for a long time does not necessarily mean you can use honorific language correctly.',
+    'ถึงจะอยู่ญี่ปุ่นมานาน ก็ไม่ได้หมายความว่าจะใช้ภาษายกย่องได้ถูกต้องเสมอไป',
     [['からには','からには accepts a premise and moves to a duty/expected consequence, not rejection of that inference.','からには รับเหตุแล้วนำไปสู่หน้าที่หรือผลที่ควรตาม ไม่ได้ค้านข้อสรุป'],['だけに','だけに emphasizes a fitting cause-result connection, which this sentence warns against assuming.','だけに เน้นความเชื่อมโยงเหตุผลที่สมกัน แต่ประโยคนี้ห้ามด่วนสรุป'],['ばかりに','ばかりに regrets an actual harmful cause; this is a general caution about reasoning.','ばかりに เสียใจต่อเหตุของผลเสียจริง แต่ตรงนี้เตือนหลักการคิดทั่วไป']]);
   c(23,'n2a26','参加する＿＿しないにしろ、金曜日までに返事をください。','にしろ',
     'The repeated pair AにしろBにしろ covers both alternatives. A reply is required either way.',
