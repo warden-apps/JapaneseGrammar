@@ -400,9 +400,11 @@ nav .badge{position:absolute;top:5px;right:calc(50% - 24px);min-width:16px;heigh
 nav .badge.on{display:block}
 </style>
 <link rel="stylesheet" href="study.css">
+<link rel="stylesheet" href="desktop.css">
 </head>
 <body style="background-color:#f4eee4;color:#342f29">
 
+<aside class="app-sidebar">
 <header class="hdr">
   <div class="hdr-row">
     <div class="brand">
@@ -417,6 +419,13 @@ nav .badge.on{display:block}
   </div>
   <div class="study-toolbar"><div id="study-language" class="language-switch" role="group" aria-label="Explanation language"><button type="button" data-study-language="en" lang="en" aria-pressed="true">English</button><button type="button" data-study-language="th" lang="th" aria-pressed="false">ไทย</button></div></div>
 </header>
+
+<nav id="nav" aria-label="Main navigation">
+  <button data-p="p-today" class="on"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V9m0 7c-6 0-8-3-8-7 5 0 8 2 8 7Zm0-4c0-5 3-8 8-8 0 5-3 8-8 8ZM6 21h12"/></svg><span class="nav-label"><span class="ro">Study</span><span class="jp">เรียน</span></span></button>
+  <button data-p="p-list"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h5v16H3zm5 0h5v16H8zm7 1 4-1 4 15-4 1Z"/></svg><span class="nav-label"><span class="ro">Library</span><span class="jp">คลังไวยากรณ์</span></span></button>
+  <button data-p="p-rec"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h17M8 15v-4m5 4V7m5 8v-6"/></svg><span class="nav-label"><span class="ro">Progress</span><span class="jp">ความคืบหน้า</span></span></button>
+</nav>
+</aside>
 
 <main>
   <section class="pane on" id="p-today"><div id="study-launch"></div><div id="today"></div></section>
@@ -507,11 +516,6 @@ nav .badge.on{display:block}
 
 <div class="sheet" id="sheet"><div class="sheet-in" id="sheetin"><div class="grab"></div><div class="sheet-body" id="sbody"></div></div></div>
 
-<nav id="nav">
-  <button data-p="p-today" class="on"><span class="ro">Study</span><span class="jp">เรียน</span></button>
-  <button data-p="p-list"><span class="ro">Library</span><span class="jp">คลังไวยากรณ์</span></button>
-  <button data-p="p-rec"><span class="ro">Progress</span><span class="jp">ความคืบหน้า</span></button>
-</nav>
 <span id="badge" hidden></span>
 
 <script>
