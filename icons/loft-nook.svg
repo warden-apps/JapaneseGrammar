@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 172" fill="none">
+  <!-- A quiet reading corner. Decorative, with no animated or external assets. -->
+  <path d="M27 143V66a65 65 0 0 1 130 0v77" fill="#EFE2CA"/>
+  <path d="M43 113V67a49 49 0 0 1 98 0v46Z" fill="#D1D9C5" stroke="#978876" stroke-width="3"/>
+  <path d="M92 19v94M44 65h96" stroke="#978876" stroke-width="3"/>
+  <circle cx="118" cy="44" r="11" fill="#F5D58F"/>
+  <path d="m45 94 25-20 22 15 21-12 27 22v13H45Z" fill="#B2BDA4"/>
+  <path d="M42 114h102" stroke="#80694E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M19 147h184" stroke="#9A7350" stroke-width="7" stroke-linecap="round"/>
+  <path d="M31 152v10m160-10v10" stroke="#765C45" stroke-width="5" stroke-linecap="round"/>
+  <rect x="54" y="133" width="57" height="10" rx="2" fill="#B86E51"/>
+  <path d="M62 137h42" stroke="#F8EBD7" stroke-width="3"/>
+  <rect x="61" y="123" width="48" height="9" rx="2" fill="#7C916E"/>
+  <path d="M67 127h36" stroke="#F8EBD7" stroke-width="3"/>
+  <path d="M125 129h18v9a8 8 0 0 1-8 7h-2a8 8 0 0 1-8-7Z" fill="#D7A567"/>
+  <path d="M143 131h3a4 4 0 1 1 0 8h-3" stroke="#D7A567" stroke-width="3"/>
+  <path d="M130 121c-5-5 4-7 0-12m7 12c-5-5 4-7 0-12" stroke="#B1A38E" stroke-width="2" stroke-linecap="round"/>
+  <path d="M178 96v47m-12 1h25" stroke="#74624C" stroke-width="4" stroke-linecap="round"/>
+  <path d="m162 65-12 32h55l-12-32Z" fill="#CC9661"/>
+  <path d="M157 99h41l-20 35Z" fill="#E9BF78" opacity=".18"/>
+  <path d="M30 128v-20" stroke="#677C55" stroke-width="3"/>
+  <path d="M29 120c-13-1-17-9-13-14 11 0 15 7 13 14Zm2-7c1-11 7-17 14-15 2 10-6 16-14 15Z" fill="#899C72"/>
+  <path d="M19 127h23l-3 17H22Z" fill="#B47456"/>
+</svg>

@@ -29,7 +29,7 @@ function hasSavedPractice(){var s=masteryState().session;return !!(s&&s.i<s.queu
 function renderStudyHome(el){
   var resume=hasSavedPractice(), remainingCount=remaining(), complete=!remainingCount||S.q.fin;
   var done=Object.keys(dayLedger().done).length;
-  var h='<div class="study-home"><div class="home-meta"><span class="simple-kicker">'+tx('YOUR DAILY GRAMMAR GARDEN','สวนไวยากรณ์ประจำวัน')+'</span><button class="pace-chip" data-open-settings>'+S.newPerDay+' '+tx('new / day','รูปใหม่ / วัน')+' ↗</button></div><div class="home-heading"><h1>'+tx(complete&&!resume?'You’re all set.':'Make it stick.',complete&&!resume?'พร้อมสำหรับรอบถัดไปแล้ว':'จำได้ ใช้เป็น')+'</h1><div class="study-sprout" aria-hidden="true">'+plantSVG(done?4:3,70)+'</div></div>';
+  var h='<div class="study-home"><div class="home-meta"><span class="simple-kicker">'+tx('YOUR STUDY NOOK','มุมเรียนของคุณ')+'</span><button class="pace-chip" data-open-settings>'+S.newPerDay+' '+tx('new / day','รูปใหม่ / วัน')+' ↗</button></div><div class="home-heading"><h1>'+tx(complete&&!resume?'You’re all set.':'Make it stick.',complete&&!resume?'พร้อมสำหรับรอบถัดไปแล้ว':'จำได้ ใช้เป็น')+'</h1><div class="study-sprout" aria-hidden="true"><img src="icons/loft-nook.svg" width="220" height="172" alt=""></div></div>';
   h+='<p class="study-intro">'+tx(complete&&!resume?'Today’s study is complete.':'One pattern at a time.',complete&&!resume?'เรียนครบแล้วสำหรับวันนี้':'เรียนทีละรูป')+'</p>';
   h+=learningRoute(-1);
   if(resume||!complete) h+='<button class="go primary-study" id="start" data-start-study>'+tx(resume?'Continue your saved session':S.q.i>0?'Continue study':'Start today’s study',resume?'ฝึกต่อจากที่บันทึกไว้':S.q.i>0?'เรียนต่อ':'เริ่มเรียนวันนี้')+' →</button>';

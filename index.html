@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="筋道">
 <meta name="application-name" content="Sujimichi">
-<meta name="theme-color" content="#f7f0df">
+<meta name="theme-color" content="#f4eee4">
 <title>筋道 — N3・N2 文法</title>
 
 <!-- Home-screen icons. iOS reads apple-touch-icon; Android reads the manifest. -->
@@ -401,7 +401,7 @@ nav .badge.on{display:block}
 </style>
 <link rel="stylesheet" href="study.css">
 </head>
-<body style="background-color:#f7f0df;color:#2b2e34">
+<body style="background-color:#f4eee4;color:#342f29">
 
 <header class="hdr">
   <div class="hdr-row">
@@ -4594,7 +4594,7 @@ function applyTheme(){
     try{t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
     catch(e){t='light';}
   }
-  var dark=(t==='dark'), bg=dark?"#15181e":"#f7f0df", fg=dark?'#e8e3d8':'#2b2e34';
+  var dark=(t==='dark'), bg=dark?"#24221e":"#f4eee4", fg=dark?'#f3e9d8':'#342f29';
   var H=document.documentElement;
   if(dark) H.setAttribute('data-theme','dark'); else H.removeAttribute('data-theme');
   /* backgroundColor, not background — the shorthand would drop the paper grain */
